@@ -1,0 +1,18 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+
+inherit_gem:
+  relaxed-rubocop: .rubocop.yml
+
+RSpec/ExampleLength:
+ Enabled: false
+
+RSpec/MultipleExpectations:
+  Max: 5
+
+RSpec/NamedSubject:
+  Enabled: false
+
+RSpec/SubjectStub:
+  Enabled: false
