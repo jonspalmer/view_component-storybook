@@ -1,28 +1,128 @@
 # ViewComponent::Storybook
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/actionview/component/storybook`. To experiment with that code, run `bin/console` for an interactive prompt.
+The ViewComponent::Storybook gem provides Ruby api for writing stories describing [View Components](https://github.com/github/view_component) and allowing them to be previewed and tested in [Storybook](https://github.com/storybookjs/storybook/) 
 
-TODO: Delete this and the text above, and describe your gem
+## Features
+* A Ruby DSL for writing Stories describing View Components
+* A Rails controller backend for Storybook Server compatible with most Strobook Knobs Addon parameters
+* Coming Soon: Rake tasks to watch View Components and Stories and trigger Storybook hot reloading
 
 ## Installation
 
-Add this line to your application's Gemfile:
+### Gem Installation 
 
-```ruby
-gem 'view_component_storybook'
-```
+1. Add the `view_component_storybook` gem, to your Gemfile: `gem 'view_component_storybook'`
+2. Run `bundle install`.
+3. Add `require "view_component_storybook/engine"` to `config/application.rb`
+4. Add `**/*.stories.json` to `.gitignore`
 
-And then execute:
+### Storybook Installation
 
-    $ bundle
+1. Add Storybook server as a dev dependedncy. The Storybook Knobs addon isn't needed but is strongly recommended
+   ```sh
+   yarn add @storybook/server @storybook/addon-knobs --dev
+   ```
+2. Add an NPM script to your package.json in order to start the storybook later in this guide
+   ```json
+   {
+     "scripts": {
+       "storybook": "start-storybook"
+     }
+   }
+   ```    
+3. Create the .storybook/main.js file to configure Storybook to find the json stories the gem creates. Also configure the knobs addon:
+   ```javascript
+   module.exports = {
+     stories: ['../test/components/**/*.stories.json'],
+     addons: [
+       '@storybook/addon-knobs',
+     ],
+   };
+   ```
+4. Create the .storybook/preview.js file to configure Storybook with the Rails application url to call for the html content of the stories
+   ```javascript
+   import { addParameters } from '@storybook/server';
 
-Or install it yourself as:
+   addParameters({
+     server: {
+       url: `http://localhost:3000/rails/stories`,
+     },
+   });
+   ```
+   
 
-    $ gem install view_component_storybook
+Note: `@storybook/server` will be part of the upcoming Storybook 6.0 release. Until that is released you'll need to use an [alpha release](https://github.com/storybookjs/storybook/releases/tag/v6.0.0-alpha.32)
 
 ## Usage
 
-TODO: Write usage instructions here
+### Writing Stories
+
+`ViewComponent::Storybook::Stories` provides a way to preview components in Storybook.
+
+Suppose our app has a `ButtonComponent` that takes a `button_text` parameter:
+
+```ruby
+class ButtonComponent < ViewComponent::Base
+  def initialize(button_text:)
+    @button_text = button_text
+  end
+end
+```
+
+We can write a stories desecibing the `ButtonComponent`
+
+```ruby
+class ButtonComponentStories < ViewComponent::Storybook::Stories
+  story(:with_short_text) do
+    knobs do
+      text(:button_text, 'OK')
+    end
+  end
+
+  story(:with_long_text) do
+    knobs do
+      text(:button_text, 'Push Me Please!')
+    end
+  end
+end
+```
+
+### Generating Storybook Stories JSON
+
+Generate the Storybook JSON stories by tunning the rake task:
+```sh
+rake view_component_storybook:write_stories_json
+```
+
+### Start the Rails app and Storybook
+
+In separate shells start the Rails app and Storybook
+
+```sh
+rails s
+```
+```sh
+yarn storybook
+```
+
+Alternatively you can use tools like [Foreman](https://github.com/ddollar/foreman) to start both Rails and Storybook with one command.
+
+### Configuration
+
+By Default ViewComponent::Storybook expects to find stories in the folder `test/components/stories`. This can be configured but setting `stories_path` in `config/applicaion.rb`. For example is you're using RSpec you might set the following configuration:
+
+```ruby
+config.view_component_storybook.stories_path = Rails.root.join("spec/components/stories")
+```
+
+### The Story DSL
+
+Coming Soon
+
+#### Parameters
+#### Layout
+#### Knobs
+
 
 ## Development
 
