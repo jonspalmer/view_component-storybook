@@ -2,8 +2,8 @@
 
 module ViewComponent
   module Storybook
-    module Knobs
-      class SimpleConfig < KnobConfig
+    module Controls
+      class SimpleConfig < ControlConfig
         TYPES = %i[text boolean color].freeze
         BOOLEAN_VALUES = [true, false].freeze
 
@@ -15,8 +15,8 @@ module ViewComponent
         validates :type, presence: true
         validates :type, inclusion: { in: TYPES }, unless: -> { type.nil? }
 
-        def initialize(type, component, param, value, name: nil, group_id: nil)
-          super(component, param, value, name: name, group_id: group_id)
+        def initialize(type, component, param, value, name: nil)
+          super(component, param, value, name: name)
           @type = type
         end
 

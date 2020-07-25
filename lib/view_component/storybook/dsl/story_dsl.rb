@@ -12,10 +12,10 @@ module ViewComponent
           @story_config.parameters = params
         end
 
-        def knobs(&block)
-          knobs_dsl = KnobsDsl.new(story_config.component)
-          knobs_dsl.instance_eval(&block)
-          @story_config.knobs = knobs_dsl.knobs
+        def controls(&block)
+          controls_dsl = ControlsDsl.new(story_config.component)
+          controls_dsl.instance_eval(&block)
+          @story_config.controls = controls_dsl.controls
         end
 
         def layout(layout)

@@ -2,8 +2,8 @@
 
 module ViewComponent
   module Storybook
-    module Knobs
-      class OptionsConfig < KnobConfig
+    module Controls
+      class OptionsConfig < ControlConfig
         TYPES = %i[select radios].freeze
 
         attr_reader :type, :options
@@ -12,13 +12,15 @@ module ViewComponent
         validates :type, inclusion: { in: TYPES }, unless: -> { type.nil? }
         validates :value, inclusion: { in: ->(config) { config.options.values } }, unless: -> { options.nil? || value.nil? }
 
-        def initialize(type, component, param, options, default_value, name: nil, group_id: nil)
-          super(component, param, default_value, name: name, group_id: group_id)
+        def initialize(type, component, param, options, default_value, name: nil)
+          super(component, param, default_value, name: name)
           @type = type
           @options = options
         end
 
-        def to_csf_params
+        private
+
+        def csf_control_params
           super.merge(options: options)
         end
       end

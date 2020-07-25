@@ -6,28 +6,30 @@ module ViewComponent
       include ActiveModel::Validations
 
       attr_reader :id, :name, :component
-      attr_accessor :knobs, :parameters, :layout, :content_block
+      attr_accessor :controls, :parameters, :layout, :content_block
 
       def initialize(id, name, component, layout)
         @id = id
         @name = name
         @component = component
         @layout = layout
-        @knobs = []
+        @controls = []
       end
 
       def to_csf_params
         csf_params = { name: name, parameters: { server: { id: id } } }
         csf_params.deep_merge!(parameters: parameters) if parameters.present?
-        csf_params[:knobs] = knobs.map(&:to_csf_params) if knobs.present?
+        controls.each do |control|
+          csf_params.deep_merge!(control.to_csf_params)
+        end
         csf_params
       end
 
       def values_from_params(params)
-        knobs.map do |knob|
-          value = knob.value_from_param(params[knob.param])
-          value = knob.value if value.nil? # nil only not falsey
-          [knob.param, value]
+        controls.map do |control|
+          value = control.value_from_param(params[control.param])
+          value = control.value if value.nil? # nil only not falsey
+          [control.param, value]
         end.to_h
       end
 

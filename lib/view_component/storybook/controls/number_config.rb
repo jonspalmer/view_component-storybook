@@ -2,25 +2,19 @@
 
 module ViewComponent
   module Storybook
-    module Knobs
-      class NumberConfig < KnobConfig
+    module Controls
+      class NumberConfig < ControlConfig
         attr_reader :options
 
         validates :value, presence: true
 
-        def initialize(component, param, value, options = {}, name: nil, group_id: nil)
-          super(component, param, value, name: name, group_id: group_id)
+        def initialize(component, param, value, options = {}, name: nil)
+          super(component, param, value, name: name)
           @options = options
         end
 
         def type
           :number
-        end
-
-        def to_csf_params
-          params = super
-          params[:options] = options unless options.empty?
-          params
         end
 
         def value_from_param(param)
@@ -29,6 +23,14 @@ module ViewComponent
           else
             super(param)
           end
+        end
+
+        private
+
+        def csf_control_params
+          params = super
+          params[:options] = options unless options.empty?
+          params
         end
       end
     end

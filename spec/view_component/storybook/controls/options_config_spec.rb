@@ -1,18 +1,19 @@
 # frozen_string_literal: true
 
-RSpec.describe ViewComponent::Storybook::Knobs::OptionsConfig do
+RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
   let(:options) { { Red: "red", Blue: "blue", Yellow: "yellow" } }
 
   described_class::TYPES.each do |type|
     context "type: #{type}" do
       let(:type) { type }
 
-      it_behaves_like "a knobs config" do
-        subject { described_class.new(type, component, param, options, value, name: name, group_id: group_id) }
+      it_behaves_like "a controls config" do
+        subject { described_class.new(type, component, param, options, value, name: name) }
 
         let(:value) { "blue" }
         let(:param_value) { "blue" }
-        let(:csf_params_overrides) { { options: options, value: value } }
+
+        let(:csf_arg_type_control_overrides) { { options: options } }
       end
     end
   end

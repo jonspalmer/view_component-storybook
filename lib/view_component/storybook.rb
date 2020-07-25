@@ -8,7 +8,7 @@ module ViewComponent
   module Storybook
     extend ActiveSupport::Autoload
 
-    autoload :Knobs
+    autoload :Controls
     autoload :Stories
     autoload :StoryConfig
     autoload :Dsl

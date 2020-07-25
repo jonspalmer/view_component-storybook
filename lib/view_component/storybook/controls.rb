@@ -4,10 +4,10 @@ require "active_support/dependencies/autoload"
 
 module ViewComponent
   module Storybook
-    module Knobs
+    module Controls
       extend ActiveSupport::Autoload
 
-      autoload :KnobConfig
+      autoload :ControlConfig
       autoload :SimpleConfig
       autoload :NumberConfig
       autoload :OptionsConfig

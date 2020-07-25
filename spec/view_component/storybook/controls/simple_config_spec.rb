@@ -1,25 +1,25 @@
 # frozen_string_literal: true
 
-RSpec.describe ViewComponent::Storybook::Knobs::SimpleConfig do
-  subject { described_class.new(type, component, param, value, name: name, group_id: group_id) }
+RSpec.describe ViewComponent::Storybook::Controls::SimpleConfig do
+  subject { described_class.new(type, component, param, value, name: name) }
 
   context "with :text type" do
     let(:type) { :text }
 
-    it_behaves_like "a knobs config"
+    it_behaves_like "a controls config"
   end
 
   context "with :color type" do
     let(:type) { :color }
 
-    it_behaves_like "a knobs config"
+    it_behaves_like "a controls config"
   end
 
   context "with :boolean type" do
     let(:type) { :boolean }
 
     context "with 'true' value" do
-      it_behaves_like "a knobs config" do
+      it_behaves_like "a controls config" do
         let(:value) { true }
         let(:param_value) { "true" }
         let(:expected_nil_value_erorr) { "is not included in the list" }
@@ -27,7 +27,7 @@ RSpec.describe ViewComponent::Storybook::Knobs::SimpleConfig do
     end
 
     context "with 'false' value" do
-      it_behaves_like "a knobs config" do
+      it_behaves_like "a controls config" do
         let(:value) { false }
         let(:param_value) { "false" }
         let(:expected_nil_value_erorr) { "is not included in the list" }

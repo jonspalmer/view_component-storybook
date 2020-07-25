@@ -4,7 +4,7 @@ The ViewComponent::Storybook gem provides Ruby api for writing stories describin
 
 ## Features
 * A Ruby DSL for writing Stories describing View Components
-* A Rails controller backend for Storybook Server compatible with most Strobook Knobs Addon parameters
+* A Rails controller backend for Storybook Server compatible with Strobook Controls Addon parameters
 * Coming Soon: Rake tasks to watch View Components and Stories and trigger Storybook hot reloading
 
 ## Installation
@@ -18,9 +18,9 @@ The ViewComponent::Storybook gem provides Ruby api for writing stories describin
 
 ### Storybook Installation
 
-1. Add Storybook server as a dev dependedncy. The Storybook Knobs addon isn't needed but is strongly recommended
+1. Add Storybook server as a dev dependedncy. The Storybook Controls addon isn't needed but is strongly recommended
    ```sh
-   yarn add @storybook/server @storybook/addon-knobs --dev
+   yarn add @storybook/server @storybook/addon-controls --dev
    ```
 2. Add an NPM script to your package.json in order to start the storybook later in this guide
    ```json
@@ -30,28 +30,27 @@ The ViewComponent::Storybook gem provides Ruby api for writing stories describin
      }
    }
    ```    
-3. Create the .storybook/main.js file to configure Storybook to find the json stories the gem creates. Also configure the knobs addon:
+3. Create the .storybook/main.js file to configure Storybook to find the json stories the gem creates. Also configure the Controls addon:
    ```javascript
    module.exports = {
      stories: ['../test/components/**/*.stories.json'],
      addons: [
-       '@storybook/addon-knobs',
+       '@storybook/addon-controls',
      ],
    };
    ```
 4. Create the .storybook/preview.js file to configure Storybook with the Rails application url to call for the html content of the stories
    ```javascript
-   import { addParameters } from '@storybook/server';
 
-   addParameters({
+   export const parameters = {
      server: {
        url: `http://localhost:3000/rails/stories`,
      },
-   });
+   };
    ```
    
 
-Note: `@storybook/server` will be part of the upcoming Storybook 6.0 release. Until that is released you'll need to use an [alpha release](https://github.com/storybookjs/storybook/releases/tag/v6.0.0-alpha.32)
+Note: `@storybook/server` will be part of the upcoming Storybook 6.0 release. Until that is released you'll need to use an [rc release](https://github.com/storybookjs/storybook/releases/tag/v6.0.0-rc.14)
 
 ## Usage
 
@@ -74,13 +73,13 @@ We can write a stories desecibing the `ButtonComponent`
 ```ruby
 class ButtonComponentStories < ViewComponent::Storybook::Stories
   story(:with_short_text) do
-    knobs do
+    controls do
       text(:button_text, 'OK')
     end
   end
 
   story(:with_long_text) do
-    knobs do
+    controls do
       text(:button_text, 'Push Me Please!')
     end
   end
@@ -121,7 +120,7 @@ Coming Soon
 
 #### Parameters
 #### Layout
-#### Knobs
+#### Controls
 
 
 ## Development

@@ -2,8 +2,8 @@
 
 module ViewComponent
   module Storybook
-    module Knobs
-      class ObjectConfig < KnobConfig
+    module Controls
+      class ObjectConfig < ControlConfig
         validates :value, presence: true
 
         def type

@@ -2,19 +2,15 @@
 
 module ViewComponent
   module Storybook
-    module Knobs
-      class ArrayConfig < KnobConfig
+    module Controls
+      class ArrayConfig < ControlConfig
         attr_reader :separator
 
         validates :value, :separator, presence: true
 
-        def initialize(component, param, value, separator = ",", name: nil, group_id: nil)
-          super(component, param, value, name: name, group_id: group_id)
+        def initialize(component, param, value, separator = ",", name: nil)
+          super(component, param, value, name: name)
           @separator = separator
-        end
-
-        def to_csf_params
-          super.merge(value: value, separator: separator)
         end
 
         def type
@@ -27,6 +23,12 @@ module ViewComponent
           else
             super(param)
           end
+        end
+
+        private
+
+        def csf_control_params
+          super.merge(separator: separator)
         end
       end
     end

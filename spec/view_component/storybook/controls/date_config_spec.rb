@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-RSpec.describe ViewComponent::Storybook::Knobs::DateConfig do
-  subject { described_class.new(component, param, value, name: name, group_id: group_id) }
+RSpec.describe ViewComponent::Storybook::Controls::DateConfig do
+  subject { described_class.new(component, param, value, name: name) }
 
   shared_examples "valid with object value" do
     it "has a value" do
@@ -18,40 +18,49 @@ RSpec.describe ViewComponent::Storybook::Knobs::DateConfig do
     end
 
     it "has an integer value in csf_params" do
-      expect(subject.to_csf_params).to eq(type: type, param: :button_text, name: "Button Text", value: expected_value)
+      expect(subject.to_csf_params).to eq(
+        {
+          args: {
+            button_text: expected_csf_value,
+          },
+          argTypes: {
+            button_text: { control: { type: type }, name: "Button Text" },
+          },
+        }
+      )
     end
   end
 
   let(:type) { :date }
 
   context "with Date value" do
-    it_behaves_like "a knobs config" do
+    it_behaves_like "a controls config" do
       let(:value) { Date.new(2020, 2, 15) }
-      let(:expected_value) { "2020-02-15T00:00:00Z" }
       let(:param_value) { "2020-02-15T00:00:00Z" }
-      let(:csf_params_overrides) { { value: param_value } }
+
+      let(:expected_csf_value) { "2020-02-15T00:00:00Z" }
 
       include_examples "valid with object value"
     end
   end
 
   context "with DateTime value" do
-    it_behaves_like "a knobs config" do
+    it_behaves_like "a controls config" do
       let(:value) { Time.utc(2020, 2, 15, 2, 30, 45).to_datetime }
-      let(:expected_value) { "2020-02-15T02:30:45Z" }
       let(:param_value) { "2020-02-15T02:30:45Z" }
-      let(:csf_params_overrides) { { value: param_value } }
+
+      let(:expected_csf_value) { "2020-02-15T02:30:45Z" }
 
       include_examples "valid with object value"
     end
   end
 
   context "with Time value" do
-    it_behaves_like "a knobs config" do
+    it_behaves_like "a controls config" do
       let(:value) { Time.utc(2020, 2, 15, 2, 30, 45) }
-      let(:expected_value) { "2020-02-15T02:30:45Z" }
       let(:param_value) { "2020-02-15T02:30:45Z" }
-      let(:csf_params_overrides) { { value: param_value } }
+
+      let(:expected_csf_value) { "2020-02-15T02:30:45Z" }
 
       include_examples "valid with object value"
     end

@@ -2,7 +2,7 @@
 
 class KitchenSinkComponentStories < ViewComponent::Storybook::Stories
   story :jane_doe, KitchenSinkComponent do
-    knobs do
+    controls do
       name "Jane Doe"
       birthday Date.new(1950, 3, 26)
       color(:favorite_color, "red")

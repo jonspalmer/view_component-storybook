@@ -8,7 +8,7 @@ module ViewComponent
       extend ActiveSupport::Autoload
 
       autoload :StoryDsl
-      autoload :KnobsDsl
+      autoload :ControlsDsl
     end
   end
 end

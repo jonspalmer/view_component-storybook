@@ -19,36 +19,47 @@ RSpec.describe ViewComponent::Storybook::Stories do
     it "converts kitchen sink" do
       expect(KitchenSinkComponentStories.to_csf_params).to eq(
         title: "Kitchen Sink Component",
-        addons: ["knobs"],
         stories: [
           {
             name: :jane_doe,
             parameters: {
               server: { id: "kitchen_sink_component/jane_doe" }
             },
-            knobs: [
-              { name: "Name", param: :name, type: :text, value: "Jane Doe" },
-              { name: "Birthday", param: :birthday, type: :date, value: Time.utc(1950, 3, 26).iso8601 },
-              { name: "Favorite Color", param: :favorite_color, type: :color, value: "red" },
-              { name: "Like People", param: :like_people, type: :boolean, value: true },
-              { name: "Number Pets", param: :number_pets, type: :number, value: 2 },
-              { name: "Sports", param: :sports, separator: ",", type: :array, value: %w[football baseball] },
-              {
+            args: {
+              name: "Jane Doe",
+              birthday: Time.utc(1950, 3, 26).iso8601,
+              favorite_color: "red",
+              like_people: true,
+              number_pets: 2,
+              sports: %w[football baseball],
+              favorite_food: "Ice Cream",
+              mood: "Happy",
+              other_things: { eyes: "Blue", hair: "Brown" }
+
+            },
+            argTypes: {
+              name: { control: { type: :text }, name: "Name" },
+              birthday: { control: { type: :date }, name: "Birthday" },
+              favorite_color: { control: { type: :color }, name: "Favorite Color" },
+              like_people: { control: { type: :boolean }, name: "Like People" },
+              number_pets: { control: { type: :number }, name: "Number Pets" },
+              sports: { control: { type: :array, separator: "," }, name: "Sports" },
+              favorite_food: {
+                control: {
+                  type: :select,
+                  options: { burgers: "Burgers", hot_dog: "Hot Dog", ice_cream: "Ice Cream", pizza: "Pizza" }
+                },
                 name: "Favorite Food",
-                param: :favorite_food,
-                type: :select,
-                value: "Ice Cream",
-                options: { burgers: "Burgers", hot_dog: "Hot Dog", ice_cream: "Ice Cream", pizza: "Pizza" },
               },
-              {
-                name: "Mood",
-                param: :mood,
-                type: :radios,
-                value: "Happy",
-                options: { happy: "Happy", sad: "Sad", angry: "Angry", content: "Content" },
+              mood: {
+                control: {
+                  type: :radios,
+                  options: { happy: "Happy", sad: "Sad", angry: "Angry", content: "Content" },
+                },
+                name: "Mood"
               },
-              { name: "Other Things", param: :other_things, type: :object, value: { eyes: "Blue", hair: "Brown" } }
-            ]
+              other_things: { control: { type: :object }, name: "Other Things" },
+            }
           }
         ]
       )
@@ -57,34 +68,42 @@ RSpec.describe ViewComponent::Storybook::Stories do
     it "converts Stories with namespaces" do
       expect(Demo::ButtonComponentStories.to_csf_params).to eq(
         title: "Demo/Button Component",
-        addons: ["knobs"],
         stories: [
           {
             name: :short_button,
             parameters: {
               server: { id: "demo/button_component/short_button" }
             },
-            knobs: [
-              { name: "Button Text", param: :button_text, type: :text, value: "OK" }
-            ]
+            args: {
+              button_text: "OK"
+            },
+            argTypes: {
+              button_text: { control: { type: :text }, name: "Button Text" }
+            }
           },
           {
             name: :medium_button,
             parameters: {
               server: { id: "demo/button_component/medium_button" }
             },
-            knobs: [
-              { name: "Button Text", param: :button_text, type: :text, value: "Push Me!" }
-            ]
+            args: {
+              button_text: "Push Me!"
+            },
+            argTypes: {
+              button_text: { control: { type: :text }, name: "Button Text" }
+            }
           },
           {
             name: :long_button,
             parameters: {
               server: { id: "demo/button_component/long_button" }
             },
-            knobs: [
-              { name: "Button Text", param: :button_text, type: :text, value: "Really Really Long Button Text" }
-            ]
+            args: {
+              button_text: "Really Really Long Button Text"
+            },
+            argTypes: {
+              button_text: { control: { type: :text }, name: "Button Text" }
+            }
           }
         ]
       )
@@ -93,7 +112,6 @@ RSpec.describe ViewComponent::Storybook::Stories do
     it "converts Stories with parameters" do
       expect(ParametersStories.to_csf_params).to eq(
         title: "Parameters",
-        addons: ["knobs"],
         parameters: { size: :small },
         stories: [
           {
@@ -101,9 +119,12 @@ RSpec.describe ViewComponent::Storybook::Stories do
             parameters: {
               server: { id: "parameters/stories_parameters" }
             },
-            knobs: [
-              { name: "Button Text", param: :button_text, type: :text, value: "OK" },
-            ]
+            args: {
+              button_text: "OK"
+            },
+            argTypes: {
+              button_text: { control: { type: :text }, name: "Button Text" }
+            }
           },
           {
             name: :stories_parameter_override,
@@ -112,9 +133,12 @@ RSpec.describe ViewComponent::Storybook::Stories do
               size: :large,
               color: :red,
             },
-            knobs: [
-              { name: "Button Text", param: :button_text, type: :text, value: "OK" }
-            ]
+            args: {
+              button_text: "OK"
+            },
+            argTypes: {
+              button_text: { control: { type: :text }, name: "Button Text" }
+            }
           },
           {
             name: :additional_parameters,
@@ -122,9 +146,12 @@ RSpec.describe ViewComponent::Storybook::Stories do
               server: { id: "parameters/additional_parameters" },
               color: :red,
             },
-            knobs: [
-              { name: "Button Text", param: :button_text, type: :text, value: "OK" }
-            ]
+            args: {
+              button_text: "OK"
+            },
+            argTypes: {
+              button_text: { control: { type: :text }, name: "Button Text" }
+            }
           }
         ]
       )

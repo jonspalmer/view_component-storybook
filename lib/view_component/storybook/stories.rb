@@ -26,10 +26,7 @@ module ViewComponent
         end
 
         def to_csf_params
-          stories_csf = story_configs.map(&:to_csf_params)
-
           csf_params = { title: title }
-          csf_params[:addons] = ["knobs"] if stories_csf.any? { |csf| csf.key?(:knobs) }
           csf_params[:parameters] = parameters if parameters.present?
           csf_params[:stories] = story_configs.map(&:to_csf_params)
           csf_params

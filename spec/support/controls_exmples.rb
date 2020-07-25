@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-shared_examples "a knobs config" do
+shared_examples "a controls config" do
   let(:component) { Demo::ButtonComponent }
   let(:param) { :button_text }
   let(:value) { "OK" }
@@ -62,20 +62,30 @@ shared_examples "a knobs config" do
     end
   end
 
-  let(:csf_params_overrides) { {} }
-  let(:expected_csf_params) { { type: type, param: :button_text, name: "Button Text", value: value }.merge(csf_params_overrides) }
+  let(:expected_csf_value) { value }
+  let(:csf_arg_type_control_overrides) { {} }
+  let(:expected_csf_params) do
+    {
+      args: {
+        button_text: expected_csf_value,
+      },
+      argTypes: {
+        button_text: { control: { type: type }.merge(csf_arg_type_control_overrides), name: "Button Text" },
+      },
+    }
+  end
 
   describe "#to_csf_params" do
     it "creates params" do
       expect(subject.to_csf_params).to eq(expected_csf_params)
     end
 
-    context "with all options" do
+    context "with name" do
       let(:name) { "Text" }
-      let(:group_id) { "Buttons" }
 
       it "creates params" do
-        expect(subject.to_csf_params).to eq(expected_csf_params.merge(name: "Text", group_id: "Buttons"))
+        name_params = { argTypes: { button_text: { name: "Text" } } }
+        expect(subject.to_csf_params).to eq(expected_csf_params.deep_merge(name_params))
       end
     end
 
