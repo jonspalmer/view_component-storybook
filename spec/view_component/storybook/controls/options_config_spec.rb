@@ -36,7 +36,7 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
     end
 
     it "invalid without default_value" do
-      subject = described_class.new(:radios, Demo::ButtonComponent, :button_text, options, nil)
+      subject = described_class.new(:radio, Demo::ButtonComponent, :button_text, options, nil)
 
       expect(subject.valid?).to eq(false)
       expect(subject.errors.size).to eq(1)
@@ -44,7 +44,7 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
     end
 
     it "invalid with value not in the options list" do
-      subject = described_class.new(:radios, Demo::ButtonComponent, :button_text, options, "green")
+      subject = described_class.new(:radio, Demo::ButtonComponent, :button_text, options, "green")
 
       expect(subject.valid?).to eq(false)
       expect(subject.errors.size).to eq(1)

@@ -9,7 +9,7 @@ module ViewComponent
         attr_reader :component, :param, :value, :name
 
         validates :component, :param, presence: true
-        validates :param, inclusion: { in: ->(knob_config) { knob_config.component_params } }, unless: -> { component.nil? }
+        validates :param, inclusion: { in: ->(control_config) { control_config.component_params } }, unless: -> { component.nil? }
 
         def initialize(component, param, value, name: nil)
           @component = component

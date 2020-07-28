@@ -4,17 +4,16 @@ module ViewComponent
   module Storybook
     module Controls
       class NumberConfig < ControlConfig
-        attr_reader :options
+        attr_reader :type, :min, :max, :step
 
-        validates :value, presence: true
+        validates :value, :type, presence: true
 
-        def initialize(component, param, value, options = {}, name: nil)
+        def initialize(type, component, param, value, min: nil, max: nil, step: nil, name: nil)
           super(component, param, value, name: name)
-          @options = options
-        end
-
-        def type
-          :number
+          @type = type
+          @min = min
+          @max = max
+          @step = step
         end
 
         def value_from_param(param)
@@ -29,8 +28,7 @@ module ViewComponent
 
         def csf_control_params
           params = super
-          params[:options] = options unless options.empty?
-          params
+          params.merge(min: min, max: max, step: step).compact
         end
       end
     end

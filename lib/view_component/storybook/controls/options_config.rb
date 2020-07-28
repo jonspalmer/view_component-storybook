@@ -4,7 +4,7 @@ module ViewComponent
   module Storybook
     module Controls
       class OptionsConfig < ControlConfig
-        TYPES = %i[select radios].freeze
+        TYPES = %i[select multi-select radio inline-radio check inline-check].freeze
 
         attr_reader :type, :options
 

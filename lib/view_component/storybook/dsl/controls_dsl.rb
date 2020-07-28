@@ -12,19 +12,23 @@ module ViewComponent
         end
 
         def text(param, value, name: nil)
-          controls << Controls::SimpleConfig.new(:text, component, param, value, name: name)
+          controls << Controls::TextConfig.new(component, param, value, name: name)
         end
 
         def boolean(param, value, name: nil)
-          controls << Controls::SimpleConfig.new(:boolean, component, param, value, name: name)
+          controls << Controls::BooleanConfig.new(component, param, value, name: name)
         end
 
-        def number(param, value, options = {}, name: nil)
-          controls << Controls::NumberConfig.new(component, param, value, options, name: name)
+        def number(param, value, name: nil, min: nil, max: nil, step: nil)
+          controls << Controls::NumberConfig.new(:number, component, param, value, name: name, min: min, max: max, step: step)
         end
 
-        def color(param, value, name: nil)
-          controls << Controls::SimpleConfig.new(:color, component, param, value, name: name)
+        def range(param, value, name: nil, min: nil, max: nil, step: nil)
+          controls << Controls::NumberConfig.new(:range, component, param, value, name: name, min: min, max: max, step: step)
+        end
+
+        def color(param, value, name: nil, preset_colors: nil)
+          controls << Controls::ColorConfig.new(component, param, value, name: name, preset_colors: preset_colors)
         end
 
         def object(param, value, name: nil)
@@ -35,8 +39,24 @@ module ViewComponent
           controls << Controls::OptionsConfig.new(:select, component, param, options, value, name: name)
         end
 
-        def radios(param, options, value, name: nil)
-          controls << Controls::OptionsConfig.new(:radios, component, param, options, value, name: name)
+        def multi_select(param, options, value, name: nil)
+          controls << Controls::OptionsConfig.new(:'multi-select', component, param, options, value, name: name)
+        end
+
+        def radio(param, options, value, name: nil)
+          controls << Controls::OptionsConfig.new(:radio, component, param, options, value, name: name)
+        end
+
+        def inline_radio(param, options, value, name: nil)
+          controls << Controls::OptionsConfig.new(:'inline-radio', component, param, options, value, name: name)
+        end
+
+        def check(param, options, value, name: nil)
+          controls << Controls::OptionsConfig.new(:check, component, param, options, value, name: name)
+        end
+
+        def inline_check(param, options, value, name: nil)
+          controls << Controls::OptionsConfig.new(:'inline-check', component, param, options, value, name: name)
         end
 
         def array(param, value, separator = ",", name: nil)
@@ -53,22 +73,22 @@ module ViewComponent
 
         def method_missing(method, *args)
           value = args.first
-          knob_method = case value
-                        when Date
-                          :date
-                        when Array
-                          :array
-                        when Hash
-                          :object
-                        when Numeric
-                          :number
-                        when TrueClass, FalseClass
-                          :boolean
-                        when String
-                          :text
-                        end
-          if knob_method
-            send(knob_method, method, *args)
+          control_method = case value
+                           when Date
+                             :date
+                           when Array
+                             :array
+                           when Hash
+                             :object
+                           when Numeric
+                             :number
+                           when TrueClass, FalseClass
+                             :boolean
+                           when String
+                             :text
+                           end
+          if control_method
+            send(control_method, method, *args)
           else
             super
           end
