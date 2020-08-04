@@ -13,7 +13,7 @@ The ViewComponent::Storybook gem provides Ruby api for writing stories describin
 
 1. Add the `view_component_storybook` gem, to your Gemfile: `gem 'view_component_storybook'`
 2. Run `bundle install`.
-3. Add `require "view_component_storybook/engine"` to `config/application.rb`
+3. Add `require "view_component/storybook/engine"` to `config/application.rb`
 4. Add `**/*.stories.json` to `.gitignore`
 
 ### Storybook Installation
