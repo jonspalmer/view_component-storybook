@@ -1,6 +1,6 @@
 # ViewComponent::Storybook
 
-The ViewComponent::Storybook gem provides Ruby api for writing stories describing [View Components](https://github.com/github/view_component) and allowing them to be previewed and tested in [Storybook](https://github.com/storybookjs/storybook/) 
+The ViewComponent::Storybook gem provides Ruby api for writing stories describing [View Components](https://github.com/github/view_component) and allowing them to be previewed and tested in [Storybook](https://github.com/storybookjs/storybook/)
 
 ## Features
 * A Ruby DSL for writing Stories describing View Components
@@ -9,11 +9,11 @@ The ViewComponent::Storybook gem provides Ruby api for writing stories describin
 
 ## Installation
 
-### Gem Installation 
+### Gem Installation
 
 1. Add the `view_component_storybook` gem, to your Gemfile: `gem 'view_component_storybook'`
 2. Run `bundle install`.
-3. Add `require "view_component_storybook/engine"` to `config/application.rb`
+3. Add `require "view_component/storybook/engine"` to `config/application.rb`
 4. Add `**/*.stories.json` to `.gitignore`
 
 ### Storybook Installation
@@ -29,7 +29,7 @@ The ViewComponent::Storybook gem provides Ruby api for writing stories describin
        "storybook": "start-storybook"
      }
    }
-   ```    
+   ```
 3. Create the .storybook/main.js file to configure Storybook to find the json stories the gem creates. Also configure the Controls addon:
    ```javascript
    module.exports = {
@@ -48,7 +48,7 @@ The ViewComponent::Storybook gem provides Ruby api for writing stories describin
      },
    };
    ```
-   
+
 
 Note: `@storybook/server` will be part of the upcoming Storybook 6.0 release. Until that is released you'll need to use an [rc release](https://github.com/storybookjs/storybook/releases/tag/v6.0.0-rc.14)
 
