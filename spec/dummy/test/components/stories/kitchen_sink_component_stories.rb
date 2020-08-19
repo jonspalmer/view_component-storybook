@@ -10,7 +10,7 @@ class KitchenSinkComponentStories < ViewComponent::Storybook::Stories
       number_pets 2
       sports %w[football baseball]
       select(:favorite_food, { hot_dog: "Hot Dog", pizza: "Pizza", burgers: "Burgers", ice_cream: "Ice Cream" }, "Ice Cream")
-      radio(:mood, { happy: "Happy", sad: "Sad", angry: "Angry", content: "Content" }, "Happy")
+      radio(:mood, ["Happy", "Sad", "Angry", "Content"], "Happy")
       other_things(hair: "Brown", eyes: "Blue")
     end
   end

@@ -54,7 +54,7 @@ RSpec.describe ViewComponent::Storybook::Stories do
               mood: {
                 control: {
                   type: :radio,
-                  options: { happy: "Happy", sad: "Sad", angry: "Angry", content: "Content" },
+                  options: { "Happy" => "Happy", "Sad" => "Sad", "Angry" => "Angry", "Content" => "Content" },
                 },
                 name: "Mood"
               },
