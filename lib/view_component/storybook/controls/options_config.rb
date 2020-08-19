@@ -15,10 +15,25 @@ module ViewComponent
         def initialize(type, component, param, options, default_value, name: nil)
           super(component, param, default_value, name: name)
           @type = type
-          @options = options
+          @options = expand_options(options)
         end
 
         private
+
+        def expand_options(options)
+          case options
+          when Hash
+            options
+          when Array
+            array_to_hash(options)
+          else
+            raise "Options must be either an Array or Hash"
+          end
+        end
+
+        def array_to_hash(arr)
+          arr.each_with_object({}) { |k, h| h[k] = k }
+        end
 
         def csf_control_params
           super.merge(options: options)
