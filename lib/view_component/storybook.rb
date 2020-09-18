@@ -2,7 +2,6 @@
 
 require "active_model"
 require "active_support/dependencies/autoload"
-require "view_component/storybook/engine"
 
 module ViewComponent
   module Storybook
