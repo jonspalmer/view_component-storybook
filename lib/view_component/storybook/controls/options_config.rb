@@ -4,13 +4,28 @@ module ViewComponent
   module Storybook
     module Controls
       class OptionsConfig < ControlConfig
+
+        class << self
+          # support the options being a Hash or an Array. Storybook supports either.
+          def inclusion_in(config)
+            case config.options
+            when Hash
+              config.options.values
+            when Array
+              config.options
+            else
+              []
+            end
+          end
+        end
+
         TYPES = %i[select multi-select radio inline-radio check inline-check].freeze
 
         attr_reader :type, :options
 
         validates :value, :type, :options, presence: true
         validates :type, inclusion: { in: TYPES }, unless: -> { type.nil? }
-        validates :value, inclusion: { in: ->(config) { config.options.values } }, unless: -> { options.nil? || value.nil? }
+        validates :value, inclusion: { in: method(:inclusion_in) }, unless: -> { options.nil? || value.nil? }
 
         def initialize(type, component, param, options, default_value, name: nil)
           super(component, param, default_value, name: name)
