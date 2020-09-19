@@ -21,7 +21,7 @@ module ViewComponent
 
         TYPES = %i[select multi-select radio inline-radio check inline-check].freeze
 
-        attr_reader :type, :options
+        attr_reader :type, :options, :symbol_value
 
         validates :value, :type, :options, presence: true
         validates :type, inclusion: { in: TYPES }, unless: -> { type.nil? }
@@ -31,6 +31,15 @@ module ViewComponent
           super(component, param, default_value, name: name)
           @type = type
           @options = options
+          @symbol_value = default_value.is_a?(Symbol)
+        end
+
+        def value_from_param(param)
+          if param.is_a?(String) && symbol_value
+            param.to_sym
+          else
+            super(param)
+          end
         end
 
         private

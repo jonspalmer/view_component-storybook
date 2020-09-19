@@ -16,6 +16,19 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
         let(:csf_arg_type_control_overrides) { { options: options } }
       end
 
+      context "with symbol values" do
+        let(:options) { { Red: :red, Blue: :blue, Yellow: :yellow } }
+
+        it_behaves_like "a controls config" do
+          subject { described_class.new(type, component, param, options, value, name: name) }
+
+          let(:value) { :blue }
+          let(:param_value) { "blue" }
+
+          let(:csf_arg_type_control_overrides) { { options: options } }
+        end
+      end
+
       context "with array options" do
         let(:options) { ["red", "blue", "yellow"] }
 
@@ -23,6 +36,19 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
           subject { described_class.new(type, component, param, options, value, name: name) }
 
           let(:value) { "blue" }
+          let(:param_value) { "blue" }
+
+          let(:csf_arg_type_control_overrides) { { options: options } }
+        end
+      end
+
+      context "with symbol array values" do
+        let(:options) { %i[red blue yellow] }
+
+        it_behaves_like "a controls config" do
+          subject { described_class.new(type, component, param, options, value, name: name) }
+
+          let(:value) { :blue }
           let(:param_value) { "blue" }
 
           let(:csf_arg_type_control_overrides) { { options: options } }
