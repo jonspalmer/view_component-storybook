@@ -12,8 +12,6 @@ module ViewComponent
               config.options.values
             when Array
               config.options
-            else
-              []
             end
           end
         end

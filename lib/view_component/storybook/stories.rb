@@ -33,7 +33,7 @@ module ViewComponent
         end
 
         def write_csf_json
-          json_path = File.join(ViewComponent::Storybook.stories_path, "#{stories_name}.stories.json")
+          json_path = File.join(stories_path, "#{stories_name}.stories.json")
           File.open(json_path, "w") do |f|
             f.write(JSON.pretty_generate(to_csf_params))
           end
@@ -81,8 +81,6 @@ module ViewComponent
 
         def default_component
           name.chomp("Stories").constantize
-        rescue StandardError
-          nil
         end
 
         def load_stories
@@ -91,10 +89,6 @@ module ViewComponent
 
         def stories_path
           Storybook.stories_path
-        end
-
-        def show_stories
-          Storybook.show_stories
         end
 
         def story_id(name)

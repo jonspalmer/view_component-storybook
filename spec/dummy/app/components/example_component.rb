@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-class TestComponent < ViewComponent::Base
+class ExampleComponent < ViewComponent::Base
   def initialize(title:)
+    super
     @title = title
   end
 

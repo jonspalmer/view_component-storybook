@@ -14,6 +14,7 @@ class KitchenSinkComponent < ViewComponent::Base
     mood:,
     other_things:
   )
+    super
     @name = name
     @birthday = birthday
     @favorite_color = favorite_color

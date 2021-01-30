@@ -7,6 +7,7 @@ inherit_gem:
 
 AllCops:
   TargetRubyVersion: 2.4.0
+  NewCops: enable
 
 RSpec/ExampleLength:
  Enabled: false
@@ -21,4 +22,7 @@ RSpec/SubjectStub:
   Enabled: false
 
 RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+Rails/RakeEnvironment:
   Enabled: false

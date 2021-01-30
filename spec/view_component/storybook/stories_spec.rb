@@ -158,6 +158,35 @@ RSpec.describe ViewComponent::Storybook::Stories do
     end
   end
 
+  describe ".write_csf_json" do
+    subject { ContentComponentStories.write_csf_json }
+
+    after do
+      File.delete(subject)
+    end
+
+    it "writes stories to json files" do
+      json_file = File.read(subject)
+      expect(json_file).to eq(
+        <<~JSON.strip
+          {
+            "title": "Content Component",
+            "stories": [
+              {
+                "name": "default",
+                "parameters": {
+                  "server": {
+                    "id": "content_component/default"
+                  }
+                }
+              }
+            ]
+          }
+        JSON
+      )
+    end
+  end
+
   describe ".all" do
     it "has all stories" do
       expect(described_class.all).to eq [

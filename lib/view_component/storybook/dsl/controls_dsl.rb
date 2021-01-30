@@ -67,7 +67,7 @@ module ViewComponent
           controls << Controls::DateConfig.new(component, param, value, name: name)
         end
 
-        def respond_to_missing?(_method)
+        def respond_to_missing?(_method, *)
           true
         end
 

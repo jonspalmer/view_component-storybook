@@ -40,8 +40,9 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "relaxed-rubocop", "~> 2.5"
   spec.add_development_dependency "rspec", "~> 3.9"
   spec.add_development_dependency "rspec-rails", "~> 3.9"
-  spec.add_development_dependency "rubocop", "~> 0.81"
-  spec.add_development_dependency "rubocop-rails", "~> 2.4.2"
-  spec.add_development_dependency "rubocop-rspec", "~> 1.38"
+  spec.add_development_dependency "rubocop", "~> 1.9"
+  spec.add_development_dependency "rubocop-rails", "~> 2.9.1"
+  spec.add_development_dependency "rubocop-rspec", "~> 2.1"
   spec.add_development_dependency "simplecov", "~> 0.18.5"
+  spec.add_development_dependency "simplecov-console", "~> 0.9"
 end
