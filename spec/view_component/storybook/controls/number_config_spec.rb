@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe ViewComponent::Storybook::Controls::NumberConfig do
-  %i[number range].each do |number_type|
+  described_class::TYPES.each do |number_type|
     context "with '#{number_type}' type" do
       subject { described_class.new(number_type, component, param, value, name: name) }
 
@@ -32,6 +32,24 @@ RSpec.describe ViewComponent::Storybook::Controls::NumberConfig do
           let(:csf_arg_type_control_overrides) { number_options }
         end
       end
+    end
+  end
+
+  describe "#valid?" do
+    it "invalid without type" do
+      subject = described_class.new(nil, Demo::ButtonComponent, :button_text, "blue")
+
+      expect(subject.valid?).to eq(false)
+      expect(subject.errors.size).to eq(1)
+      expect(subject.errors[:type]).to eq(["can't be blank"])
+    end
+
+    it "invalid with unsupported type" do
+      subject = described_class.new(:foo, Demo::ButtonComponent, :button_text, "blue")
+
+      expect(subject.valid?).to eq(false)
+      expect(subject.errors.size).to eq(1)
+      expect(subject.errors[:type]).to eq(["is not included in the list"])
     end
   end
 end

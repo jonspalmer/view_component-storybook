@@ -4,9 +4,12 @@ module ViewComponent
   module Storybook
     module Controls
       class NumberConfig < ControlConfig
+        TYPES = %i[number range].freeze
+
         attr_reader :type, :min, :max, :step
 
         validates :type, presence: true
+        validates :type, inclusion: { in: TYPES }, unless: -> { type.nil? }
 
         def initialize(type, component, param, value, min: nil, max: nil, step: nil, name: nil)
           super(component, param, value, name: name)
