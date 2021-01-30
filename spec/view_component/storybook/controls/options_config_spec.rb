@@ -30,7 +30,7 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
       end
 
       context "with array options" do
-        let(:options) { ["red", "blue", "yellow"] }
+        let(:options) { %w[red blue yellow] }
 
         it_behaves_like "a controls config" do
           subject { described_class.new(type, component, param, options, value, name: name) }
@@ -74,20 +74,31 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
       expect(subject.errors[:type]).to eq(["is not included in the list"])
     end
 
-    it "invalid without default_value" do
-      subject = described_class.new(:radio, Demo::ButtonComponent, :button_text, options, nil)
-
-      expect(subject.valid?).to eq(false)
-      expect(subject.errors.size).to eq(1)
-      expect(subject.errors[:value]).to eq(["can't be blank"])
-    end
-
-    it "invalid with value not in the options list" do
+    it "invalid with value not in the options hash" do
       subject = described_class.new(:radio, Demo::ButtonComponent, :button_text, options, "green")
 
       expect(subject.valid?).to eq(false)
       expect(subject.errors.size).to eq(1)
       expect(subject.errors[:value]).to eq(["is not included in the list"])
+    end
+
+    context "with array options" do
+      let(:options) { %w[red blue yellow] }
+
+      it "invalid with value not in the options list" do
+        subject = described_class.new(:radio, Demo::ButtonComponent, :button_text, options, "green")
+
+        expect(subject.valid?).to eq(false)
+        expect(subject.errors.size).to eq(1)
+        expect(subject.errors[:value]).to eq(["is not included in the list"])
+      end
+
+      it "valid with nil default_value provided its in the options list" do
+        options << nil
+        subject = described_class.new(:radio, Demo::ButtonComponent, :button_text, options, nil)
+
+        expect(subject.valid?).to eq(true)
+      end
     end
   end
 end

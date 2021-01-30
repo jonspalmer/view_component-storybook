@@ -9,7 +9,6 @@ RSpec.describe ViewComponent::Storybook::Controls::BooleanConfig do
     it_behaves_like "a controls config" do
       let(:value) { true }
       let(:param_value) { "true" }
-      let(:expected_nil_value_erorr) { "is not included in the list" }
     end
   end
 
@@ -17,7 +16,6 @@ RSpec.describe ViewComponent::Storybook::Controls::BooleanConfig do
     it_behaves_like "a controls config" do
       let(:value) { false }
       let(:param_value) { "false" }
-      let(:expected_nil_value_erorr) { "is not included in the list" }
     end
   end
 end

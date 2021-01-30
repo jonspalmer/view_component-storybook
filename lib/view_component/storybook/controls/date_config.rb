@@ -4,8 +4,6 @@ module ViewComponent
   module Storybook
     module Controls
       class DateConfig < ControlConfig
-        validates :value, presence: true
-
         def initialize(component, param, value, name: nil)
           super(component, param, value, name: name)
         end

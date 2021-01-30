@@ -6,7 +6,7 @@ module ViewComponent
       class NumberConfig < ControlConfig
         attr_reader :type, :min, :max, :step
 
-        validates :value, :type, presence: true
+        validates :type, presence: true
 
         def initialize(type, component, param, value, min: nil, max: nil, step: nil, name: nil)
           super(component, param, value, name: name)

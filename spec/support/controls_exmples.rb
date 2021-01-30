@@ -6,7 +6,6 @@ shared_examples "a controls config" do
   let(:value) { "OK" }
   let(:name) { nil }
   let(:group_id) { nil }
-  let(:expected_nil_value_erorr) { "can't be blank" } # booleans are slightly different
 
   it "#type" do
     expect(subject.type).to eq(type)
@@ -31,6 +30,14 @@ shared_examples "a controls config" do
       expect(subject.valid?).to eq(true)
     end
 
+    context "without a value" do
+      let(:value) { nil }
+
+      it "is valid" do
+        expect(subject.valid?).to eq(true)
+      end
+    end
+
     context "with unsupported param" do
       let(:param) { :foo }
 
@@ -38,16 +45,6 @@ shared_examples "a controls config" do
         expect(subject.valid?).to eq(false)
         expect(subject.errors.size).to eq(1)
         expect(subject.errors[:param]).to eq(["is not included in the list"])
-      end
-    end
-
-    context "without a value" do
-      let(:value) { nil }
-
-      it "is invalid" do
-        expect(subject.valid?).to eq(false)
-        expect(subject.errors.size).to eq(1)
-        expect(subject.errors[:value]).to eq([expected_nil_value_erorr])
       end
     end
 

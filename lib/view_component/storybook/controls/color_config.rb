@@ -5,7 +5,6 @@ module ViewComponent
     module Controls
       class ColorConfig < ControlConfig
         attr_reader :preset_colors
-        validates :value, presence: true
 
         def initialize(component, param, value, name: nil, preset_colors: nil)
           super(component, param, value, name: name)

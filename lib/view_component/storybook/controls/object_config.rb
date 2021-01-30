@@ -4,8 +4,6 @@ module ViewComponent
   module Storybook
     module Controls
       class ObjectConfig < ControlConfig
-        validates :value, presence: true
-
         def type
           :object
         end

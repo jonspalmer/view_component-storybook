@@ -6,7 +6,7 @@ module ViewComponent
       class BooleanConfig < ControlConfig
         BOOLEAN_VALUES = [true, false].freeze
 
-        validates :value, inclusion: { in: BOOLEAN_VALUES }
+        validates :value, inclusion: { in: BOOLEAN_VALUES }, unless: -> { value.nil? }
 
         def type
           :boolean

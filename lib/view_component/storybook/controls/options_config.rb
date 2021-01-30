@@ -22,7 +22,7 @@ module ViewComponent
 
         attr_reader :type, :options, :symbol_value
 
-        validates :value, :type, :options, presence: true
+        validates :type, :options, presence: true
         validates :type, inclusion: { in: TYPES }, unless: -> { type.nil? }
         validates :value, inclusion: { in: method(:inclusion_in) }, unless: -> { options.nil? || value.nil? }
 

@@ -6,7 +6,7 @@ module ViewComponent
       class ArrayConfig < ControlConfig
         attr_reader :separator
 
-        validates :value, :separator, presence: true
+        validates :separator, presence: true
 
         def initialize(component, param, value, separator = ",", name: nil)
           super(component, param, value, name: name)
