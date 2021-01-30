@@ -5,6 +5,9 @@ require:
 inherit_gem:
   relaxed-rubocop: .rubocop.yml
 
+AllCops:
+  TargetRubyVersion: 2.4.0
+
 RSpec/ExampleLength:
  Enabled: false
 
@@ -15,4 +18,7 @@ RSpec/NamedSubject:
   Enabled: false
 
 RSpec/SubjectStub:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
   Enabled: false

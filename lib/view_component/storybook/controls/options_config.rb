@@ -4,7 +4,6 @@ module ViewComponent
   module Storybook
     module Controls
       class OptionsConfig < ControlConfig
-
         class << self
           # support the options being a Hash or an Array. Storybook supports either.
           def inclusion_in(config)

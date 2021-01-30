@@ -3,12 +3,44 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  build:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Setup Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.7.2
+    - uses: actions/cache@v2
+      with:
+        path: vendor/bundle
+        key: gems-build-rails-main-ruby-2.7.2-${{ hashFiles('**/Gemfile.lock') }}
+    - name: Lint with Rubocop
+      run: |
+        gem install bundler:1.17.3
+        bundle config path vendor/bundle
+        bundle install --jobs 4 --retry 3
+        bundle exec rubocop
+  test:
+    needs: lint
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        rails_version: [5.0.0, 5.2.3, 6.0.0, main]
-        ruby_version: [2.5.x, 2.6.x, 2.7.x]
+        rails_version: [5.0.0, 5.2.3, 6.0.0, 6.1.0, main]
+        ruby_version: [2.4.10, 2.5.8, 2.6.6, 2.7.2, 3.0.0]
+        exclude:
+          - rails_version: 5.0.0
+            ruby_version: 3.0.0
+          - rails_version: 5.2.3
+            ruby_version: 3.0.0
+          - rails_version: 6.0.0
+            ruby_version: 3.0.0
+          - rails_version: 6.0.0
+            ruby_version: 2.4.10
+          - rails_version: 6.1.0
+            ruby_version: 2.4.10
+          - rails_version: main
+            ruby_version: 2.4.10
     steps:
     - uses: actions/checkout@master
     - name: Setup Ruby
