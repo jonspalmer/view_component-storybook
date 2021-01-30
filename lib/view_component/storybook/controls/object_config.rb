@@ -10,7 +10,7 @@ module ViewComponent
 
         def value_from_param(param)
           if param.is_a?(String)
-            JSON.parse(param).symbolize_keys
+            JSON.parse(param).deep_symbolize_keys
           else
             super(param)
           end
