@@ -19,6 +19,12 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
     expect(response.body).to include("<button>OK</button>")
   end
 
+  it "renders the kwargs compoent" do
+    get "/rails/stories/kwargs_component/default"
+
+    expect(response.body).to include("<h1>Hello World!</h1>")
+  end
+
   it "renders the kitchen sink" do
     get "/rails/stories/kitchen_sink_component/jane_doe"
     body = Nokogiri::HTML(response.body).css("body div").to_html
