@@ -54,7 +54,7 @@ module ViewComponent
         end
 
         def should_validate_params?
-          !component.nil? && !component_accepts_kwargs?
+          component.present? && !component_accepts_kwargs?
         end
       end
     end
