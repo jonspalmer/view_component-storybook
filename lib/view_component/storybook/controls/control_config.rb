@@ -9,7 +9,7 @@ module ViewComponent
         attr_reader :component, :param, :value, :name
 
         validates :component, :param, presence: true
-        validates :param, inclusion: { in: ->(control_config) { control_config.component_params } }, unless: -> { component.nil? }
+        validates :param, inclusion: { in: ->(control_config) { control_config.component_param_names } }, if: :should_validate_params?
 
         def initialize(component, param, value, name: nil)
           @component = component
@@ -30,8 +30,8 @@ module ViewComponent
           param
         end
 
-        def component_params
-          @component_params ||= component && component.instance_method(:initialize).parameters.map(&:last)
+        def component_param_names
+          @component_param_names ||= component_params&.map(&:last)
         end
 
         private
@@ -43,6 +43,18 @@ module ViewComponent
 
         def csf_control_params
           { type: type }
+        end
+
+        def component_accepts_kwargs?
+          component_params.map(&:first).include?(:keyrest)
+        end
+
+        def component_params
+          @component_params ||= component.instance_method(:initialize).parameters
+        end
+
+        def should_validate_params?
+          component.present? && !component_accepts_kwargs?
         end
       end
     end

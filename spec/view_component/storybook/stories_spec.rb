@@ -16,6 +16,30 @@ RSpec.describe ViewComponent::Storybook::Stories do
       )
     end
 
+    it "converts kwargs" do
+      expect(KwargsComponentStories.to_csf_params).to eq(
+        title: "Kwargs Component",
+        stories: [
+          {
+            name: :default,
+            parameters: {
+              server: { id: "kwargs_component/default" }
+            },
+            args: {
+              message: "Hello World!",
+              param: 1,
+              other_param: true,
+            },
+            argTypes: {
+              message: { control: { type: :text }, name: "Message" },
+              param: { control: { type: :number }, name: "Param" },
+              other_param: { control: { type: :boolean }, name: "Other Param" },
+            }
+          }
+        ]
+      )
+    end
+
     it "converts kitchen sink" do
       expect(KitchenSinkComponentStories.to_csf_params).to eq(
         title: "Kitchen Sink Component",
@@ -193,6 +217,7 @@ RSpec.describe ViewComponent::Storybook::Stories do
         ContentComponentStories,
         Demo::ButtonComponentStories,
         KitchenSinkComponentStories,
+        KwargsComponentStories,
         LayoutStories,
         NoLayoutStories,
         ParametersStories
