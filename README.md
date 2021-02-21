@@ -9,12 +9,25 @@ The ViewComponent::Storybook gem provides Ruby api for writing stories describin
 
 ## Installation
 
-### Gem Installation
+### Rails Installation
 
 1. Add the `view_component_storybook` gem, to your Gemfile: `gem 'view_component_storybook'`
 2. Run `bundle install`.
 3. Add `require "view_component/storybook/engine"` to `config/application.rb`
 4. Add `**/*.stories.json` to `.gitignore`
+
+#### Configure Asset Hosts
+
+If your view components depend on Javascript, CSS or other assets served by the Rails application you will need to configure `asset_hosts`
+apporpriately for your various environments. For local development this is a simple as adding to `config/development.rb`:
+```ruby
+Rails.application.configure do
+  ...
+  config.action_controller.asset_host =  'http://localhost:3000'
+  ...
+end
+```
+Equivalent configuration will be necessary in `config/production.rb` or `application.rb` based you your deployment environments.
 
 ### Storybook Installation
 
@@ -49,8 +62,6 @@ The ViewComponent::Storybook gem provides Ruby api for writing stories describin
    };
    ```
 
-
-Note: `@storybook/server` will be part of the upcoming Storybook 6.0 release. Until that is released you'll need to use an [rc release](https://github.com/storybookjs/storybook/releases/tag/v6.0.0-rc.14)
 
 ## Usage
 
