@@ -13,7 +13,10 @@ require File.expand_path("dummy/config/environment.rb", __dir__)
 require "rspec/expectations"
 require "rspec/rails"
 require 'simplecov'
-SimpleCov.start
+SimpleCov.start do
+  command_name "rails#{ENV['RAILS_VERSION']}-ruby#{ENV['RUBY_VERSION']}" if ENV["RUBY_VERSION"]
+  add_filter 'spec'
+end
 
 Dir[File.expand_path(File.join(File.dirname(__FILE__), "support", "**", "*.rb"))].sort.each { |f| require f }
 

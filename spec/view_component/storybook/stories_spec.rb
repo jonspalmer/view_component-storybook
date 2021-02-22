@@ -1,6 +1,18 @@
 # frozen_string_literal: true
 
 RSpec.describe ViewComponent::Storybook::Stories do
+  describe ".valid?" do
+    it "duplicate stories are invalid" do
+      expect(Invalid::DuplicateStoryStories.valid?).to eq(false)
+      expect(Invalid::DuplicateStoryStories.errors[:story_configs].length).to eq(1)
+    end
+
+    it "is invalid if stories are invalid" do
+      expect(Invalid::DuplicateControlsStories.valid?).to eq(false)
+      expect(Invalid::DuplicateControlsStories.errors[:story_configs].length).to eq(1)
+    end
+  end
+
   describe ".to_csf_params" do
     it "converts" do
       expect(ContentComponentStories.to_csf_params).to eq(
@@ -180,6 +192,14 @@ RSpec.describe ViewComponent::Storybook::Stories do
         ]
       )
     end
+
+    it "raises an excpetion if stories are invalid" do
+      expect { Invalid::DuplicateStoryStories.to_csf_params }.to raise_exception(ActiveModel::ValidationError)
+    end
+
+    it "raises an excpetion if a story_config is invalid" do
+      expect { Invalid::DuplicateControlsStories.to_csf_params }.to raise_exception(ActiveModel::ValidationError)
+    end
   end
 
   describe ".write_csf_json" do
@@ -216,6 +236,8 @@ RSpec.describe ViewComponent::Storybook::Stories do
       expect(described_class.all).to eq [
         ContentComponentStories,
         Demo::ButtonComponentStories,
+        Invalid::DuplicateControlsStories,
+        Invalid::DuplicateStoryStories,
         KitchenSinkComponentStories,
         KwargsComponentStories,
         LayoutStories,

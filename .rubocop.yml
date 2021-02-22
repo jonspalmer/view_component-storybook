@@ -6,8 +6,9 @@ inherit_gem:
   relaxed-rubocop: .rubocop.yml
 
 AllCops:
-  TargetRubyVersion: 2.4.0
+  TargetRubyVersion: 2.5.0
   NewCops: enable
+  SuggestExtensions: false
 
 RSpec/ExampleLength:
  Enabled: false

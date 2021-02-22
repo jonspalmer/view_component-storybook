@@ -4,9 +4,12 @@ module ViewComponent
   module Storybook
     class Stories
       extend ActiveSupport::DescendantsTracker
+      include ActiveModel::Validations
 
       class_attribute :story_configs, default: []
       class_attribute :parameters, :title, :stories_layout
+
+      validate :valid_story_configs
 
       class << self
         def story(name, component = default_component, &block)
@@ -26,6 +29,7 @@ module ViewComponent
         end
 
         def to_csf_params
+          validate!
           csf_params = { title: title }
           csf_params[:parameters] = parameters if parameters.present?
           csf_params[:stories] = story_configs.map(&:to_csf_params)
@@ -70,6 +74,19 @@ module ViewComponent
           story_configs.find { |config| config.name == name.to_sym }
         end
 
+        # validation - ActiveModel::Validations like but on the class vs the instance
+        def valid?
+          # use an instance so we can enjoy the benefits of ActiveModel::Validations
+          @validation_instance = new
+          @validation_instance.valid?
+        end
+
+        delegate :errors, to: :@validation_instance
+
+        def validate!
+          valid? || raise(ActiveModel::ValidationError, @validation_instance)
+        end
+
         private
 
         def inherited(other)
@@ -94,6 +111,20 @@ module ViewComponent
         def story_id(name)
           "#{stories_name}/#{name.to_s.parameterize}".underscore
         end
+      end
+
+      protected
+
+      def valid_story_configs
+        story_configs.reject(&:valid?).each do |story_config|
+          errors.add(:story_configs, :invalid, value: story_config)
+        end
+
+        story_names = story_configs.map(&:name)
+        duplicate_names = story_names.group_by(&:itself).map { |k, v| k if v.length > 1 }.compact
+        return if duplicate_names.empty?
+
+        errors.add(:story_configs, :invalid, message: "Stories #{'names'.pluralize(duplicate_names.count)} #{duplicate_names.to_sentence} are repeated")
       end
     end
   end
