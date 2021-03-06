@@ -10,6 +10,7 @@ module ViewComponent
 
       before_action :find_stories, :find_story, only: :show
       before_action :require_local!, unless: :show_stories?
+      before_action :add_wildcard_cors_header, only: :show
 
       content_security_policy(false) if respond_to?(:content_security_policy)
 
@@ -41,6 +42,10 @@ module ViewComponent
         story_name = params[:story]
         @story = @stories.find_story(story_name)
         head :not_found unless @story
+      end
+
+      def add_wildcard_cors_header
+        headers['Access-Control-Allow-Origin'] = '*'
       end
     end
   end
