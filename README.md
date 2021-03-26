@@ -79,7 +79,7 @@ class ButtonComponent < ViewComponent::Base
 end
 ```
 
-We can write a stories desecibing the `ButtonComponent`
+We can write a stories describing the `ButtonComponent`
 
 ```ruby
 class ButtonComponentStories < ViewComponent::Storybook::Stories
