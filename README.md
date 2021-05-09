@@ -4,7 +4,7 @@ The ViewComponent::Storybook gem provides Ruby api for writing stories describin
 
 ## Features
 * A Ruby DSL for writing Stories describing View Components
-* A Rails controller backend for Storybook Server compatible with Strobook Controls Addon parameters
+* A Rails controller backend for Storybook Server compatible with Storybook Controls Addon parameters
 * Coming Soon: Rake tasks to watch View Components and Stories and trigger Storybook hot reloading
 
 ## Installation
@@ -99,7 +99,7 @@ end
 
 ### Generating Storybook Stories JSON
 
-Generate the Storybook JSON stories by tunning the rake task:
+Generate the Storybook JSON stories by running the rake task:
 ```sh
 rake view_component_storybook:write_stories_json
 ```
@@ -142,7 +142,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/jonspalmer/actionview-component-storybook. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/jonspalmer/view_component_storybook. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
