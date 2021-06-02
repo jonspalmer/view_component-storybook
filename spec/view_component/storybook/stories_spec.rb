@@ -213,11 +213,11 @@ RSpec.describe ViewComponent::Storybook::Stories do
       )
     end
 
-    it "raises an excpetion if stories are invalid" do
+    it "raises an exception if stories are invalid" do
       expect { Invalid::DuplicateStoryStories.to_csf_params }.to raise_exception(ActiveModel::ValidationError)
     end
 
-    it "raises an excpetion if a story_config is invalid" do
+    it "raises an exception if a story_config is invalid" do
       expect { Invalid::DuplicateControlsStories.to_csf_params }.to raise_exception(ActiveModel::ValidationError)
     end
   end
