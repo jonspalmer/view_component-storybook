@@ -297,6 +297,26 @@ RSpec.describe ViewComponent::Storybook::Stories do
       )
     end
 
+    it "converts Stories with customer Stories title" do
+      expect(Demo::HeadingComponentStories.to_csf_params).to eq(
+        title: "Heading Component",
+        stories: [
+          {
+            name: :default,
+            parameters: {
+              server: { id: "demo/heading_component/default" }
+            },
+            args: {
+              heading_text: "Heading"
+            },
+            argTypes: {
+              heading_text: { control: { type: :text }, name: "Heading Text" }
+            }
+          }
+        ]
+      )
+    end
+
     it "converts Stories with parameters" do
       expect(ParametersStories.to_csf_params).to eq(
         title: "Parameters",
@@ -529,6 +549,8 @@ RSpec.describe ViewComponent::Storybook::Stories do
         ContentComponentStories,
         CustomControlStories,
         Demo::ButtonComponentStories,
+        Demo::HeadingComponentStories,
+        Invalid::DuplicateControlsStories,
         Invalid::DuplicateStoryStories,
         Invalid::InvalidConstrutorStories,
         KitchenSinkComponentStories,
