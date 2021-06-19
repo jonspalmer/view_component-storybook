@@ -1,6 +1,6 @@
 # ViewComponent::Storybook
 
-The ViewComponent::Storybook gem provides Ruby api for writing stories describing [View Components](https://github.com/github/view_component) and allowing them to be previewed and tested in [Storybook](https://github.com/storybookjs/storybook/)
+The ViewComponent::Storybook gem provides Ruby api for writing stories describing [View Components](https://github.com/github/view_component) and allowing them to be previewed and tested in [Storybook](https://github.com/storybookjs/storybook/) via its [Server](https://github.com/storybookjs/storybook/tree/next/app/server) support.
 
 ## Features
 * A Ruby DSL for writing Stories describing View Components
