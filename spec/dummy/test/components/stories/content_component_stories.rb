@@ -6,4 +6,10 @@ class ContentComponentStories < ViewComponent::Storybook::Stories
       "Hello World!"
     end
   end
+
+  story :with_helper_content do
+    content do
+      link_to 'Hello World!', '#'
+    end
+  end
 end
