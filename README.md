@@ -119,7 +119,7 @@ Alternatively you can use tools like [Foreman](https://github.com/ddollar/forema
 
 ### Configuration
 
-By Default ViewComponent::Storybook expects to find stories in the folder `test/components/stories`. This can be configured but setting `stories_path` in `config/applicaion.rb`. For example is you're using RSpec you might set the following configuration:
+By Default ViewComponent::Storybook expects to find stories in the folder `test/components/stories`. This can be configured but setting `stories_path` in `config/application.rb`. For example is you're using RSpec you might set the following configuration:
 
 ```ruby
 config.view_component_storybook.stories_path = Rails.root.join("spec/components/stories")
