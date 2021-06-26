@@ -23,6 +23,12 @@ RSpec.describe ViewComponent::Storybook::Stories do
             parameters: {
               server: { id: "content_component/default" }
             }
+          },
+          {
+            name: :with_helper_content,
+            parameters: {
+              server: { id: "content_component/with_helper_content" }
+            }
           }
         ]
       )
@@ -221,6 +227,14 @@ RSpec.describe ViewComponent::Storybook::Stories do
                 "parameters": {
                   "server": {
                     "id": "content_component/default"
+                  }
+                }
+              },
+              {
+                "name": "with_helper_content",
+                "parameters": {
+                  "server": {
+                    "id": "content_component/with_helper_content"
                   }
                 }
               }

@@ -109,6 +109,12 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
 
       expect(response.body).to include("<h1>Hello World!</h1>")
     end
+
+    it "renders the component content with helper" do
+      get "/rails/stories/content_component/with_helper_content"
+
+      expect(response.body).to include('<h1><a href="#">Hello World!</a></h1>')
+    end
   end
 
   describe "layout" do
