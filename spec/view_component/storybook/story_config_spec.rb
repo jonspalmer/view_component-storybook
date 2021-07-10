@@ -116,7 +116,12 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
       end
 
       it "raises an excpetion" do
-        expect { subject.to_csf_params }.to raise_exception(ActiveModel::ValidationError)
+        expect { subject.to_csf_params }.to(
+          raise_exception(
+            ViewComponent::Storybook::StoryConfig::ValidationError,
+            "'Example Story Config' invalid: Controls is invalid, Control 'Junk' invalid: Param 'junk' is not supported by the component."
+          )
+        )
       end
     end
   end

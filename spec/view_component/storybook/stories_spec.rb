@@ -200,11 +200,21 @@ RSpec.describe ViewComponent::Storybook::Stories do
     end
 
     it "raises an excpetion if stories are invalid" do
-      expect { Invalid::DuplicateStoryStories.to_csf_params }.to raise_exception(ActiveModel::ValidationError)
+      expect { Invalid::DuplicateStoryStories.to_csf_params }.to(
+        raise_exception(
+          ViewComponent::Storybook::Stories::ValidationError,
+          "Invalid::DuplicateStoryStories invalid: Story configs duplicate story name my_story"
+        )
+      )
     end
 
     it "raises an excpetion if a story_config is invalid" do
-      expect { Invalid::DuplicateControlsStories.to_csf_params }.to raise_exception(ActiveModel::ValidationError)
+      expect { Invalid::DuplicateControlsStories.to_csf_params }.to(
+        raise_exception(
+          ViewComponent::Storybook::Stories::ValidationError,
+          "Invalid::DuplicateControlsStories invalid: Story configs is invalid, Story 'duplicate_controls' invalid: Controls duplicate control name Title"
+        )
+      )
     end
   end
 
