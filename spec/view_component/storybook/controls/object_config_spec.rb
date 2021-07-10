@@ -21,4 +21,13 @@ RSpec.describe ViewComponent::Storybook::Controls::ObjectConfig do
       let(:expected_csf_value) { { shape: "square", options: { color: "red", size: 10 } } }
     end
   end
+
+  context "with an array of objects" do
+    it_behaves_like "a controls config" do
+      let(:value) { [{ shape: 'square', color: 'red' }, { shape: 'circle', color: 'green' }] }
+      let(:param_value) { '[{"shape": "square", "color": "red"},{"shape": "circle", "color": "green"}]' }
+
+      let(:expected_csf_value) { [{ shape: 'square', color: 'red' }, { shape: 'circle', color: 'green' }] }
+    end
+  end
 end
