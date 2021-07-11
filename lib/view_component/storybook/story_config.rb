@@ -28,9 +28,9 @@ module ViewComponent
         csf_params
       end
 
-      def values_from_params(params)
+      def constructor_args(params)
         controls.map do |control|
-          value = control.value_from_param(params[control.param])
+          value = control.value_from_params(params)
           value = control.value if value.nil? # nil only not falsey
           [control.param, value]
         end.to_h

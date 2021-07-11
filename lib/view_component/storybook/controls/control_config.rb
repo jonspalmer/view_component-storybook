@@ -33,8 +33,8 @@ module ViewComponent
           }
         end
 
-        def value_from_param(param)
-          param
+        def value_from_params(params)
+          params[param]
         end
 
         def component_param_names

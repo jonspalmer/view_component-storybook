@@ -97,11 +97,11 @@ shared_examples "a controls config" do
   let(:param_value) { "OK" }
   describe "#value_from_param" do
     it "parses param_value" do
-      expect(subject.value_from_param(param_value)).to eq(value)
+      expect(subject.value_from_params(subject.param => param_value)).to eq(value)
     end
 
     it "parses nil param_value" do
-      expect(subject.value_from_param(nil)).to eq(nil)
+      expect(subject.value_from_params(subject.param => nil)).to eq(nil)
     end
   end
 end

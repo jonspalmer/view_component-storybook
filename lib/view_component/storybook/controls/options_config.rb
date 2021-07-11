@@ -31,11 +31,12 @@ module ViewComponent
           @symbol_value = default_value.is_a?(Symbol)
         end
 
-        def value_from_param(param)
-          if param.is_a?(String) && symbol_value
-            param.to_sym
+        def value_from_params(params)
+          params_value = super(params)
+          if params_value.is_a?(String) && symbol_value
+            params_value.to_sym
           else
-            super(param)
+            params_value
           end
         end
 

@@ -17,11 +17,12 @@ module ViewComponent
           :array
         end
 
-        def value_from_param(param)
-          if param.is_a?(String)
-            param.split(separator)
+        def value_from_params(params)
+          params_value = super(params)
+          if params_value.is_a?(String)
+            params_value.split(separator)
           else
-            super(param)
+            params_value
           end
         end
 
