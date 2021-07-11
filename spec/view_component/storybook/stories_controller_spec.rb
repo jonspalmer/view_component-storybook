@@ -26,6 +26,13 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
     expect(response.body).to include("<p>How you doing?</p>")
   end
 
+  it "renders a compoent with fixed positional args" do
+    get "/rails/stories/args_component/fixed_args"
+
+    expect(response.body).to include("<p>Hello World!</p>")
+    expect(response.body).to include("<p>How you doing?</p>")
+  end
+
   it "renders a compoent with keyword args" do
     get "/rails/stories/kwargs_component/default"
 
@@ -34,6 +41,13 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
 
   it "renders a compoent with positional and keyword args" do
     get "/rails/stories/mixed_args_component/default"
+
+    expect(response.body).to include("<h1>Hello World!</h1>")
+    expect(response.body).to include("<p>How you doing?</p>")
+  end
+
+  it "renders a compoent with fixed positional and keyword args" do
+    get "/rails/stories/mixed_args_component/fixed_args"
 
     expect(response.body).to include("<h1>Hello World!</h1>")
     expect(response.body).to include("<p>How you doing?</p>")
