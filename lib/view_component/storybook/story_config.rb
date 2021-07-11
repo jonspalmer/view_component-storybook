@@ -28,7 +28,7 @@ module ViewComponent
         csf_params
       end
 
-      def constructor_args(params)
+      def constructor_kwargs(params)
         controls.map do |control|
           value = control.value_from_params(params)
           value = control.value if value.nil? # nil only not falsey
@@ -38,6 +38,10 @@ module ViewComponent
 
       def validate!
         valid? || raise(ValidationError, self)
+      end
+
+      def constructor_args(params)
+        []
       end
 
       def self.configure(id, name, component, layout, &configuration)
