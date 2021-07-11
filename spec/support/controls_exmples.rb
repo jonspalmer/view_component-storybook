@@ -44,7 +44,7 @@ shared_examples "a controls config" do
       it "is invalid" do
         expect(subject.valid?).to eq(false)
         expect(subject.errors.size).to eq(1)
-        expect(subject.errors[:param]).to eq(["is not included in the list"])
+        expect(subject.errors[:param]).to eq(["'foo' is not supported by the component"])
       end
     end
 

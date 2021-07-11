@@ -36,6 +36,10 @@ module ViewComponent
         end.to_h
       end
 
+      def validate!
+        valid? || raise(ValidationError, self)
+      end
+
       def self.configure(id, name, component, layout, &configuration)
         config = new(id, name, component, layout)
         ViewComponent::Storybook::Dsl::StoryDsl.evaluate!(config, &configuration)
@@ -53,7 +57,21 @@ module ViewComponent
         duplicate_names = control_names.group_by(&:itself).map { |k, v| k if v.length > 1 }.compact
         return if duplicate_names.empty?
 
-        errors.add(:controls, :invalid, message: "Control #{'names'.pluralize(duplicate_names.count)} #{duplicate_names.to_sentence} are repeated")
+        errors.add(:controls, :invalid, message: "duplicate control #{'name'.pluralize(duplicate_names.count)} #{duplicate_names.to_sentence}")
+      end
+
+      class ValidationError < StandardError
+        attr_reader :story_config
+
+        def initialize(story_config)
+          @story_config = story_config
+          errors = @story_config.errors.full_messages
+          errors += @story_config.controls.map do |control|
+            "Control '#{control.name}' invalid: #{control.errors.full_messages.join(', ')}." if control.errors.present?
+          end
+
+          super("'#{@story_config.name}' invalid: #{errors.compact.join(', ')}")
+        end
       end
     end
   end

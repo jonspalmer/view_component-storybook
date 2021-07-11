@@ -9,7 +9,14 @@ module ViewComponent
         attr_reader :component, :param, :value, :name
 
         validates :component, :param, presence: true
-        validates :param, inclusion: { in: ->(control_config) { control_config.component_param_names } }, if: :should_validate_params?
+        validates(
+          :param,
+          inclusion: {
+            in: ->(control_config) { control_config.component_param_names },
+            message: "'%{value}' is not supported by the component"
+          },
+          if: :should_validate_params?
+        )
 
         def initialize(component, param, value, name: nil)
           @component = component

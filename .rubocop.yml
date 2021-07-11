@@ -27,3 +27,6 @@ RSpec/MultipleMemoizedHelpers:
 
 Rails/RakeEnvironment:
   Enabled: false
+
+Style/FormatStringToken:
+  Enabled: false

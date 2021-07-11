@@ -84,7 +84,7 @@ module ViewComponent
         delegate :errors, to: :@validation_instance
 
         def validate!
-          valid? || raise(ActiveModel::ValidationError, @validation_instance)
+          valid? || raise(ValidationError, @validation_instance)
         end
 
         private
@@ -124,7 +124,25 @@ module ViewComponent
         duplicate_names = story_names.group_by(&:itself).map { |k, v| k if v.length > 1 }.compact
         return if duplicate_names.empty?
 
-        errors.add(:story_configs, :invalid, message: "Stories #{'names'.pluralize(duplicate_names.count)} #{duplicate_names.to_sentence} are repeated")
+        errors.add(:story_configs, :invalid, message: "duplicate story #{'name'.pluralize(duplicate_names.count)} #{duplicate_names.to_sentence}")
+      end
+
+      class ValidationError < StandardError
+        attr_reader :stories
+
+        def initialize(stories)
+          @stories = stories
+          errors = @stories.errors.full_messages
+
+          errors += @stories.story_configs.map do |config|
+            if config.errors.present?
+              msg = ViewComponent::Storybook::StoryConfig::ValidationError.new(config).message
+              "Story #{msg}"
+            end
+          end
+
+          super("#{@stories.class.name} invalid: #{errors.flatten.compact.join(', ')}")
+        end
       end
     end
   end
