@@ -2,7 +2,7 @@
 
 class MixedArgsComponentStories < ViewComponent::Storybook::Stories
   story :default do
-    constructor(text("Hello World!", param: :title), message: text("How you doing?"))
+    constructor(text("Hello World!"), message: text("How you doing?"))
   end
 
   story :fixed_args do

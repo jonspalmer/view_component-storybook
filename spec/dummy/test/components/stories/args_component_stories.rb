@@ -3,14 +3,14 @@
 class ArgsComponentStories < ViewComponent::Storybook::Stories
   story :default do
     constructor(
-      text("Hello World!", param: :first),
-      text("How you doing?", param: :second)
+      text("Hello World!"),
+      text("How you doing?")
     )
   end
 
   story :fixed_args do
     constructor(
-      text("Hello World!", param: :first),
+      text("Hello World!"),
       "How you doing?"
     )
   end
@@ -18,7 +18,7 @@ class ArgsComponentStories < ViewComponent::Storybook::Stories
   story :custom_param do
     constructor(
       text("Hello World!", param: :message),
-      text("How you doing?", param: :second)
+      text("How you doing?")
     )
   end
 end

@@ -100,12 +100,12 @@ RSpec.describe ViewComponent::Storybook::Stories do
               server: { id: "args_component/default" }
             },
             args: {
-              first: "Hello World!",
-              second: "How you doing?",
+              items0: "Hello World!",
+              items1: "How you doing?",
             },
             argTypes: {
-              first: { control: { type: :text }, name: "First" },
-              second: { control: { type: :text }, name: "Second" },
+              items0: { control: { type: :text }, name: "Items0" },
+              items1: { control: { type: :text }, name: "Items1" },
             }
           },
           {
@@ -114,10 +114,10 @@ RSpec.describe ViewComponent::Storybook::Stories do
               server: { id: "args_component/fixed_args" }
             },
             args: {
-              first: "Hello World!"
+              items0: "Hello World!"
             },
             argTypes: {
-              first: { control: { type: :text }, name: "First" }
+              items0: { control: { type: :text }, name: "Items0" }
             }
           },
           {
@@ -127,11 +127,11 @@ RSpec.describe ViewComponent::Storybook::Stories do
             },
             args: {
               message: "Hello World!",
-              second: "How you doing?",
+              items1: "How you doing?",
             },
             argTypes: {
               message: { control: { type: :text }, name: "Message" },
-              second: { control: { type: :text }, name: "Second" },
+              items1: { control: { type: :text }, name: "Items1" },
             }
           }
         ]
