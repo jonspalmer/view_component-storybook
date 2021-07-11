@@ -12,4 +12,10 @@ class ContentComponentStories < ViewComponent::Storybook::Stories
       link_to 'Hello World!', '#'
     end
   end
+
+  story :with_constructor_content do
+    constructor do
+      "Hello World!"
+    end
+  end
 end

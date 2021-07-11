@@ -10,6 +10,7 @@ module ViewComponent
     autoload :Controls
     autoload :Stories
     autoload :StoryConfig
+    autoload :ControlMethodArgs
     autoload :Dsl
 
     include ActiveSupport::Configurable

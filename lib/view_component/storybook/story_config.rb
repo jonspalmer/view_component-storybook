@@ -6,23 +6,23 @@ module ViewComponent
       include ActiveModel::Validations
 
       attr_reader :id, :name, :component
-      attr_accessor :controls, :parameters, :layout, :content_block
+      attr_accessor :parameters, :layout, :content_block, :constructor_args
 
-      validate :valid_controls
+      # validate :valid_controls
 
       def initialize(id, name, component, layout)
         @id = id
         @name = name
         @component = component
         @layout = layout
-        @controls = []
+        @constructor_args = ViewComponent::Storybook::ControlMethodArgs.new
       end
 
       def to_csf_params
         validate!
         csf_params = { name: name, parameters: { server: { id: id } } }
         csf_params.deep_merge!(parameters: parameters) if parameters.present?
-        controls.each do |control|
+        constructor_args.controls.each do |control|
           csf_params.deep_merge!(control.to_csf_params)
         end
         csf_params
@@ -50,19 +50,17 @@ module ViewComponent
         config
       end
 
-      protected
+      # def valid_controls
+      #   controls.reject(&:valid?).each do |control|
+      #     errors.add(:controls, :invalid, value: control)
+      #   end
 
-      def valid_controls
-        controls.reject(&:valid?).each do |control|
-          errors.add(:controls, :invalid, value: control)
-        end
+      #   control_names = controls.map(&:name)
+      #   duplicate_names = control_names.group_by(&:itself).map { |k, v| k if v.length > 1 }.compact
+      #   return if duplicate_names.empty?
 
-        control_names = controls.map(&:name)
-        duplicate_names = control_names.group_by(&:itself).map { |k, v| k if v.length > 1 }.compact
-        return if duplicate_names.empty?
-
-        errors.add(:controls, :invalid, message: "duplicate control #{'name'.pluralize(duplicate_names.count)} #{duplicate_names.to_sentence}")
-      end
+      #   errors.add(:controls, :invalid, message: "duplicate control #{'name'.pluralize(duplicate_names.count)} #{duplicate_names.to_sentence}")
+      # end
 
       class ValidationError < StandardError
         attr_reader :story_config

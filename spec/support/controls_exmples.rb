@@ -38,7 +38,7 @@ shared_examples "a controls config" do
       end
     end
 
-    context "with unsupported param" do
+    xcontext "with unsupported param" do
       let(:param) { :foo }
 
       it "is invalid" do

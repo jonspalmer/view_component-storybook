@@ -19,10 +19,24 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
     expect(response.body).to include("<button>OK</button>")
   end
 
+  it "renders the args compoent" do
+    get "/rails/stories/args_component/default"
+
+    expect(response.body).to include("<p>Hello World!</p>")
+    expect(response.body).to include("<p>How you doing?</p>")
+  end
+
   it "renders the kwargs compoent" do
     get "/rails/stories/kwargs_component/default"
 
     expect(response.body).to include("<h1>Hello World!</h1>")
+  end
+
+  it "renders the mixed args compoent" do
+    get "/rails/stories/mixed_args_component/default"
+
+    expect(response.body).to include("<h1>Hello World!</h1>")
+    expect(response.body).to include("<p>How you doing?</p>")
   end
 
   it "renders the kitchen sink" do
@@ -114,6 +128,12 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
       get "/rails/stories/content_component/with_helper_content"
 
       expect(response.body).to include('<h1><a href="#">Hello World!</a></h1>')
+    end
+
+    it "renders the component content with constructor" do
+      get "/rails/stories/content_component/with_constructor_content"
+
+      expect(response.body).to include('<h1>Hello World!</h1>')
     end
   end
 

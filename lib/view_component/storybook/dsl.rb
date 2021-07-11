@@ -9,6 +9,7 @@ module ViewComponent
 
       autoload :StoryDsl
       autoload :ControlsDsl
+      autoload :LegacyControlsDsl
     end
   end
 end

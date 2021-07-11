@@ -15,12 +15,11 @@ module ViewComponent
 
       def show
         params_hash = params.permit!.to_h
-        constructor_args = @story.constructor_args(params_hash)
-        constructor_kwargs = @story.constructor_kwargs(params_hash)
+        method_args = @story.constructor_args.method_args(params_hash)
 
         @content_block = @story.content_block
 
-        @component = @story.component.new(*constructor_args, **constructor_kwargs)
+        @component = @story.component.new(*method_args.args, **method_args.kwargs)
 
         layout = @story.layout
         render layout: layout unless layout.nil?
