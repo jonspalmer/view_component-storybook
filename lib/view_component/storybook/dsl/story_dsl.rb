@@ -15,7 +15,7 @@ module ViewComponent
         end
 
         def controls(&block)
-          controls_dsl = LegacyControlsDsl.new(story_config.component)
+          controls_dsl = LegacyControlsDsl.new
           controls_dsl.instance_eval(&block)
 
           controls_hash = controls_dsl.controls.index_by(&:param)

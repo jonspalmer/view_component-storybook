@@ -4,67 +4,64 @@ module ViewComponent
   module Storybook
     module Dsl
       class LegacyControlsDsl
-        attr_reader :component, :controls
-
-        def initialize(component)
-          @component = component
-          @controls = []
+        def controls
+          @controls ||= []
         end
 
         def text(param, value, name: nil)
-          controls << Controls::TextConfig.new(component, param, value, name: name)
+          controls << Controls::TextConfig.new(value, param: param, name: name)
         end
 
         def boolean(param, value, name: nil)
-          controls << Controls::BooleanConfig.new(component, param, value, name: name)
+          controls << Controls::BooleanConfig.new(value, param: param, name: name)
         end
 
         def number(param, value, name: nil, min: nil, max: nil, step: nil)
-          controls << Controls::NumberConfig.new(:number, component, param, value, name: name, min: min, max: max, step: step)
+          controls << Controls::NumberConfig.new(:number, value, param: param, name: name, min: min, max: max, step: step)
         end
 
         def range(param, value, name: nil, min: nil, max: nil, step: nil)
-          controls << Controls::NumberConfig.new(:range, component, param, value, name: name, min: min, max: max, step: step)
+          controls << Controls::NumberConfig.new(:range, value, param: param, name: name, min: min, max: max, step: step)
         end
 
         def color(param, value, name: nil, preset_colors: nil)
-          controls << Controls::ColorConfig.new(component, param, value, name: name, preset_colors: preset_colors)
+          controls << Controls::ColorConfig.new(value, param: param, name: name, preset_colors: preset_colors)
         end
 
         def object(param, value, name: nil)
-          controls << Controls::ObjectConfig.new(component, param, value, name: name)
+          controls << Controls::ObjectConfig.new(value, param: param, name: name)
         end
 
         def select(param, options, value, name: nil)
-          controls << Controls::OptionsConfig.new(:select, component, param, options, value, name: name)
+          controls << Controls::OptionsConfig.new(:select, options, value, param: param, name: name)
         end
 
         def multi_select(param, options, value, name: nil)
-          controls << Controls::OptionsConfig.new(:'multi-select', component, param, options, value, name: name)
+          controls << Controls::OptionsConfig.new(:'multi-select', options, value, param: param, name: name)
         end
 
         def radio(param, options, value, name: nil)
-          controls << Controls::OptionsConfig.new(:radio, component, param, options, value, name: name)
+          controls << Controls::OptionsConfig.new(:radio, options, value, param: param, name: name)
         end
 
         def inline_radio(param, options, value, name: nil)
-          controls << Controls::OptionsConfig.new(:'inline-radio', component, param, options, value, name: name)
+          controls << Controls::OptionsConfig.new(:'inline-radio', options, value, param: param, name: name)
         end
 
         def check(param, options, value, name: nil)
-          controls << Controls::OptionsConfig.new(:check, component, param, options, value, name: name)
+          controls << Controls::OptionsConfig.new(:check, options, value, param: param, name: name)
         end
 
         def inline_check(param, options, value, name: nil)
-          controls << Controls::OptionsConfig.new(:'inline-check', component, param, options, value, name: name)
+          controls << Controls::OptionsConfig.new(:'inline-check', options, value, param: param, name: name)
         end
 
         def array(param, value, separator = ",", name: nil)
-          controls << Controls::ArrayConfig.new(component, param, value, separator, name: name)
+          controls << Controls::ArrayConfig.new(value, separator, param: param, name: name)
         end
 
         def date(param, value, name: nil)
-          controls << Controls::DateConfig.new(component, param, value, name: name)
+          controls << Controls::DateConfig.new(value, param: param, name: name)
         end
 
         def respond_to_missing?(_method, *)

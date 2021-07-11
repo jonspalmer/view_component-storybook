@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe ViewComponent::Storybook::Dsl::LegacyControlsDsl do
-  subject { described_class.new(ExampleComponent) }
+  subject { described_class.new }
 
   shared_examples "has controls attributes" do |control_attributes|
     it "has controls with expected attributes" do

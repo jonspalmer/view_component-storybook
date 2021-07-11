@@ -8,8 +8,8 @@ module ViewComponent
 
         validates :separator, presence: true
 
-        def initialize(component, param, value, separator = ",", name: nil)
-          super(component, param, value, name: name)
+        def initialize(value, separator = ",", param: nil, name: nil)
+          super(value, param: param, name: name)
           @separator = separator
         end
 

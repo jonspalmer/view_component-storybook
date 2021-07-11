@@ -24,8 +24,8 @@ module ViewComponent
         validates :type, inclusion: { in: TYPES }, unless: -> { type.nil? }
         validates :value, inclusion: { in: method(:inclusion_in) }, unless: -> { options.nil? || value.nil? }
 
-        def initialize(type, component, param, options, default_value, name: nil)
-          super(component, param, default_value, name: name)
+        def initialize(type, options, default_value, param: nil, name: nil)
+          super(default_value, param: param, name: name)
           @type = type
           @options = options
           @symbol_value = default_value.is_a?(Symbol)

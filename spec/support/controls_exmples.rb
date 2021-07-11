@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 shared_examples "a controls config" do
-  let(:component) { Demo::ButtonComponent }
   let(:param) { :button_text }
   let(:value) { "OK" }
   let(:name) { nil }
@@ -38,23 +37,23 @@ shared_examples "a controls config" do
       end
     end
 
+    context "without a param" do
+      let(:param) { nil }
+
+      it "is invalid" do
+        expect(subject.valid?).to eq(false)
+        expect(subject.errors.size).to eq(1)
+        expect(subject.errors[:param]).to eq(["can't be blank"])
+      end
+    end
+
     xcontext "with unsupported param" do
       let(:param) { :foo }
 
       it "is invalid" do
         expect(subject.valid?).to eq(false)
         expect(subject.errors.size).to eq(1)
-        expect(subject.errors[:param]).to eq(["'foo' is not supported by the component"])
-      end
-    end
-
-    context "without a component" do
-      let(:component) { nil }
-
-      it "is invalid" do
-        expect(subject.valid?).to eq(false)
-        expect(subject.errors.size).to eq(1)
-        expect(subject.errors[:component]).to eq(["can't be blank"])
+        expect(subject.errors[:param]).to eq(["is not included in the list"])
       end
     end
   end
