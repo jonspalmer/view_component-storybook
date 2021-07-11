@@ -3,15 +3,15 @@
 module Invalid
   class DuplicateStoryStories < ViewComponent::Storybook::Stories
     story :my_story, ExampleComponent do
-      controls do
-        title "OK"
-      end
+      constructor(
+        title: text("OK")
+      )
     end
 
     story :my_story, ExampleComponent do
-      controls do
-        title "Not OK!"
-      end
+      constructor(
+        title: text("Not OK!")
+      )
     end
   end
 end

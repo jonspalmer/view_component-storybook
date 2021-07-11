@@ -7,7 +7,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
 
   describe "#valid?" do
     it "is valid" do
-      subject.constructor_args = ViewComponent::Storybook::ControlMethodArgs.new(
+      subject.constructor_args(
         title: ViewComponent::Storybook::Controls::TextConfig.new("OK", param: :title)
       )
 
@@ -31,7 +31,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
 
     xit "validates constructor_args keys" do
       # This control is invalid because its key doesn't match the components kwargs
-      subject.constructor_args = ViewComponent::Storybook::ControlMethodArgs.new(
+      subject.constructor_args(
         junk: ViewComponent::Storybook::Controls::TextConfig.new("OK", param: :junk)
       )
       expect(subject.valid?).to eq(false)
@@ -53,7 +53,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
 
     context "with controls" do
       before do
-        subject.constructor_args = ViewComponent::Storybook::ControlMethodArgs.new(
+        subject.constructor_args(
           title: ViewComponent::Storybook::Controls::TextConfig.new("OK", param: :title)
         )
       end
@@ -97,7 +97,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
 
     context "with controls and params" do
       before do
-        subject.constructor_args = ViewComponent::Storybook::ControlMethodArgs.new(
+        subject.constructor_args(
           title: ViewComponent::Storybook::Controls::TextConfig.new("OK", param: :title)
         )
         subject.parameters = { size: :large, color: :red }
@@ -126,7 +126,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
     xcontext "with invalid config" do
       before do
         # This control is invalid because its key doesn't match the components kwargs
-        subject.constructor_args = ViewComponent::Storybook::ControlMethodArgs.new(
+        subject.constructor_args(
           junk: ViewComponent::Storybook::Controls::TextConfig.new("OK", param: :junk)
         )
       end

@@ -19,7 +19,7 @@ module ViewComponent
           controls_dsl.instance_eval(&block)
 
           controls_hash = controls_dsl.controls.index_by(&:param)
-          story_config.constructor_args = ControlMethodArgs.new(**controls_hash)
+          story_config.constructor_args(**controls_hash)
         end
 
         def layout(layout)
@@ -31,7 +31,7 @@ module ViewComponent
         end
 
         def constructor(*args, **kwargs, &block)
-          story_config.constructor_args = ControlMethodArgs.new(*args, **kwargs)
+          story_config.constructor_args(*args, **kwargs)
           story_config.content_block = block
         end
 

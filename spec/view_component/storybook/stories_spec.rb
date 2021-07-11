@@ -59,6 +59,32 @@ RSpec.describe ViewComponent::Storybook::Stories do
               param: { control: { type: :number }, name: "Param" },
               other_param: { control: { type: :boolean }, name: "Other Param" },
             }
+          },
+          {
+            name: :fixed_args,
+            parameters: {
+              server: { id: "kwargs_component/fixed_args" }
+            },
+            args: {
+              message: "Hello World!"
+            },
+            argTypes: {
+              message: { control: { type: :text }, name: "Message" }
+            }
+          },
+          {
+            name: :custom_param,
+            parameters: {
+              server: { id: "kwargs_component/custom_param" }
+            },
+            args: {
+              my_message: "Hello World!",
+              param: 1,
+            },
+            argTypes: {
+              my_message: { control: { type: :text }, name: "My Message" },
+              param: { control: { type: :number }, name: "Param" },
+            }
           }
         ]
       )
@@ -79,6 +105,32 @@ RSpec.describe ViewComponent::Storybook::Stories do
             },
             argTypes: {
               first: { control: { type: :text }, name: "First" },
+              second: { control: { type: :text }, name: "Second" },
+            }
+          },
+          {
+            name: :fixed_args,
+            parameters: {
+              server: { id: "args_component/fixed_args" }
+            },
+            args: {
+              first: "Hello World!"
+            },
+            argTypes: {
+              first: { control: { type: :text }, name: "First" }
+            }
+          },
+          {
+            name: :custom_param,
+            parameters: {
+              server: { id: "args_component/custom_param" }
+            },
+            args: {
+              message: "Hello World!",
+              second: "How you doing?",
+            },
+            argTypes: {
+              message: { control: { type: :text }, name: "Message" },
               second: { control: { type: :text }, name: "Second" },
             }
           }
@@ -102,6 +154,32 @@ RSpec.describe ViewComponent::Storybook::Stories do
             argTypes: {
               title: { control: { type: :text }, name: "Title" },
               message: { control: { type: :text }, name: "Message" },
+            }
+          },
+          {
+            name: :fixed_args,
+            parameters: {
+              server: { id: "mixed_args_component/fixed_args" }
+            }
+          }
+        ]
+      )
+    end
+
+    it "supports legacy controls dsl" do
+      expect(LegacyControlsDslStories.to_csf_params).to eq(
+        title: "Legacy Controls Dsl",
+        stories: [
+          {
+            name: :short_button,
+            parameters: {
+              server: { id: "legacy_controls_dsl/short_button" }
+            },
+            args: {
+              button_text: "OK"
+            },
+            argTypes: {
+              button_text: { control: { type: :text }, name: "Button Text" }
             }
           }
         ]
@@ -324,6 +402,7 @@ RSpec.describe ViewComponent::Storybook::Stories do
         KitchenSinkComponentStories,
         KwargsComponentStories,
         LayoutStories,
+        LegacyControlsDslStories,
         MixedArgsComponentStories,
         NoLayoutStories,
         ParametersStories

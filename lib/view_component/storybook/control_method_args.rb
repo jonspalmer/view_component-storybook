@@ -3,12 +3,14 @@
 module ViewComponent
   module Storybook
     class ControlMethodArgs
-      attr_reader :args, :kwargs, :block
+      attr_reader :target_method, :args, :kwargs, :block
 
-      def initialize(*args, **kwargs, &block)
+      def initialize(target_method, *args, **kwargs, &block)
+        @target_method = target_method
         @args = args
         @kwargs = kwargs
         @block = block
+        assign_control_params
       end
 
       def method_args(params)
@@ -23,19 +25,29 @@ module ViewComponent
       end
 
       def controls
-        args.concat(kwargs.values).select{ |arg| arg.is_a?(ViewComponent::Storybook::Controls::ControlConfig) }
+        args.concat(kwargs.values).select(&method(:control_config?))
       end
 
       private
 
+      def assign_control_params
+        kwargs.each do |key, val|
+          val.param = key if control_config?(val) && val.param.nil?
+        end
+      end
+
       def value_from_params(arg, params)
-        if arg.is_a?(ViewComponent::Storybook::Controls::ControlConfig)
+        if control_config?(arg)
           value = arg.value_from_params(params)
           value = arg.value if value.nil? # nil only not falsey
           value
         else
           arg
         end
+      end
+
+      def control_config?(arg)
+        arg.is_a?(ViewComponent::Storybook::Controls::ControlConfig)
       end
 
       class MethodArgs

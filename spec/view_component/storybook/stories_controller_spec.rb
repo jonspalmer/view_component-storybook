@@ -19,24 +19,30 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
     expect(response.body).to include("<button>OK</button>")
   end
 
-  it "renders the args compoent" do
+  it "renders a compoent with positional args" do
     get "/rails/stories/args_component/default"
 
     expect(response.body).to include("<p>Hello World!</p>")
     expect(response.body).to include("<p>How you doing?</p>")
   end
 
-  it "renders the kwargs compoent" do
+  it "renders a compoent with keyword args" do
     get "/rails/stories/kwargs_component/default"
 
     expect(response.body).to include("<h1>Hello World!</h1>")
   end
 
-  it "renders the mixed args compoent" do
+  it "renders a compoent with positional and keyword args" do
     get "/rails/stories/mixed_args_component/default"
 
     expect(response.body).to include("<h1>Hello World!</h1>")
     expect(response.body).to include("<p>How you doing?</p>")
+  end
+
+  it "renders a compoent with legacy cotrols dsl" do
+    get "/rails/stories/legacy_controls_dsl/short_button"
+
+    expect(response.body).to include("<button>OK</button>")
   end
 
   it "renders the kitchen sink" do
@@ -93,7 +99,7 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
     expect(response.body).to include("<button>My Button</button>")
   end
 
-  it "ignores query params that don't match the the compoents args " do
+  it "ignores query params that don't match the the compoents args" do
     get "/rails/stories/demo/button_component/short_button", params: { button_text: "My Button", junk: true }
 
     expect(response.body).to include("<button>My Button</button>")

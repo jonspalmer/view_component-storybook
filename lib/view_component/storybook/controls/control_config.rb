@@ -6,7 +6,8 @@ module ViewComponent
       class ControlConfig
         include ActiveModel::Validations
 
-        attr_reader :param, :value, :name
+        attr_reader :value
+        attr_accessor :param
 
         validates :param, presence: true
         # validates(
@@ -21,7 +22,11 @@ module ViewComponent
         def initialize(value, param: nil, name: nil)
           @param = param
           @value = value
-          @name = name || param.to_s.humanize.titlecase
+          @name = name
+        end
+
+        def name
+          @name ||= param.to_s.humanize.titlecase
         end
 
         def to_csf_params

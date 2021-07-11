@@ -6,7 +6,7 @@ module ViewComponent
       include ActiveModel::Validations
 
       attr_reader :id, :name, :component
-      attr_accessor :parameters, :layout, :content_block, :constructor_args
+      attr_accessor :parameters, :layout, :content_block
 
       # validate :valid_controls
 
@@ -15,7 +15,19 @@ module ViewComponent
         @name = name
         @component = component
         @layout = layout
-        @constructor_args = ViewComponent::Storybook::ControlMethodArgs.new
+      end
+
+      def constructor_args(*args, **kwargs, &block)
+        if args.empty? && kwargs.empty? && block.nil?
+          @constructor_args ||= ViewComponent::Storybook::ControlMethodArgs.new(component_constructor)
+        else
+          @constructor_args = ViewComponent::Storybook::ControlMethodArgs.new(
+            component_constructor,
+            *args,
+            **kwargs,
+            &block
+          )
+        end
       end
 
       def to_csf_params
@@ -74,6 +86,10 @@ module ViewComponent
 
           super("'#{@story_config.name}' invalid: #{errors.compact.join(', ')}")
         end
+      private
+
+      def component_constructor
+        component.instance_method(:initialize)
       end
     end
   end
