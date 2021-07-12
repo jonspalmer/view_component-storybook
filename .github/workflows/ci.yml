@@ -25,7 +25,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        rails_version: [5.2.6, 6.0.3.7, 6.1.4, main]
+        # 7/11/21 Something is busted in main disable for now
+        # rails_version: [5.2.6, 6.0.3.7, 6.1.4, main]
+        rails_version: [5.2.6, 6.0.3.7, 6.1.4]
         ruby_version: [2.5.9, 2.6.8, 2.7.4, 3.0.2]
         exclude:
           - rails_version: 5.2.6
