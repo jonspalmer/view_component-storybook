@@ -9,7 +9,7 @@ module ViewComponent
       # I addition the args and kwargs can contain Controls the values of which can
       # be resolved from a params hash
       class ControlMethodArgs < ValidatableMethodArgs
-        include ActiveModel::Validations
+        validate :validate_controls
 
         def initialize(target_method, *args, **kwargs, &block)
           super(target_method, *args, **kwargs, &block)
@@ -28,7 +28,22 @@ module ViewComponent
         end
 
         def controls
-          args.concat(kwargs.values).select(&method(:control?))
+          @controls ||= (args + kwargs.values).select(&method(:control?))
+        end
+
+        class ValidationError < StandardError
+          attr_reader :control_method_arg
+
+          def initialize(control_method_arg)
+            @control_method_arg = control_method_arg
+            errors = @control_method_arg.errors.full_messages
+
+            errors += @control_method_arg.controls.map do |control|
+              "Control '#{control.name}' invalid: #{control.errors.full_messages.join(', ')}" if control.errors.present?
+            end
+
+            super(errors.compact.join(', '))
+          end
         end
 
         private
@@ -55,6 +70,12 @@ module ViewComponent
 
         def control?(arg)
           arg.is_a?(ViewComponent::Storybook::Controls::ControlConfig)
+        end
+
+        def validate_controls
+          controls.reject(&:valid?).each do |control|
+            errors.add(:controls, :invalid, value: control)
+          end
         end
       end
     end

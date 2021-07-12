@@ -59,14 +59,14 @@ module ViewComponent
 
         def initialize(story_config)
           @story_config = story_config
-          errors = @story_config.errors.full_messages
+          errors = []
 
-          # TODO: include constructor_args ValidationError?
-          errors += story_config.constructor_args.errors.full_messages if story_config.constructor_args.errors
+          if story_config.constructor_args.errors
+            msg = ViewComponent::Storybook::MethodArgs::ControlMethodArgs::ValidationError.new(story_config.constructor_args).message
+            errors << "Constructor args invalid: #{msg}"
+          end
 
-          # errors += @story_config.controls.map do |control|
-          #   "Control '#{control.name}' invalid: #{control.errors.full_messages.join(', ')}." if control.errors.present?
-          # end
+          # TODO: More errors when we add slots
 
           super("'#{@story_config.name}' invalid: #{errors.compact.join(', ')}")
         end

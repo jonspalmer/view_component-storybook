@@ -340,7 +340,7 @@ RSpec.describe ViewComponent::Storybook::Stories do
       expect { Invalid::InvalidConstrutorStories.to_csf_params }.to(
         raise_exception(
           ViewComponent::Storybook::Stories::ValidationError,
-          "Invalid::InvalidConstrutorStories invalid: Story configs is invalid, Story 'invalid_kwards' invalid: Constructor args is invalid, Kwargs 'junk' is invalid"
+          "Invalid::InvalidConstrutorStories invalid: Story configs is invalid, Story 'invalid_kwards' invalid: Constructor args invalid: Kwargs 'junk' is invalid"
         )
       )
     end

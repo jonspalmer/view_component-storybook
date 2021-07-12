@@ -9,7 +9,7 @@ module ViewComponent
       class_attribute :story_configs, default: []
       class_attribute :parameters, :title, :stories_layout
 
-      validate :valid_story_configs
+      validate :validate_story_configs
 
       class << self
         def story(name, component = default_component, &block)
@@ -115,7 +115,7 @@ module ViewComponent
 
       protected
 
-      def valid_story_configs
+      def validate_story_configs
         story_configs.reject(&:valid?).each do |story_config|
           errors.add(:story_configs, :invalid, value: story_config)
         end

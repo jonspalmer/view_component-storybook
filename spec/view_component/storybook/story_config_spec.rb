@@ -60,6 +60,15 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
       expect(subject.valid?).to eq(false)
       expect(subject.errors[:constructor_args].length).to eq(1)
     end
+
+    it "validates constructor_args controls" do
+      # This control is invalid because its value isn't a boolean
+      subject.constructor_args(
+        title: ViewComponent::Storybook::Controls::BooleanConfig.new("OK")
+      )
+      expect(subject.valid?).to eq(false)
+      expect(subject.errors[:constructor_args].length).to eq(1)
+    end
   end
 
   describe "#to_csf_params" do
@@ -221,7 +230,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
         expect { subject.to_csf_params }.to(
           raise_exception(
             ViewComponent::Storybook::StoryConfig::ValidationError,
-            "'Example Story Config' invalid: Constructor args is invalid, Kwargs 'junk' is invalid, Kwargs expected keys [title] but found [junk]"
+            "'Example Story Config' invalid: Constructor args invalid: Kwargs 'junk' is invalid, Kwargs expected keys [title] but found [junk]"
           )
         )
       end
@@ -232,7 +241,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
         expect { subject.to_csf_params }.to(
           raise_exception(
             ViewComponent::Storybook::StoryConfig::ValidationError,
-            "'Example Story Config' invalid: Constructor args is invalid, Kwargs expected keys [title] but found []"
+            "'Example Story Config' invalid: Constructor args invalid: Kwargs expected keys [title] but found []"
           )
         )
       end
@@ -253,7 +262,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
         expect { subject.to_csf_params }.to(
           raise_exception(
             ViewComponent::Storybook::StoryConfig::ValidationError,
-            "'Mixed Args Story Config' invalid: Constructor args is invalid, Args expected no more than 1 but found 2"
+            "'Mixed Args Story Config' invalid: Constructor args invalid: Args expected no more than 1 but found 2"
           )
         )
       end
@@ -272,7 +281,24 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
         expect { subject.to_csf_params }.to(
           raise_exception(
             ViewComponent::Storybook::StoryConfig::ValidationError,
-            "'Mixed Args Story Config' invalid: Constructor args is invalid, Args expected at least 1 but found 0"
+            "'Mixed Args Story Config' invalid: Constructor args invalid: Args expected at least 1 but found 0"
+          )
+        )
+      end
+    end
+
+    context "with invlaid controls" do
+      before do
+        subject.constructor_args(
+          title: ViewComponent::Storybook::Controls::BooleanConfig.new("OK")
+        )
+      end
+
+      it "raises an excpetion" do
+        expect { subject.to_csf_params }.to(
+          raise_exception(
+            ViewComponent::Storybook::StoryConfig::ValidationError,
+            "'Example Story Config' invalid: Constructor args invalid: Controls is invalid, Control 'Title' invalid: Value is not included in the list"
           )
         )
       end
