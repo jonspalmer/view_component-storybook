@@ -3,21 +3,21 @@
 module Demo
   class ButtonComponentStories < ViewComponent::Storybook::Stories
     story :short_button do
-      controls do
-        button_text "OK"
-      end
+      constructor(
+        button_text: text("OK")
+      )
     end
 
     story :medium_button do
-      controls do
-        button_text "Push Me!"
-      end
+      constructor(
+        button_text: text("Push Me!")
+      )
     end
 
     story :long_button do
-      controls do
-        button_text "Really Really Long Button Text"
-      end
+      constructor(
+        button_text: text("Really Really Long Button Text")
+      )
     end
   end
 end

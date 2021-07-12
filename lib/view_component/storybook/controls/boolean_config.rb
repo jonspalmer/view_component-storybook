@@ -12,16 +12,17 @@ module ViewComponent
           :boolean
         end
 
-        def value_from_param(param)
-          if param.is_a?(String) && param.present?
-            case param
+        def value_from_params(params)
+          params_value = super(params)
+          if params_value.is_a?(String) && params_value.present?
+            case params_value
             when "true"
               true
             when "false"
               false
             end
           else
-            super(param)
+            params_value
           end
         end
       end

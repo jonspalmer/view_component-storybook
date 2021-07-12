@@ -8,7 +8,7 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
       let(:type) { type }
 
       it_behaves_like "a controls config" do
-        subject { described_class.new(type, component, param, options, value, name: name) }
+        subject { described_class.new(type, options, value, param: param, name: name) }
 
         let(:value) { "blue" }
         let(:param_value) { "blue" }
@@ -20,7 +20,7 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
         let(:options) { { Red: :red, Blue: :blue, Yellow: :yellow } }
 
         it_behaves_like "a controls config" do
-          subject { described_class.new(type, component, param, options, value, name: name) }
+          subject { described_class.new(type, options, value, param: param, name: name) }
 
           let(:value) { :blue }
           let(:param_value) { "blue" }
@@ -33,7 +33,7 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
         let(:options) { %w[red blue yellow] }
 
         it_behaves_like "a controls config" do
-          subject { described_class.new(type, component, param, options, value, name: name) }
+          subject { described_class.new(type, options, value, param: param, name: name) }
 
           let(:value) { "blue" }
           let(:param_value) { "blue" }
@@ -46,7 +46,7 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
         let(:options) { %i[red blue yellow] }
 
         it_behaves_like "a controls config" do
-          subject { described_class.new(type, component, param, options, value, name: name) }
+          subject { described_class.new(type, options, value, param: param, name: name) }
 
           let(:value) { :blue }
           let(:param_value) { "blue" }
@@ -59,7 +59,7 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
 
   describe "#valid?" do
     it "invalid without type" do
-      subject = described_class.new(nil, Demo::ButtonComponent, :button_text, options, "blue")
+      subject = described_class.new(nil, options, "blue", param: :button_text)
 
       expect(subject.valid?).to eq(false)
       expect(subject.errors.size).to eq(1)
@@ -67,7 +67,7 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
     end
 
     it "invalid with unsupported type" do
-      subject = described_class.new(:foo, Demo::ButtonComponent, :button_text, options, "blue")
+      subject = described_class.new(:foo, options, "blue", param: :button_text)
 
       expect(subject.valid?).to eq(false)
       expect(subject.errors.size).to eq(1)
@@ -75,7 +75,7 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
     end
 
     it "invalid with value not in the options hash" do
-      subject = described_class.new(:radio, Demo::ButtonComponent, :button_text, options, "green")
+      subject = described_class.new(:radio, options, "green", param: :button_text)
 
       expect(subject.valid?).to eq(false)
       expect(subject.errors.size).to eq(1)
@@ -86,7 +86,7 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
       let(:options) { %w[red blue yellow] }
 
       it "invalid with value not in the options list" do
-        subject = described_class.new(:radio, Demo::ButtonComponent, :button_text, options, "green")
+        subject = described_class.new(:radio, options, "green", param: :button_text)
 
         expect(subject.valid?).to eq(false)
         expect(subject.errors.size).to eq(1)
@@ -95,7 +95,7 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
 
       it "valid with nil default_value provided its in the options list" do
         options << nil
-        subject = described_class.new(:radio, Demo::ButtonComponent, :button_text, options, nil)
+        subject = described_class.new(:radio, options, nil, param: :button_text)
 
         expect(subject.valid?).to eq(true)
       end

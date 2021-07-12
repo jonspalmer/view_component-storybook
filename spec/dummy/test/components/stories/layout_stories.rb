@@ -4,22 +4,22 @@ class LayoutStories < ViewComponent::Storybook::Stories
   layout "admin"
 
   story :default, Demo::ButtonComponent do
-    controls do
-      button_text "OK"
-    end
+    constructor(
+      button_text: text("OK")
+    )
   end
 
   story :mobile_layout, Demo::ButtonComponent do
-    controls do
-      button_text "OK"
-    end
+    constructor(
+      button_text: text("OK")
+    )
     layout "mobile"
   end
 
   story :no_layout, Demo::ButtonComponent do
-    controls do
-      button_text "OK"
-    end
+    constructor(
+      button_text: text("OK")
+    )
     layout false
   end
 end

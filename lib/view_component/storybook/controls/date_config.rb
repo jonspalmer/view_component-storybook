@@ -4,19 +4,20 @@ module ViewComponent
   module Storybook
     module Controls
       class DateConfig < ControlConfig
-        def initialize(component, param, value, name: nil)
-          super(component, param, value, name: name)
+        def initialize(value, param: nil, name: nil)
+          super(value, param: param, name: name)
         end
 
         def type
           :date
         end
 
-        def value_from_param(param)
-          if param.is_a?(String)
-            DateTime.iso8601(param)
+        def value_from_params(params)
+          params_value = super(params)
+          if params_value.is_a?(String)
+            DateTime.iso8601(params_value)
           else
-            super(param)
+            params_value
           end
         end
 

@@ -6,23 +6,27 @@ module ViewComponent
       class ControlConfig
         include ActiveModel::Validations
 
-        attr_reader :component, :param, :value, :name
+        attr_reader :value
+        attr_accessor :param
 
-        validates :component, :param, presence: true
-        validates(
-          :param,
-          inclusion: {
-            in: ->(control_config) { control_config.component_param_names },
-            message: "'%{value}' is not supported by the component"
-          },
-          if: :should_validate_params?
-        )
+        validates :param, presence: true
+        # validates(
+        #   :param,
+        #   inclusion: {
+        #     in: ->(control_config) { control_config.component_param_names },
+        #     message: "'%{value}' is not supported by the component"
+        #   },
+        #   if: :should_validate_params?
+        # )
 
-        def initialize(component, param, value, name: nil)
-          @component = component
+        def initialize(value, param: nil, name: nil)
           @param = param
           @value = value
-          @name = name || param.to_s.humanize.titlecase
+          @name = name
+        end
+
+        def name
+          @name ||= param.to_s.humanize.titlecase
         end
 
         def to_csf_params
@@ -33,13 +37,13 @@ module ViewComponent
           }
         end
 
-        def value_from_param(param)
-          param
+        def value_from_params(params)
+          params[param]
         end
 
-        def component_param_names
-          @component_param_names ||= component_params&.map(&:last)
-        end
+        # def component_param_names
+        #   @component_param_names ||= component_params&.map(&:last)
+        # end
 
         private
 
@@ -52,17 +56,17 @@ module ViewComponent
           { type: type }
         end
 
-        def component_accepts_kwargs?
-          component_params.map(&:first).include?(:keyrest)
-        end
+        # def component_accepts_kwargs?
+        #   component_params.map(&:first).include?(:keyrest)
+        # end
 
-        def component_params
-          @component_params ||= component.instance_method(:initialize).parameters
-        end
+        # def component_params
+        #   @component_params ||= component.instance_method(:initialize).parameters
+        # end
 
-        def should_validate_params?
-          component.present? && !component_accepts_kwargs?
-        end
+        # def should_validate_params?
+        #   component.present? && !component_accepts_kwargs?
+        # end
       end
     end
   end

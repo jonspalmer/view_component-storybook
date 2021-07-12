@@ -8,8 +8,8 @@ RSpec.describe ViewComponent::Storybook::Stories do
     end
 
     it "is invalid if stories are invalid" do
-      expect(Invalid::DuplicateControlsStories.valid?).to eq(false)
-      expect(Invalid::DuplicateControlsStories.errors[:story_configs].length).to eq(1)
+      expect(Invalid::InvalidConstrutorStories.valid?).to eq(false)
+      expect(Invalid::InvalidConstrutorStories.errors[:story_configs].length).to eq(1)
     end
   end
 
@@ -28,6 +28,12 @@ RSpec.describe ViewComponent::Storybook::Stories do
             name: :with_helper_content,
             parameters: {
               server: { id: "content_component/with_helper_content" }
+            }
+          },
+          {
+            name: :with_constructor_content,
+            parameters: {
+              server: { id: "content_component/with_constructor_content" }
             }
           }
         ]
@@ -52,6 +58,128 @@ RSpec.describe ViewComponent::Storybook::Stories do
               message: { control: { type: :text }, name: "Message" },
               param: { control: { type: :number }, name: "Param" },
               other_param: { control: { type: :boolean }, name: "Other Param" },
+            }
+          },
+          {
+            name: :fixed_args,
+            parameters: {
+              server: { id: "kwargs_component/fixed_args" }
+            },
+            args: {
+              message: "Hello World!"
+            },
+            argTypes: {
+              message: { control: { type: :text }, name: "Message" }
+            }
+          },
+          {
+            name: :custom_param,
+            parameters: {
+              server: { id: "kwargs_component/custom_param" }
+            },
+            args: {
+              my_message: "Hello World!",
+              param: 1,
+            },
+            argTypes: {
+              my_message: { control: { type: :text }, name: "My Message" },
+              param: { control: { type: :number }, name: "Param" },
+            }
+          }
+        ]
+      )
+    end
+
+    it "converts args" do
+      expect(ArgsComponentStories.to_csf_params).to eq(
+        title: "Args Component",
+        stories: [
+          {
+            name: :default,
+            parameters: {
+              server: { id: "args_component/default" }
+            },
+            args: {
+              items0: "Hello World!",
+              items1: "How you doing?",
+            },
+            argTypes: {
+              items0: { control: { type: :text }, name: "Items0" },
+              items1: { control: { type: :text }, name: "Items1" },
+            }
+          },
+          {
+            name: :fixed_args,
+            parameters: {
+              server: { id: "args_component/fixed_args" }
+            },
+            args: {
+              items0: "Hello World!"
+            },
+            argTypes: {
+              items0: { control: { type: :text }, name: "Items0" }
+            }
+          },
+          {
+            name: :custom_param,
+            parameters: {
+              server: { id: "args_component/custom_param" }
+            },
+            args: {
+              message: "Hello World!",
+              items1: "How you doing?",
+            },
+            argTypes: {
+              message: { control: { type: :text }, name: "Message" },
+              items1: { control: { type: :text }, name: "Items1" },
+            }
+          }
+        ]
+      )
+    end
+
+    it "converts mixed args" do
+      expect(MixedArgsComponentStories.to_csf_params).to eq(
+        title: "Mixed Args Component",
+        stories: [
+          {
+            name: :default,
+            parameters: {
+              server: { id: "mixed_args_component/default" }
+            },
+            args: {
+              title: "Hello World!",
+              message: "How you doing?",
+            },
+            argTypes: {
+              title: { control: { type: :text }, name: "Title" },
+              message: { control: { type: :text }, name: "Message" },
+            }
+          },
+          {
+            name: :fixed_args,
+            parameters: {
+              server: { id: "mixed_args_component/fixed_args" }
+            }
+          }
+        ]
+      )
+    end
+
+    it "supports legacy controls dsl" do
+      expect(LegacyControlsDslStories.to_csf_params).to eq(
+        title: "Legacy Controls Dsl",
+        stories: [
+          {
+            name: :short_button,
+            parameters: {
+              server: { id: "legacy_controls_dsl/short_button" }
+            },
+            args: {
+              button_text: "OK"
+            },
+            argTypes: {
+              button_text: { control: { type: :text }, name: "Button Text" }
             }
           }
         ]
@@ -209,10 +337,10 @@ RSpec.describe ViewComponent::Storybook::Stories do
     end
 
     it "raises an excpetion if a story_config is invalid" do
-      expect { Invalid::DuplicateControlsStories.to_csf_params }.to(
+      expect { Invalid::InvalidConstrutorStories.to_csf_params }.to(
         raise_exception(
           ViewComponent::Storybook::Stories::ValidationError,
-          "Invalid::DuplicateControlsStories invalid: Story configs is invalid, Story 'duplicate_controls' invalid: Controls duplicate control name Title"
+          "Invalid::InvalidConstrutorStories invalid: Story configs is invalid, Story 'invalid_kwards' invalid: Constructor args invalid: Kwargs 'junk' is invalid"
         )
       )
     end
@@ -247,6 +375,14 @@ RSpec.describe ViewComponent::Storybook::Stories do
                     "id": "content_component/with_helper_content"
                   }
                 }
+              },
+              {
+                "name": "with_constructor_content",
+                "parameters": {
+                  "server": {
+                    "id": "content_component/with_constructor_content"
+                  }
+                }
               }
             ]
           }
@@ -258,13 +394,16 @@ RSpec.describe ViewComponent::Storybook::Stories do
   describe ".all" do
     it "has all stories" do
       expect(described_class.all).to eq [
+        ArgsComponentStories,
         ContentComponentStories,
         Demo::ButtonComponentStories,
-        Invalid::DuplicateControlsStories,
         Invalid::DuplicateStoryStories,
+        Invalid::InvalidConstrutorStories,
         KitchenSinkComponentStories,
         KwargsComponentStories,
         LayoutStories,
+        LegacyControlsDslStories,
+        MixedArgsComponentStories,
         NoLayoutStories,
         ParametersStories
       ]

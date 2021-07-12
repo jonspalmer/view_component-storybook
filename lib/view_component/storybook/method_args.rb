@@ -4,12 +4,13 @@ require "active_support/dependencies/autoload"
 
 module ViewComponent
   module Storybook
-    module Dsl
+    module MethodArgs
       extend ActiveSupport::Autoload
 
-      autoload :StoryDsl
-      autoload :ControlsDsl
-      autoload :LegacyControlsDsl
+      autoload :MethodArgs
+      autoload :MethodParametersNames
+      autoload :ValidatableMethodArgs
+      autoload :ControlMethodArgs
     end
   end
 end

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 shared_examples "a controls config" do
-  let(:component) { Demo::ButtonComponent }
   let(:param) { :button_text }
   let(:value) { "OK" }
   let(:name) { nil }
@@ -38,23 +37,13 @@ shared_examples "a controls config" do
       end
     end
 
-    context "with unsupported param" do
-      let(:param) { :foo }
+    context "without a param" do
+      let(:param) { nil }
 
       it "is invalid" do
         expect(subject.valid?).to eq(false)
         expect(subject.errors.size).to eq(1)
-        expect(subject.errors[:param]).to eq(["'foo' is not supported by the component"])
-      end
-    end
-
-    context "without a component" do
-      let(:component) { nil }
-
-      it "is invalid" do
-        expect(subject.valid?).to eq(false)
-        expect(subject.errors.size).to eq(1)
-        expect(subject.errors[:component]).to eq(["can't be blank"])
+        expect(subject.errors[:param]).to eq(["can't be blank"])
       end
     end
   end
@@ -97,11 +86,11 @@ shared_examples "a controls config" do
   let(:param_value) { "OK" }
   describe "#value_from_param" do
     it "parses param_value" do
-      expect(subject.value_from_param(param_value)).to eq(value)
+      expect(subject.value_from_params(subject.param => param_value)).to eq(value)
     end
 
     it "parses nil param_value" do
-      expect(subject.value_from_param(nil)).to eq(nil)
+      expect(subject.value_from_params(subject.param => nil)).to eq(nil)
     end
   end
 end

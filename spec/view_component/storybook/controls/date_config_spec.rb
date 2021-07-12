@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe ViewComponent::Storybook::Controls::DateConfig do
-  subject { described_class.new(component, param, value, name: name) }
+  subject { described_class.new(value, param: param, name: name) }
 
   shared_examples "valid with object value" do
     it "has a value" do

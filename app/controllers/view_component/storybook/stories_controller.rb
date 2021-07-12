@@ -14,11 +14,12 @@ module ViewComponent
       content_security_policy(false) if respond_to?(:content_security_policy)
 
       def show
-        component_args = @story.values_from_params(params.permit!.to_h)
+        params_hash = params.permit!.to_h
+        method_args = @story.constructor_args.resolve_method_args(params_hash)
 
         @content_block = @story.content_block
 
-        @component = @story.component.new(**component_args)
+        @component = @story.component.new(*method_args.args, **method_args.kwargs)
 
         layout = @story.layout
         render layout: layout unless layout.nil?

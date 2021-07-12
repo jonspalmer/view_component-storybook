@@ -4,27 +4,38 @@ module ViewComponent
   module Storybook
     module Dsl
       class StoryDsl
+        include ControlsDsl
+
         def self.evaluate!(story_config, &block)
           new(story_config).instance_eval(&block)
         end
 
         def parameters(**params)
-          @story_config.parameters = params
+          story_config.parameters = params
         end
 
         def controls(&block)
-          controls_dsl = ControlsDsl.new(story_config.component)
+          controls_dsl = LegacyControlsDsl.new
           controls_dsl.instance_eval(&block)
-          @story_config.controls = controls_dsl.controls
+
+          controls_hash = controls_dsl.controls.index_by(&:param)
+          story_config.constructor_args(**controls_hash)
         end
 
         def layout(layout)
-          @story_config.layout = layout
+          story_config.layout = layout
         end
 
         def content(&block)
-          @story_config.content_block = block
+          story_config.content_block = block
         end
+
+        def constructor(*args, **kwargs, &block)
+          story_config.constructor_args(*args, **kwargs)
+          story_config.content_block = block
+        end
+
+        delegate :component, to: :story_config
 
         private
 

@@ -8,8 +8,8 @@ module ViewComponent
 
         validates :separator, presence: true
 
-        def initialize(component, param, value, separator = ",", name: nil)
-          super(component, param, value, name: name)
+        def initialize(value, separator = ",", param: nil, name: nil)
+          super(value, param: param, name: name)
           @separator = separator
         end
 
@@ -17,11 +17,12 @@ module ViewComponent
           :array
         end
 
-        def value_from_param(param)
-          if param.is_a?(String)
-            param.split(separator)
+        def value_from_params(params)
+          params_value = super(params)
+          if params_value.is_a?(String)
+            params_value.split(separator)
           else
-            super(param)
+            params_value
           end
         end
 

@@ -10,7 +10,9 @@ module ViewComponent
     autoload :Controls
     autoload :Stories
     autoload :StoryConfig
+    autoload :ControlMethodArgs
     autoload :Dsl
+    autoload :MethodArgs
 
     include ActiveSupport::Configurable
     # Set the location of component previews through app configuration:
