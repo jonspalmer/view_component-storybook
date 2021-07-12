@@ -19,9 +19,9 @@ module ViewComponent
 
       def constructor_args(*args, **kwargs, &block)
         if args.empty? && kwargs.empty? && block.nil?
-          @constructor_args ||= ViewComponent::Storybook::ControlMethodArgs.new(component_constructor)
+          @constructor_args ||= ViewComponent::Storybook::MethodArgs::ControlMethodArgs.new(component_constructor)
         else
-          @constructor_args = ViewComponent::Storybook::ControlMethodArgs.new(
+          @constructor_args = ViewComponent::Storybook::MethodArgs::ControlMethodArgs.new(
             component_constructor,
             *args,
             **kwargs,

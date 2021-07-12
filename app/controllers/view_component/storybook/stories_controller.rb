@@ -15,7 +15,7 @@ module ViewComponent
 
       def show
         params_hash = params.permit!.to_h
-        method_args = @story.constructor_args.method_args(params_hash)
+        method_args = @story.constructor_args.resolve_method_args(params_hash)
 
         @content_block = @story.content_block
 
