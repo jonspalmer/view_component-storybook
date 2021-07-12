@@ -47,7 +47,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
     end
 
     it "validates constructor_args required kwargs" do
-      # This control is invalid because its 'title' key is missing
+      # The constructor_args are invalid because its 'title' key is missing
       expect(subject.valid?).to eq(false)
       expect(subject.errors[:constructor_args].length).to eq(1)
     end
