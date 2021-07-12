@@ -7,9 +7,9 @@ RSpec.describe ViewComponent::Storybook::Stories do
       expect(Invalid::DuplicateStoryStories.errors[:story_configs].length).to eq(1)
     end
 
-    xit "is invalid if stories are invalid" do
-      expect(Invalid::DuplicateControlsStories.valid?).to eq(false)
-      expect(Invalid::DuplicateControlsStories.errors[:story_configs].length).to eq(1)
+    it "is invalid if stories are invalid" do
+      expect(Invalid::InvalidConstrutorStories.valid?).to eq(false)
+      expect(Invalid::InvalidConstrutorStories.errors[:story_configs].length).to eq(1)
     end
   end
 
@@ -336,11 +336,11 @@ RSpec.describe ViewComponent::Storybook::Stories do
       )
     end
 
-    xit "raises an excpetion if a story_config is invalid" do
-      expect { Invalid::DuplicateControlsStories.to_csf_params }.to(
+    it "raises an excpetion if a story_config is invalid" do
+      expect { Invalid::InvalidConstrutorStories.to_csf_params }.to(
         raise_exception(
           ViewComponent::Storybook::Stories::ValidationError,
-          "Invalid::DuplicateControlsStories invalid: Story configs is invalid, Story 'duplicate_controls' invalid: Controls duplicate control name Title"
+          "Invalid::InvalidConstrutorStories invalid: Story configs is invalid, Story 'invalid_kwards' invalid: Constructor args is invalid, Kwargs 'junk' is invalid"
         )
       )
     end
@@ -397,8 +397,8 @@ RSpec.describe ViewComponent::Storybook::Stories do
         ArgsComponentStories,
         ContentComponentStories,
         Demo::ButtonComponentStories,
-        Invalid::DuplicateControlsStories,
         Invalid::DuplicateStoryStories,
+        Invalid::InvalidConstrutorStories,
         KitchenSinkComponentStories,
         KwargsComponentStories,
         LayoutStories,

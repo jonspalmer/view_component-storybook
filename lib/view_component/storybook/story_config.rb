@@ -8,7 +8,7 @@ module ViewComponent
       attr_reader :id, :name, :component
       attr_accessor :parameters, :layout, :content_block
 
-      # validate :valid_controls
+      validate :valid_constructor_args
 
       def initialize(id, name, component, layout)
         @id = id
@@ -50,17 +50,9 @@ module ViewComponent
         config
       end
 
-      # def valid_controls
-      #   controls.reject(&:valid?).each do |control|
-      #     errors.add(:controls, :invalid, value: control)
-      #   end
-
-      #   control_names = controls.map(&:name)
-      #   duplicate_names = control_names.group_by(&:itself).map { |k, v| k if v.length > 1 }.compact
-      #   return if duplicate_names.empty?
-
-      #   errors.add(:controls, :invalid, message: "duplicate control #{'name'.pluralize(duplicate_names.count)} #{duplicate_names.to_sentence}")
-      # end
+      def valid_constructor_args
+        errors.add(:constructor_args, :invalid, value: constructor_args) if constructor_args.invalid?
+      end
 
       class ValidationError < StandardError
         attr_reader :story_config
@@ -68,9 +60,13 @@ module ViewComponent
         def initialize(story_config)
           @story_config = story_config
           errors = @story_config.errors.full_messages
-          errors += @story_config.controls.map do |control|
-            "Control '#{control.name}' invalid: #{control.errors.full_messages.join(', ')}." if control.errors.present?
-          end
+
+          # TODO: include constructor_args ValidationError?
+          errors += story_config.constructor_args.errors.full_messages if story_config.constructor_args.errors
+
+          # errors += @story_config.controls.map do |control|
+          #   "Control '#{control.name}' invalid: #{control.errors.full_messages.join(', ')}." if control.errors.present?
+          # end
 
           super("'#{@story_config.name}' invalid: #{errors.compact.join(', ')}")
         end

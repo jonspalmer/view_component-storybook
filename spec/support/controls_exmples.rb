@@ -46,16 +46,6 @@ shared_examples "a controls config" do
         expect(subject.errors[:param]).to eq(["can't be blank"])
       end
     end
-
-    xcontext "with unsupported param" do
-      let(:param) { :foo }
-
-      it "is invalid" do
-        expect(subject.valid?).to eq(false)
-        expect(subject.errors.size).to eq(1)
-        expect(subject.errors[:param]).to eq(["is not included in the list"])
-      end
-    end
   end
 
   let(:expected_csf_value) { value }

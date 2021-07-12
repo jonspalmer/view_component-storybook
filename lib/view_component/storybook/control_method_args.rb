@@ -3,7 +3,11 @@
 module ViewComponent
   module Storybook
     class ControlMethodArgs
+      include ActiveModel::Validations
+
       attr_reader :target_method_arg_names, :args, :kwargs, :block
+
+      validate :valid_args, :valid_kwargs
 
       def initialize(target_method, *args, **kwargs, &block)
         @target_method_arg_names = MethodArgNames.new(target_method)
@@ -54,6 +58,31 @@ module ViewComponent
         arg.is_a?(ViewComponent::Storybook::Controls::ControlConfig)
       end
 
+      def valid_args
+        arg_count = args.count
+
+        if arg_count > target_method_arg_names.max_arg_count
+          msg = "expected no more than #{target_method_arg_names.max_arg_count} but found #{arg_count}"
+          errors.add(:args, :invalid, value: arg_count, message: msg)
+        elsif arg_count < target_method_arg_names.min_arg_count
+          msg = "expected at least #{target_method_arg_names.min_arg_count} but found #{arg_count}"
+          errors.add(:args, :invalid, value: arg_count, message: msg)
+        end
+      end
+
+      def valid_kwargs
+        kwargs.each_key do |kwarg|
+          unless target_method_arg_names.include_kwarg?(kwarg)
+            errors.add(:kwargs, :invalid, value: kwarg, message: "'#{kwarg}' is invalid")
+          end
+        end
+
+        return unless target_method_arg_names.all_required_kwargs?(kwargs.keys)
+
+        msg = "expected keys [#{target_method_arg_names.req_kwarg_names.join(', ')}] but found [#{kwargs.keys.join(', ')}]"
+        errors.add(:kwargs, :invalid, value: kwargs.keys, message: msg)
+      end
+
       class MethodArgs
         attr_reader :args, :kwargs, :block
 
@@ -65,8 +94,10 @@ module ViewComponent
       end
 
       class MethodArgNames
-        KWARG_TYPES = [:key, :keyreq].freeze
-        ARG_TYPES = [:req, :opt].freeze
+        REQ_KWARG_TYPE = :keyreq
+        KWARG_TYPES = [REQ_KWARG_TYPE, :key].freeze
+        REQ_ARG_TYPE = :req
+        ARG_TYPES = [REQ_ARG_TYPE, :opt].freeze
         KWARG_REST = :keyrest
         REST = :rest
 
@@ -85,12 +116,26 @@ module ViewComponent
           end
         end
 
-        def include_kwarg?(arg_name)
-          supports_keyrest? || kwarg_names.includes?(arg_name)
+        def include_kwarg?(kwarg_name)
+          supports_keyrest? || kwarg_names.include?(kwarg_name)
         end
 
-        def include_arg(pos)
-          supports_rest? || pos < named_arg_count
+        def all_required_kwargs?(names)
+          names.to_set >= req_kwarg_names.to_set
+        end
+
+        def max_arg_count
+          supports_rest? ? Float::INFINITY : named_arg_count
+        end
+
+        def min_arg_count
+          req_arg_count
+        end
+
+        def req_kwarg_names
+          @req_kwarg_names ||= parameters.map do |type, name|
+            name if type == REQ_KWARG_TYPE
+          end.compact
         end
 
         private
@@ -100,9 +145,9 @@ module ViewComponent
         end
 
         def kwarg_names
-          @kwarg_names ||= parameters.select do |type, name|
+          @kwarg_names ||= parameters.map do |type, name|
             name if KWARG_TYPES.include?(type)
-          end.compact
+          end.compact.to_set
         end
 
         def arg_names
@@ -111,8 +156,18 @@ module ViewComponent
           end.compact
         end
 
+        def req_arg_names
+          @req_arg_names ||= parameters.map do |type, name|
+            name if type == REQ_ARG_TYPE
+          end.compact
+        end
+
         def named_arg_count
           @named_arg_count ||= arg_names.count
+        end
+
+        def req_arg_count
+          @req_arg_count ||= req_arg_names.count
         end
 
         def rest_arg_name
