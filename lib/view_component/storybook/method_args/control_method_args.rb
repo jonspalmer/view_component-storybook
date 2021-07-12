@@ -50,18 +50,18 @@ module ViewComponent
 
         def assign_control_params
           args.each_with_index do |arg, index|
-            arg.param = target_method_params_names.arg_name(index) if control?(arg) && arg.param.nil?
+            arg.param(target_method_params_names.arg_name(index)) if control?(arg) && arg.param.nil?
           end
 
           kwargs.each do |key, arg|
-            arg.param = key if control?(arg) && arg.param.nil?
+            arg.param(key) if control?(arg) && arg.param.nil?
           end
         end
 
         def value_from_params(arg, params)
           if control?(arg)
             value = arg.value_from_params(params)
-            value = arg.value if value.nil? # nil only not falsey
+            value = arg.default_value if value.nil? # nil only not falsey
             value
           else
             arg

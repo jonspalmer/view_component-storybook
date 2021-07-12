@@ -19,7 +19,7 @@ class KwargsComponentStories < ViewComponent::Storybook::Stories
 
   story :custom_param do
     constructor(
-      message: text("Hello World!", param: :my_message),
+      message: text("Hello World!").param(:my_message),
       param: number(1)
     )
   end

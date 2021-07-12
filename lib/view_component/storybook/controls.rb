@@ -8,6 +8,7 @@ module ViewComponent
       extend ActiveSupport::Autoload
 
       autoload :ControlConfig
+      autoload :SimpleControlConfig
       autoload :TextConfig
       autoload :BooleanConfig
       autoload :ColorConfig

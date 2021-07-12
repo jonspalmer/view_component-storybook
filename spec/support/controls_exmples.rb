@@ -2,12 +2,24 @@
 
 shared_examples "a controls config" do
   let(:param) { :button_text }
-  let(:value) { "OK" }
+  let(:default_value) { "OK" }
+  let(:value_from_param) { "OK" }
   let(:name) { nil }
-  let(:group_id) { nil }
 
   it "#type" do
     expect(subject.type).to eq(type)
+  end
+
+  describe "#param" do
+    it "can be set" do
+      subject.param(:name)
+
+      expect(subject.param).to eq(:name)
+    end
+
+    it "set returns the control" do
+      expect(subject.param(:name)).to eq(subject)
+    end
   end
 
   describe "#name" do
@@ -22,6 +34,16 @@ shared_examples "a controls config" do
         expect(subject.name).to eq("Button")
       end
     end
+
+    it "can be set" do
+      subject.name("Button")
+
+      expect(subject.name).to eq("Button")
+    end
+
+    it "set returns the control" do
+      expect(subject.name("Button")).to eq(subject)
+    end
   end
 
   describe "#valid?" do
@@ -29,8 +51,8 @@ shared_examples "a controls config" do
       expect(subject.valid?).to eq(true)
     end
 
-    context "without a value" do
-      let(:value) { nil }
+    context "without a default_value" do
+      let(:default_value) { nil }
 
       it "is valid" do
         expect(subject.valid?).to eq(true)
@@ -48,7 +70,7 @@ shared_examples "a controls config" do
     end
   end
 
-  let(:expected_csf_value) { value }
+  let(:expected_csf_value) { default_value }
   let(:csf_arg_type_control_overrides) { {} }
   let(:expected_csf_params) do
     {
@@ -86,7 +108,7 @@ shared_examples "a controls config" do
   let(:param_value) { "OK" }
   describe "#value_from_param" do
     it "parses param_value" do
-      expect(subject.value_from_params(subject.param => param_value)).to eq(value)
+      expect(subject.value_from_params(subject.param => param_value)).to eq(default_value)
     end
 
     it "parses nil param_value" do

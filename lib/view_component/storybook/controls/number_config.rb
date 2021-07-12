@@ -3,7 +3,7 @@
 module ViewComponent
   module Storybook
     module Controls
-      class NumberConfig < ControlConfig
+      class NumberConfig < SimpleControlConfig
         TYPES = %i[number range].freeze
 
         attr_reader :type, :min, :max, :step
@@ -11,8 +11,8 @@ module ViewComponent
         validates :type, presence: true
         validates :type, inclusion: { in: TYPES }, unless: -> { type.nil? }
 
-        def initialize(type, value, min: nil, max: nil, step: nil, param: nil, name: nil)
-          super(value, param: param, name: name)
+        def initialize(type, default_value, min: nil, max: nil, step: nil, param: nil, name: nil)
+          super(default_value, param: param, name: name)
           @type = type
           @min = min
           @max = max
@@ -31,8 +31,7 @@ module ViewComponent
         private
 
         def csf_control_params
-          params = super
-          params.merge(min: min, max: max, step: step).compact
+          super.merge(min: min, max: max, step: step).compact
         end
       end
     end

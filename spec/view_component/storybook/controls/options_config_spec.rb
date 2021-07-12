@@ -8,9 +8,9 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
       let(:type) { type }
 
       it_behaves_like "a controls config" do
-        subject { described_class.new(type, options, value, param: param, name: name) }
+        subject { described_class.new(type, options, default_value, param: param, name: name) }
 
-        let(:value) { "blue" }
+        let(:default_value) { "blue" }
         let(:param_value) { "blue" }
 
         let(:csf_arg_type_control_overrides) { { options: options } }
@@ -20,9 +20,9 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
         let(:options) { { Red: :red, Blue: :blue, Yellow: :yellow } }
 
         it_behaves_like "a controls config" do
-          subject { described_class.new(type, options, value, param: param, name: name) }
+          subject { described_class.new(type, options, default_value, param: param, name: name) }
 
-          let(:value) { :blue }
+          let(:default_value) { :blue }
           let(:param_value) { "blue" }
 
           let(:csf_arg_type_control_overrides) { { options: options } }
@@ -33,9 +33,9 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
         let(:options) { %w[red blue yellow] }
 
         it_behaves_like "a controls config" do
-          subject { described_class.new(type, options, value, param: param, name: name) }
+          subject { described_class.new(type, options, default_value, param: param, name: name) }
 
-          let(:value) { "blue" }
+          let(:default_value) { "blue" }
           let(:param_value) { "blue" }
 
           let(:csf_arg_type_control_overrides) { { options: options } }
@@ -46,9 +46,9 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
         let(:options) { %i[red blue yellow] }
 
         it_behaves_like "a controls config" do
-          subject { described_class.new(type, options, value, param: param, name: name) }
+          subject { described_class.new(type, options, default_value, param: param, name: name) }
 
-          let(:value) { :blue }
+          let(:default_value) { :blue }
           let(:param_value) { "blue" }
 
           let(:csf_arg_type_control_overrides) { { options: options } }
@@ -79,7 +79,7 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
 
       expect(subject.valid?).to eq(false)
       expect(subject.errors.size).to eq(1)
-      expect(subject.errors[:value]).to eq(["is not included in the list"])
+      expect(subject.errors[:default_value]).to eq(["is not included in the list"])
     end
 
     context "with array options" do
@@ -90,7 +90,7 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
 
         expect(subject.valid?).to eq(false)
         expect(subject.errors.size).to eq(1)
-        expect(subject.errors[:value]).to eq(["is not included in the list"])
+        expect(subject.errors[:default_value]).to eq(["is not included in the list"])
       end
 
       it "valid with nil default_value provided its in the options list" do

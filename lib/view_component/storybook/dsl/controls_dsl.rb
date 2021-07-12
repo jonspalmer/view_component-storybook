@@ -4,60 +4,60 @@ module ViewComponent
   module Storybook
     module Dsl
       module ControlsDsl
-        def text(value, param: nil, name: nil)
-          Controls::TextConfig.new(value, param: param, name: name)
+        def text(default_value)
+          Controls::TextConfig.new(default_value)
         end
 
-        def boolean(value, param: nil, name: nil)
-          Controls::BooleanConfig.new(value, param: param, name: name)
+        def boolean(default_value)
+          Controls::BooleanConfig.new(default_value)
         end
 
-        def number(value, param: nil, name: nil, min: nil, max: nil, step: nil)
-          Controls::NumberConfig.new(:number, value, param: param, name: name, min: min, max: max, step: step)
+        def number(default_value, min: nil, max: nil, step: nil)
+          Controls::NumberConfig.new(:number, default_value, min: min, max: max, step: step)
         end
 
-        def range(value, param: nil, name: nil, min: nil, max: nil, step: nil)
-          Controls::NumberConfig.new(:range, value, param: param, name: name, min: min, max: max, step: step)
+        def range(default_value, min: nil, max: nil, step: nil)
+          Controls::NumberConfig.new(:range, default_value, min: min, max: max, step: step)
         end
 
-        def color(value, param: nil, name: nil, preset_colors: nil)
-          Controls::ColorConfig.new(value, param: param, name: name, preset_colors: preset_colors)
+        def color(default_value, preset_colors: nil)
+          Controls::ColorConfig.new(default_value, preset_colors: preset_colors)
         end
 
-        def object(value, param: nil, name: nil)
-          Controls::ObjectConfig.new(value, param: param, name: name)
+        def object(default_value)
+          Controls::ObjectConfig.new(default_value)
         end
 
-        def select(options, value, param: nil, name: nil)
-          Controls::OptionsConfig.new(:select, options, value, param: param, name: name)
+        def select(options, default_value)
+          Controls::OptionsConfig.new(:select, options, default_value)
         end
 
-        def multi_select(options, value, param: nil, name: nil)
-          Controls::OptionsConfig.new(:'multi-select', options, value, param: param, name: name)
+        def multi_select(options, default_value)
+          Controls::OptionsConfig.new(:'multi-select', options, default_value)
         end
 
-        def radio(options, value, param: nil, name: nil)
-          Controls::OptionsConfig.new(:radio, options, value, param: param, name: name)
+        def radio(options, default_value)
+          Controls::OptionsConfig.new(:radio, options, default_value)
         end
 
-        def inline_radio(options, value, param: nil, name: nil)
-          Controls::OptionsConfig.new(:'inline-radio', options, value, param: param, name: name)
+        def inline_radio(options, default_value)
+          Controls::OptionsConfig.new(:'inline-radio', options, default_value)
         end
 
-        def check(options, value, param: nil, name: nil)
-          Controls::OptionsConfig.new(:check, options, value, param: param, name: name)
+        def check(options, default_value)
+          Controls::OptionsConfig.new(:check, options, default_value)
         end
 
-        def inline_check(options, value, param: nil, name: nil)
-          Controls::OptionsConfig.new(:'inline-check', options, value, param: param, name: name)
+        def inline_check(options, default_value)
+          Controls::OptionsConfig.new(:'inline-check', options, default_value)
         end
 
-        def array(value, separator = ",", param: nil, name: nil)
-          Controls::ArrayConfig.new(value, separator, param: param, name: name)
+        def array(default_value, separator = ",")
+          Controls::ArrayConfig.new(default_value, separator)
         end
 
-        def date(value, param: nil, name: nil)
-          Controls::DateConfig.new(value, param: param, name: name)
+        def date(default_value)
+          Controls::DateConfig.new(default_value)
         end
 
         Controls = ViewComponent::Storybook::Controls

@@ -10,32 +10,32 @@ RSpec.describe ViewComponent::Storybook::Dsl::ControlsDsl do
   end
 
   describe "#text" do
-    subject { text("Jame Doe", param: :name) }
+    subject { text("Jame Doe").param(:name) }
 
     include_examples "has controls attributes",
                      {
                        class: ViewComponent::Storybook::Controls::TextConfig,
                        param: :name,
                        name: "Name",
-                       value: "Jame Doe"
+                       default_value: "Jame Doe"
                      }
   end
 
   describe "#boolean" do
-    subject { boolean(true, param: :likes_people) }
+    subject { boolean(true).param(:likes_people) }
 
     include_examples "has controls attributes",
                      {
                        class: ViewComponent::Storybook::Controls::BooleanConfig,
                        param: :likes_people,
                        name: "Likes People",
-                       value: true
+                       default_value: true
                      }
   end
 
   describe "#number" do
     context "with minimal args" do
-      subject { number(2, param: :number_pets) }
+      subject { number(2).param(:number_pets) }
 
       include_examples "has controls attributes",
                        {
@@ -43,7 +43,7 @@ RSpec.describe ViewComponent::Storybook::Dsl::ControlsDsl do
                          type: :number,
                          param: :number_pets,
                          name: "Number Pets",
-                         value: 2,
+                         default_value: 2,
                          min: nil,
                          max: nil,
                          step: nil
@@ -51,7 +51,7 @@ RSpec.describe ViewComponent::Storybook::Dsl::ControlsDsl do
     end
 
     context "with all args" do
-      subject { number(2, min: 0, max: 10, step: 1, param: :number_pets) }
+      subject { number(2, min: 0, max: 10, step: 1).param(:number_pets) }
 
       include_examples "has controls attributes",
                        {
@@ -59,7 +59,7 @@ RSpec.describe ViewComponent::Storybook::Dsl::ControlsDsl do
                          type: :number,
                          param: :number_pets,
                          name: "Number Pets",
-                         value: 2,
+                         default_value: 2,
                          min: 0,
                          max: 10,
                          step: 1
@@ -69,7 +69,7 @@ RSpec.describe ViewComponent::Storybook::Dsl::ControlsDsl do
 
   describe "#range" do
     context "with minimal args" do
-      subject { range(2, param: :number_pets) }
+      subject { range(2).param(:number_pets) }
 
       include_examples "has controls attributes",
                        {
@@ -77,7 +77,7 @@ RSpec.describe ViewComponent::Storybook::Dsl::ControlsDsl do
                          type: :range,
                          param: :number_pets,
                          name: "Number Pets",
-                         value: 2,
+                         default_value: 2,
                          min: nil,
                          max: nil,
                          step: nil
@@ -85,15 +85,15 @@ RSpec.describe ViewComponent::Storybook::Dsl::ControlsDsl do
     end
 
     context "with all args" do
-      subject { range(2, min: 0, max: 10, step: 1, name: "Pets", param: :number_pets) }
+      subject { range(2, min: 0, max: 10, step: 1).param(:number_pets) }
 
       include_examples "has controls attributes",
                        {
                          class: ViewComponent::Storybook::Controls::NumberConfig,
                          type: :range,
                          param: :number_pets,
-                         name: "Pets",
-                         value: 2,
+                         name: "Number Pets",
+                         default_value: 2,
                          min: 0,
                          max: 10,
                          step: 1
@@ -102,26 +102,26 @@ RSpec.describe ViewComponent::Storybook::Dsl::ControlsDsl do
   end
 
   describe "#color" do
-    subject { color("red", param: :favorite_color) }
+    subject { color("red").param(:favorite_color) }
 
     include_examples "has controls attributes",
                      {
                        class: ViewComponent::Storybook::Controls::ColorConfig,
                        param: :favorite_color,
                        name: "Favorite Color",
-                       value: "red"
+                       default_value: "red"
                      }
   end
 
   describe "#object" do
-    subject { object({ hair: "Brown", eyes: "Blue" }, param: :other_things) }
+    subject { object({ hair: "Brown", eyes: "Blue" }).param(:other_things) }
 
     include_examples "has controls attributes",
                      {
                        class: ViewComponent::Storybook::Controls::ObjectConfig,
                        param: :other_things,
                        name: "Other Things",
-                       value: { hair: "Brown", eyes: "Blue" }
+                       default_value: { hair: "Brown", eyes: "Blue" }
                      }
   end
 
@@ -129,7 +129,7 @@ RSpec.describe ViewComponent::Storybook::Dsl::ControlsDsl do
     dsl_method = type.underscore
 
     describe "##{dsl_method}" do
-      subject { send(dsl_method, { hot_dog: "Hot Dog", pizza: "Pizza" }, "Pizza", param: :favorite_food) }
+      subject { send(dsl_method, { hot_dog: "Hot Dog", pizza: "Pizza" }, "Pizza").param(:favorite_food) }
 
       include_examples "has controls attributes",
                        {
@@ -137,7 +137,7 @@ RSpec.describe ViewComponent::Storybook::Dsl::ControlsDsl do
                          type: type.to_sym,
                          param: :favorite_food,
                          name: "Favorite Food",
-                         value: "Pizza",
+                         default_value: "Pizza",
                          options: { hot_dog: "Hot Dog", pizza: "Pizza" }
                        }
     end
