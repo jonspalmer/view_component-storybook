@@ -298,7 +298,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
         expect { subject.to_csf_params }.to(
           raise_exception(
             ViewComponent::Storybook::StoryConfig::ValidationError,
-            "'Example Story Config' invalid: Constructor args invalid: Controls is invalid, Control 'Title' invalid: Value is not included in the list"
+            "'Example Story Config' invalid: Constructor args invalid: Controls is invalid, Control 'Title' invalid: Default value is not included in the list"
           )
         )
       end

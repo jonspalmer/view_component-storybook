@@ -3,11 +3,11 @@
 module ViewComponent
   module Storybook
     module Controls
-      class ColorConfig < ControlConfig
+      class ColorConfig < SimpleControlConfig
         attr_reader :preset_colors
 
-        def initialize(value, param: nil, name: nil, preset_colors: nil)
-          super(value, param: param, name: name)
+        def initialize(default_value, preset_colors: nil, param: nil, name: nil)
+          super(default_value, param: param, name: name)
           @preset_colors = preset_colors
         end
 
@@ -18,8 +18,7 @@ module ViewComponent
         private
 
         def csf_control_params
-          params = super
-          params.merge(presetColors: preset_colors).compact
+          super.merge(presetColors: preset_colors).compact
         end
       end
     end

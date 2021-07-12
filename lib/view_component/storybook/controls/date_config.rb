@@ -3,9 +3,9 @@
 module ViewComponent
   module Storybook
     module Controls
-      class DateConfig < ControlConfig
-        def initialize(value, param: nil, name: nil)
-          super(value, param: param, name: name)
+      class DateConfig < SimpleControlConfig
+        def initialize(default_value, param: nil, name: nil)
+          super(default_value, param: param, name: name)
         end
 
         def type
@@ -24,10 +24,12 @@ module ViewComponent
         private
 
         def csf_value
-          params_value = value
-          params_value = params_value.in_time_zone if params_value.is_a?(Date)
-          params_value = params_value.iso8601 if params_value.is_a?(Time)
-          params_value
+          case default_value
+          when Date
+            default_value.in_time_zone
+          when Time
+            default_value.iso8601
+          end
         end
       end
     end

@@ -3,7 +3,7 @@
 module ViewComponent
   module Storybook
     module Controls
-      class OptionsConfig < ControlConfig
+      class OptionsConfig < SimpleControlConfig
         class << self
           # support the options being a Hash or an Array. Storybook supports either.
           def inclusion_in(config)
@@ -22,7 +22,7 @@ module ViewComponent
 
         validates :type, :options, presence: true
         validates :type, inclusion: { in: TYPES }, unless: -> { type.nil? }
-        validates :value, inclusion: { in: method(:inclusion_in) }, unless: -> { options.nil? || value.nil? }
+        validates :default_value, inclusion: { in: method(:inclusion_in) }, unless: -> { options.nil? || default_value.nil? }
 
         def initialize(type, options, default_value, param: nil, name: nil)
           super(default_value, param: param, name: name)

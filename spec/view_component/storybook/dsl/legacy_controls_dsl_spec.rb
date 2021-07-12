@@ -17,7 +17,7 @@ RSpec.describe ViewComponent::Storybook::Dsl::LegacyControlsDsl do
         class: ViewComponent::Storybook::Controls::TextConfig,
         param: :name,
         name: "Name",
-        value: "Jame Doe"
+        default_value: "Jame Doe"
       }
     ]
   end
@@ -30,7 +30,7 @@ RSpec.describe ViewComponent::Storybook::Dsl::LegacyControlsDsl do
         class: ViewComponent::Storybook::Controls::BooleanConfig,
         param: :likes_people,
         name: "Likes People",
-        value: true
+        default_value: true
       }
     ]
   end
@@ -45,7 +45,7 @@ RSpec.describe ViewComponent::Storybook::Dsl::LegacyControlsDsl do
           type: :number,
           param: :number_pets,
           name: "Number Pets",
-          value: 2,
+          default_value: 2,
           min: nil,
           max: nil,
           step: nil
@@ -62,7 +62,7 @@ RSpec.describe ViewComponent::Storybook::Dsl::LegacyControlsDsl do
           type: :number,
           param: :number_pets,
           name: "Number Pets",
-          value: 2,
+          default_value: 2,
           min: 0,
           max: 10,
           step: 1
@@ -81,7 +81,7 @@ RSpec.describe ViewComponent::Storybook::Dsl::LegacyControlsDsl do
           type: :range,
           param: :number_pets,
           name: "Number Pets",
-          value: 2,
+          default_value: 2,
           min: nil,
           max: nil,
           step: nil
@@ -98,7 +98,7 @@ RSpec.describe ViewComponent::Storybook::Dsl::LegacyControlsDsl do
           type: :range,
           param: :number_pets,
           name: "Pets",
-          value: 2,
+          default_value: 2,
           min: 0,
           max: 10,
           step: 1
@@ -115,7 +115,7 @@ RSpec.describe ViewComponent::Storybook::Dsl::LegacyControlsDsl do
         class: ViewComponent::Storybook::Controls::ColorConfig,
         param: :favorite_color,
         name: "Favorite Color",
-        value: "red"
+        default_value: "red"
       }
     ]
   end
@@ -128,7 +128,7 @@ RSpec.describe ViewComponent::Storybook::Dsl::LegacyControlsDsl do
         class: ViewComponent::Storybook::Controls::ObjectConfig,
         param: :other_things,
         name: "Other Things",
-        value: { hair: "Brown", eyes: "Blue" }
+        default_value: { hair: "Brown", eyes: "Blue" }
       }
     ]
   end
@@ -145,7 +145,7 @@ RSpec.describe ViewComponent::Storybook::Dsl::LegacyControlsDsl do
           type: type.to_sym,
           param: :favorite_food,
           name: "Favorite Food",
-          value: "Pizza",
+          default_value: "Pizza",
           options: { hot_dog: "Hot Dog", pizza: "Pizza" }
         }
       ]
@@ -161,7 +161,7 @@ RSpec.describe ViewComponent::Storybook::Dsl::LegacyControlsDsl do
           class: ViewComponent::Storybook::Controls::DateConfig,
           param: :birthday,
           name: "Birthday",
-          value: Date.new(1950, 3, 26)
+          default_value: Date.new(1950, 3, 26)
         }
       ]
     end
@@ -174,7 +174,7 @@ RSpec.describe ViewComponent::Storybook::Dsl::LegacyControlsDsl do
           class: ViewComponent::Storybook::Controls::ArrayConfig,
           param: :sports,
           name: "Sports",
-          value: %w[football baseball],
+          default_value: %w[football baseball],
           separator: "|"
         }
       ]
@@ -188,7 +188,7 @@ RSpec.describe ViewComponent::Storybook::Dsl::LegacyControlsDsl do
           class: ViewComponent::Storybook::Controls::ObjectConfig,
           param: :other_things,
           name: "Other Things",
-          value: { hair: "Brown", eyes: "Blue" }
+          default_value: { hair: "Brown", eyes: "Blue" }
         }
       ]
     end
@@ -201,7 +201,7 @@ RSpec.describe ViewComponent::Storybook::Dsl::LegacyControlsDsl do
           class: ViewComponent::Storybook::Controls::NumberConfig,
           param: :number_pets,
           name: "Number Pets",
-          value: 2
+          default_value: 2
         }
       ]
     end
@@ -214,7 +214,7 @@ RSpec.describe ViewComponent::Storybook::Dsl::LegacyControlsDsl do
           class: ViewComponent::Storybook::Controls::NumberConfig,
           param: :number_pets,
           name: "Number Pets",
-          value: 2.5
+          default_value: 2.5
         }
       ]
     end
@@ -227,7 +227,7 @@ RSpec.describe ViewComponent::Storybook::Dsl::LegacyControlsDsl do
           class: ViewComponent::Storybook::Controls::BooleanConfig,
           param: :like_people,
           name: "Like People",
-          value: true
+          default_value: true
         }
       ]
     end
@@ -240,7 +240,7 @@ RSpec.describe ViewComponent::Storybook::Dsl::LegacyControlsDsl do
           class: ViewComponent::Storybook::Controls::BooleanConfig,
           param: :like_people,
           name: "Like People",
-          value: false
+          default_value: false
         }
       ]
     end
@@ -253,7 +253,7 @@ RSpec.describe ViewComponent::Storybook::Dsl::LegacyControlsDsl do
           class: ViewComponent::Storybook::Controls::TextConfig,
           param: :name,
           name: "Name",
-          value: "Jame Doe"
+          default_value: "Jame Doe"
         }
       ]
     end

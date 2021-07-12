@@ -3,13 +3,13 @@
 module ViewComponent
   module Storybook
     module Controls
-      class ArrayConfig < ControlConfig
+      class ArrayConfig < SimpleControlConfig
         attr_reader :separator
 
         validates :separator, presence: true
 
-        def initialize(value, separator = ",", param: nil, name: nil)
-          super(value, param: param, name: name)
+        def initialize(default_value, separator = ",", param: nil, name: nil)
+          super(default_value, param: param, name: name)
           @separator = separator
         end
 

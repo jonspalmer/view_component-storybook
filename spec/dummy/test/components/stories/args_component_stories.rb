@@ -17,7 +17,7 @@ class ArgsComponentStories < ViewComponent::Storybook::Stories
 
   story :custom_param do
     constructor(
-      text("Hello World!", param: :message),
+      text("Hello World!").param(:message),
       text("How you doing?")
     )
   end
