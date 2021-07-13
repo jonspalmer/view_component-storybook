@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
     spec.metadata["source_code_uri"] = "https://github.com/jonspalmer/view_component_storybook"
   else
     raise "RubyGems 2.0 or newer is required to protect against " \
-      "public gem pushes."
+          "public gem pushes."
   end
 
   spec.files = Dir["CHANGELOG.md", "LICENSE.txt", "README.md", "app/**/*", "config/**/*", "lib/**/*"]
@@ -38,11 +38,11 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 2.2"
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "relaxed-rubocop", "~> 2.5"
-  spec.add_development_dependency "rspec", "~> 3.9"
-  spec.add_development_dependency "rspec-rails", "~> 4.0"
-  spec.add_development_dependency "rubocop", "~> 1.9"
-  spec.add_development_dependency "rubocop-rails", "~> 2.9.1"
+  spec.add_development_dependency "rspec", "~> 3.10"
+  spec.add_development_dependency "rspec-rails", "~> 5.0"
+  spec.add_development_dependency "rubocop", "~> 1.18"
+  spec.add_development_dependency "rubocop-rails", "~> 2.11"
   spec.add_development_dependency "rubocop-rspec", "~> 2.1"
-  spec.add_development_dependency "simplecov", "~> 0.18.5"
+  spec.add_development_dependency "simplecov", "~> 0.21.2"
   spec.add_development_dependency "simplecov-console", "~> 0.9"
 end
