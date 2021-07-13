@@ -60,6 +60,10 @@ module ViewComponent
           Controls::DateConfig.new(default_value)
         end
 
+        def custom(*args, **kwargs, &block)
+          Controls::CustomConfig.new.with_value(*args, **kwargs, &block)
+        end
+
         Controls = ViewComponent::Storybook::Controls
       end
     end

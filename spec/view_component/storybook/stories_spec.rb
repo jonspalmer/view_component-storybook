@@ -327,6 +327,62 @@ RSpec.describe ViewComponent::Storybook::Stories do
       )
     end
 
+    it "converts Stories with custom controls" do
+      expect(CustomControlStories.to_csf_params).to eq(
+        title: "Custom Control",
+        stories: [
+          {
+            name: :custom_text,
+            parameters: {
+              server: { id: "custom_control/custom_text" }
+            },
+            args: {
+              button_text__greeting: "Hi",
+              button_text__name: "Sarah"
+            },
+            argTypes: {
+              button_text__greeting: { control: { type: :text }, name: "Button Text  Greeting" },
+              button_text__name: { control: { type: :text }, name: "Button Text  Name" }
+            }
+          },
+          {
+            name: :custom_rest_args,
+            parameters: {
+              server: { id: "custom_control/custom_rest_args" }
+            },
+            args: {
+              items0__verb: "Big",
+              items0__noun: "Car",
+              items1__verb: "Small",
+              items1__noun: "Boat",
+            },
+            argTypes: {
+              items0__verb: { control: { type: :text }, name: "Items0  Verb" },
+              items0__noun: { control: { type: :text }, name: "Items0  Noun" },
+              items1__verb: { control: { type: :text }, name: "Items1  Verb" },
+              items1__noun: { control: { type: :text }, name: "Items1  Noun" }
+            }
+          },
+          {
+            name: :nested_custom_controls,
+            parameters: {
+              server: { id: "custom_control/nested_custom_controls" }
+            },
+            args: {
+              button_text__greeting: "Hi",
+              button_text__name__first_name: "Sarah",
+              button_text__name__last_name: "Connor"
+            },
+            argTypes: {
+              button_text__greeting: { control: { type: :text }, name: "Button Text  Greeting" },
+              button_text__name__first_name: { control: { type: :text }, name: "Button Text  Name  First Name" },
+              button_text__name__last_name: { control: { type: :text }, name: "Button Text  Name  Last Name" }
+            }
+          }
+        ]
+      )
+    end
+
     it "raises an excpetion if stories are invalid" do
       expect { Invalid::DuplicateStoryStories.to_csf_params }.to(
         raise_exception(
@@ -396,6 +452,7 @@ RSpec.describe ViewComponent::Storybook::Stories do
       expect(described_class.all).to eq [
         ArgsComponentStories,
         ContentComponentStories,
+        CustomControlStories,
         Demo::ButtonComponentStories,
         Invalid::DuplicateStoryStories,
         Invalid::InvalidConstrutorStories,
