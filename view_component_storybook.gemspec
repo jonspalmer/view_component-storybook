@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
       "public gem pushes."
   end
 
-  spec.files = Dir["CHANGELOG.md", "LICENSE.txt", "README.md", "app/**/*", "lib/**/*"]
+  spec.files = Dir["CHANGELOG.md", "LICENSE.txt", "README.md", "app/**/*", "config/**/*", "lib/**/*"]
 
   spec.require_paths = ["lib"]
 

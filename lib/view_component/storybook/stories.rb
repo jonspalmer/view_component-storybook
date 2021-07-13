@@ -117,14 +117,16 @@ module ViewComponent
 
       def validate_story_configs
         story_configs.reject(&:valid?).each do |story_config|
-          errors.add(:story_configs, :invalid, value: story_config)
+          story_errors = story_config.errors.full_messages.join(', ')
+          errors.add(:story_configs, :invalid_story, story_name: story_config.name, story_errors: story_errors)
         end
 
         story_names = story_configs.map(&:name)
         duplicate_names = story_names.group_by(&:itself).map { |k, v| k if v.length > 1 }.compact
         return if duplicate_names.empty?
 
-        errors.add(:story_configs, :invalid, message: "duplicate story #{'name'.pluralize(duplicate_names.count)} #{duplicate_names.to_sentence}")
+        duplicate_name_sentence = duplicate_names.map { |name| "'#{name}'" }.to_sentence
+        errors.add(:story_configs, :duplicate_stories, count: duplicate_names.count, duplicate_names: duplicate_name_sentence)
       end
 
       class ValidationError < StandardError
@@ -132,16 +134,8 @@ module ViewComponent
 
         def initialize(stories)
           @stories = stories
-          errors = @stories.errors.full_messages
 
-          errors += @stories.story_configs.map do |config|
-            if config.errors.present?
-              msg = ViewComponent::Storybook::StoryConfig::ValidationError.new(config).message
-              "Story #{msg}"
-            end
-          end
-
-          super("#{@stories.class.name} invalid: #{errors.flatten.compact.join(', ')}")
+          super("#{@stories.class.name} invalid: (#{@stories.errors.full_messages.join(', ')})")
         end
       end
     end

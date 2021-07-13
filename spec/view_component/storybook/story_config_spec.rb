@@ -230,7 +230,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
         expect { subject.to_csf_params }.to(
           raise_exception(
             ViewComponent::Storybook::StoryConfig::ValidationError,
-            "'Example Story Config' invalid: Constructor args invalid: Kwargs 'junk' is invalid, Kwargs expected keys [title] but found [junk]"
+            "'Example Story Config' invalid: (Constructor args invalid: (Kwargs 'junk' is invalid, Kwargs expected keys [title] but found [junk]))"
           )
         )
       end
@@ -241,7 +241,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
         expect { subject.to_csf_params }.to(
           raise_exception(
             ViewComponent::Storybook::StoryConfig::ValidationError,
-            "'Example Story Config' invalid: Constructor args invalid: Kwargs expected keys [title] but found []"
+            "'Example Story Config' invalid: (Constructor args invalid: (Kwargs expected keys [title] but found []))"
           )
         )
       end
@@ -262,7 +262,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
         expect { subject.to_csf_params }.to(
           raise_exception(
             ViewComponent::Storybook::StoryConfig::ValidationError,
-            "'Mixed Args Story Config' invalid: Constructor args invalid: Args expected no more than 1 but found 2"
+            "'Mixed Args Story Config' invalid: (Constructor args invalid: (Args expected no more than 1 but found 2))"
           )
         )
       end
@@ -281,7 +281,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
         expect { subject.to_csf_params }.to(
           raise_exception(
             ViewComponent::Storybook::StoryConfig::ValidationError,
-            "'Mixed Args Story Config' invalid: Constructor args invalid: Args expected at least 1 but found 0"
+            "'Mixed Args Story Config' invalid: (Constructor args invalid: (Args expected at least 1 but found 0))"
           )
         )
       end
@@ -298,7 +298,29 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
         expect { subject.to_csf_params }.to(
           raise_exception(
             ViewComponent::Storybook::StoryConfig::ValidationError,
-            "'Example Story Config' invalid: Constructor args invalid: Controls is invalid, Control 'Title' invalid: Default value is not included in the list"
+            "'Example Story Config' invalid: (Constructor args invalid: (Controls 'Title' is invalid: (Default value is not included in the list)))"
+          )
+        )
+      end
+    end
+
+    context "with invlaid custom control" do
+      before do
+        # this custom control is invalid because the block args (greeting) don't agree with the controls args (message)
+        message_control = ViewComponent::Storybook::Controls::TextConfig.new("Hello World!")
+        custom_control = ViewComponent::Storybook::Controls::CustomConfig.new.with_value(message: message_control) do |greating:|
+          "#{greating} Sarah"
+        end
+        subject.constructor_args(
+          title: custom_control
+        )
+      end
+
+      it "raises an excpetion" do
+        expect { subject.to_csf_params }.to(
+          raise_exception(
+            ViewComponent::Storybook::StoryConfig::ValidationError,
+            "'Example Story Config' invalid: (Constructor args invalid: (Controls 'Title' is invalid: (Value method args invalid: (Kwargs 'message' is invalid, Kwargs expected keys [greating] but found [message]))))"
           )
         )
       end

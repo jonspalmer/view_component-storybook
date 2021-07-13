@@ -387,7 +387,7 @@ RSpec.describe ViewComponent::Storybook::Stories do
       expect { Invalid::DuplicateStoryStories.to_csf_params }.to(
         raise_exception(
           ViewComponent::Storybook::Stories::ValidationError,
-          "Invalid::DuplicateStoryStories invalid: Story configs duplicate story name my_story"
+          "Invalid::DuplicateStoryStories invalid: (Story configs duplicate story name 'my_story')"
         )
       )
     end
@@ -396,7 +396,7 @@ RSpec.describe ViewComponent::Storybook::Stories do
       expect { Invalid::InvalidConstrutorStories.to_csf_params }.to(
         raise_exception(
           ViewComponent::Storybook::Stories::ValidationError,
-          "Invalid::InvalidConstrutorStories invalid: Story configs is invalid, Story 'invalid_kwards' invalid: Constructor args invalid: Kwargs 'junk' is invalid"
+          "Invalid::InvalidConstrutorStories invalid: (Story configs 'invalid_kwards' is invalid: (Constructor args invalid: (Kwargs 'junk' is invalid)))"
         )
       )
     end

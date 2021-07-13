@@ -38,21 +38,6 @@ module ViewComponent
           @controls ||= (args + kwargs.values).select(&method(:control?))
         end
 
-        class ValidationError < StandardError
-          attr_reader :control_method_arg
-
-          def initialize(control_method_arg)
-            @control_method_arg = control_method_arg
-            errors = @control_method_arg.errors.full_messages
-
-            errors += @control_method_arg.controls.map do |control|
-              "Control '#{control.name}' invalid: #{control.errors.full_messages.join(', ')}" if control.errors.present?
-            end
-
-            super(errors.compact.join(', '))
-          end
-        end
-
         private
 
         def assign_control_params
@@ -93,7 +78,8 @@ module ViewComponent
 
         def validate_controls
           controls.reject(&:valid?).each do |control|
-            errors.add(:controls, :invalid, value: control)
+            control_errors = control.errors.full_messages.join(', ')
+            errors.add(:controls, :invalid_control, control_name: control.name, control_errors: control_errors)
           end
         end
       end
