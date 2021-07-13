@@ -24,25 +24,25 @@ module ViewComponent
           arg_count = args.count
 
           if arg_count > target_method_params_names.max_arg_count
-            msg = "expected no more than #{target_method_params_names.max_arg_count} but found #{arg_count}"
-            errors.add(:args, :invalid, value: arg_count, message: msg)
+            errors.add(:args, :too_many, max: target_method_params_names.max_arg_count, count: arg_count)
           elsif arg_count < target_method_params_names.min_arg_count
-            msg = "expected at least #{target_method_params_names.min_arg_count} but found #{arg_count}"
-            errors.add(:args, :invalid, value: arg_count, message: msg)
+            errors.add(:args, :too_few, min: target_method_params_names.min_arg_count, count: arg_count)
           end
         end
 
         def validate_kwargs
           kwargs.each_key do |kwarg|
             unless target_method_params_names.include_kwarg?(kwarg)
-              errors.add(:kwargs, :invalid, value: kwarg, message: "'#{kwarg}' is invalid")
+              errors.add(:kwargs, :invalid_arg, kwarg: kwarg)
             end
           end
 
           return if target_method_params_names.covers_required_kwargs?(kwargs.keys)
 
-          msg = "expected keys [#{target_method_params_names.req_kwarg_names.join(', ')}] but found [#{kwargs.keys.join(', ')}]"
-          errors.add(:kwargs, :invalid, value: kwargs.keys, message: msg)
+          expected_keys = target_method_params_names.req_kwarg_names.join(', ')
+          actual_keys = kwargs.keys.join(', ')
+
+          errors.add(:kwargs, :invalid, expected_keys: expected_keys, actual_keys: actual_keys)
         end
       end
     end

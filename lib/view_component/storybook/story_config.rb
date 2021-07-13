@@ -8,7 +8,7 @@ module ViewComponent
       attr_reader :id, :name, :component
       attr_accessor :parameters, :layout, :content_block
 
-      validate :valid_constructor_args
+      validate :validate_constructor_args
 
       def initialize(id, name, component, layout)
         @id = id
@@ -50,8 +50,11 @@ module ViewComponent
         config
       end
 
-      def valid_constructor_args
-        errors.add(:constructor_args, :invalid, value: constructor_args) if constructor_args.invalid?
+      def validate_constructor_args
+        return if constructor_args.valid?
+
+        constructor_args_errors = constructor_args.errors.full_messages.join(', ')
+        errors.add(:constructor_args, :invalid, errors: constructor_args_errors)
       end
 
       class ValidationError < StandardError
@@ -59,16 +62,8 @@ module ViewComponent
 
         def initialize(story_config)
           @story_config = story_config
-          errors = []
 
-          if story_config.constructor_args.errors
-            msg = ViewComponent::Storybook::MethodArgs::ControlMethodArgs::ValidationError.new(story_config.constructor_args).message
-            errors << "Constructor args invalid: #{msg}"
-          end
-
-          # TODO: More errors when we add slots
-
-          super("'#{@story_config.name}' invalid: #{errors.compact.join(', ')}")
+          super("'#{@story_config.name}' invalid: (#{@story_config.errors.full_messages.join(', ')})")
         end
       end
 

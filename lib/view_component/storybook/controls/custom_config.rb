@@ -6,8 +6,7 @@ module ViewComponent
       class CustomConfig < ControlConfig
         attr_reader :value_method_args
 
-        # TODO: Add to Errors with custom messages
-        validate { value_method_args.valid? }
+        validate :validate_value_method_args
 
         def with_value(*args, **kwargs, &block)
           @value_method_args = ViewComponent::Storybook::MethodArgs::ControlMethodArgs.new(block, *args, **kwargs, &block)
@@ -39,6 +38,15 @@ module ViewComponent
           method_args = value_method_args.resolve_method_args(params)
 
           method_args.block.call(*method_args.args, **method_args.kwargs)
+        end
+
+        private
+
+        def validate_value_method_args
+          return if value_method_args.valid?
+
+          value_method_args_errors = value_method_args.errors.full_messages.join(', ')
+          errors.add(:value_method_args, :invalid, errors: value_method_args_errors)
         end
       end
     end

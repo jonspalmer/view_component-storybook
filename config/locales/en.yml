@@ -1,0 +1,32 @@
+en:
+  activemodel:
+    errors:
+      models:
+        view_component/storybook/method_args/validatable_method_args:
+          attributes:
+            args:
+              too_few: expected at least %{min} but found %{count}
+              too_many: expected no more than %{max} but found %{count}
+            kwargs:
+              invalid_arg: "'%{kwarg}' is invalid"
+              invalid: expected keys [%{expected_keys}] but found [%{actual_keys}]
+        view_component/storybook/method_args/control_method_args:
+          attributes:
+            controls:
+              invalid_control: "'%{control_name}' is invalid: (%{control_errors})"
+        view_component/storybook/stories:
+          attributes:
+            story_configs:    
+              invalid_story: "'%{story_name}' is invalid: (%{story_errors})"
+              duplicate_stories:
+                one: duplicate story name %{duplicate_names}
+                other: duplicate story names %{duplicate_names} 
+        view_component/storybook/story_config:
+          attributes:
+            constructor_args:    
+              invalid: "invalid: (%{errors})"
+        view_component/storybook/controls/custom_config:
+          attributes:
+            value_method_args:    
+              invalid: "invalid: (%{errors})"
+            
