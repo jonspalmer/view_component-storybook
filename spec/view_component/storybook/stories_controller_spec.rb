@@ -113,6 +113,25 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
     expect(response.body).to include("<button>My Button</button>")
   end
 
+  it "renders a compoent with custom controls" do
+    get "/rails/stories/custom_control/custom_text", params: { button_text__greeting: "Hello", button_text__name: "Nemo" }
+
+    expect(response.body).to include("<button>Hello Nemo</button>")
+  end
+
+  it "renders a compoent with custom controls for rest args" do
+    get "/rails/stories/custom_control/custom_rest_args",
+        params: {
+          items0__verb: "Heavy",
+          items0__noun: "Rock",
+          items1__verb: "Light",
+          items1__noun: "Feather",
+        }
+
+    expect(response.body).to include("<p>Heavy Rock</p>")
+    expect(response.body).to include("<p>Light Feather</p>")
+  end
+
   it "ignores query params that don't match the the compoents args" do
     get "/rails/stories/demo/button_component/short_button", params: { button_text: "My Button", junk: true }
 

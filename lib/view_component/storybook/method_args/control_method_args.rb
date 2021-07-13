@@ -9,14 +9,21 @@ module ViewComponent
       # I addition the args and kwargs can contain Controls the values of which can
       # be resolved from a params hash
       class ControlMethodArgs < ValidatableMethodArgs
-        validate :validate_controls
+        include ActiveModel::Validations::Callbacks
 
-        def initialize(target_method, *args, **kwargs, &block)
-          super(target_method, *args, **kwargs, &block)
-          assign_control_params
+        attr_reader :param_prefix
+
+        validate :validate_controls
+        before_validation :assign_control_params
+
+        def with_param_prefix(prefix)
+          @param_prefix = prefix
+          self
         end
 
         def resolve_method_args(params)
+          assign_control_params
+
           args_from_params = args.map do |arg|
             value_from_params(arg, params)
           end
@@ -49,13 +56,25 @@ module ViewComponent
         private
 
         def assign_control_params
+          return if @assigned_control_params
+
           args.each_with_index do |arg, index|
-            arg.param(target_method_params_names.arg_name(index)) if control?(arg) && arg.param.nil?
+            add_param_if_control(arg, target_method_params_names.arg_name(index))
           end
 
           kwargs.each do |key, arg|
-            arg.param(key) if control?(arg) && arg.param.nil?
+            add_param_if_control(arg, key)
           end
+
+          @assigned_control_params = true
+        end
+
+        def add_param_if_control(arg, param)
+          return unless control?(arg)
+
+          arg.param(param) if arg.param.nil? # don't overrite if set
+          # Always add prefix
+          arg.param("#{param_prefix}__#{arg.param}".to_sym) if param_prefix.present?
         end
 
         def value_from_params(arg, params)

@@ -17,6 +17,7 @@ module ViewComponent
       autoload :ArrayConfig
       autoload :DateConfig
       autoload :ObjectConfig
+      autoload :CustomConfig
     end
   end
 end
