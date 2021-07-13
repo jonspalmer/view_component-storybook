@@ -10,39 +10,33 @@ RSpec.describe ViewComponent::Storybook::Dsl::ControlsDsl do
   end
 
   describe "#text" do
-    subject { text("Jame Doe").param(:name) }
+    subject { text("Jane Doe") }
 
     include_examples "has controls attributes",
                      {
                        class: ViewComponent::Storybook::Controls::TextConfig,
-                       param: :name,
-                       name: "Name",
-                       default_value: "Jame Doe"
+                       default_value: "Jane Doe"
                      }
   end
 
   describe "#boolean" do
-    subject { boolean(true).param(:likes_people) }
+    subject { boolean(true) }
 
     include_examples "has controls attributes",
                      {
                        class: ViewComponent::Storybook::Controls::BooleanConfig,
-                       param: :likes_people,
-                       name: "Likes People",
                        default_value: true
                      }
   end
 
   describe "#number" do
     context "with minimal args" do
-      subject { number(2).param(:number_pets) }
+      subject { number(2) }
 
       include_examples "has controls attributes",
                        {
                          class: ViewComponent::Storybook::Controls::NumberConfig,
                          type: :number,
-                         param: :number_pets,
-                         name: "Number Pets",
                          default_value: 2,
                          min: nil,
                          max: nil,
@@ -51,14 +45,12 @@ RSpec.describe ViewComponent::Storybook::Dsl::ControlsDsl do
     end
 
     context "with all args" do
-      subject { number(2, min: 0, max: 10, step: 1).param(:number_pets) }
+      subject { number(2, min: 0, max: 10, step: 1) }
 
       include_examples "has controls attributes",
                        {
                          class: ViewComponent::Storybook::Controls::NumberConfig,
                          type: :number,
-                         param: :number_pets,
-                         name: "Number Pets",
                          default_value: 2,
                          min: 0,
                          max: 10,
@@ -69,14 +61,12 @@ RSpec.describe ViewComponent::Storybook::Dsl::ControlsDsl do
 
   describe "#range" do
     context "with minimal args" do
-      subject { range(2).param(:number_pets) }
+      subject { range(2) }
 
       include_examples "has controls attributes",
                        {
                          class: ViewComponent::Storybook::Controls::NumberConfig,
                          type: :range,
-                         param: :number_pets,
-                         name: "Number Pets",
                          default_value: 2,
                          min: nil,
                          max: nil,
@@ -85,14 +75,12 @@ RSpec.describe ViewComponent::Storybook::Dsl::ControlsDsl do
     end
 
     context "with all args" do
-      subject { range(2, min: 0, max: 10, step: 1).param(:number_pets) }
+      subject { range(2, min: 0, max: 10, step: 1) }
 
       include_examples "has controls attributes",
                        {
                          class: ViewComponent::Storybook::Controls::NumberConfig,
                          type: :range,
-                         param: :number_pets,
-                         name: "Number Pets",
                          default_value: 2,
                          min: 0,
                          max: 10,
@@ -102,25 +90,21 @@ RSpec.describe ViewComponent::Storybook::Dsl::ControlsDsl do
   end
 
   describe "#color" do
-    subject { color("red").param(:favorite_color) }
+    subject { color("red") }
 
     include_examples "has controls attributes",
                      {
                        class: ViewComponent::Storybook::Controls::ColorConfig,
-                       param: :favorite_color,
-                       name: "Favorite Color",
                        default_value: "red"
                      }
   end
 
   describe "#object" do
-    subject { object({ hair: "Brown", eyes: "Blue" }).param(:other_things) }
+    subject { object({ hair: "Brown", eyes: "Blue" }) }
 
     include_examples "has controls attributes",
                      {
                        class: ViewComponent::Storybook::Controls::ObjectConfig,
-                       param: :other_things,
-                       name: "Other Things",
                        default_value: { hair: "Brown", eyes: "Blue" }
                      }
   end
@@ -129,56 +113,50 @@ RSpec.describe ViewComponent::Storybook::Dsl::ControlsDsl do
     dsl_method = type.underscore
 
     describe "##{dsl_method}" do
-      subject { send(dsl_method, { hot_dog: "Hot Dog", pizza: "Pizza" }, "Pizza").param(:favorite_food) }
+      subject { send(dsl_method, { hot_dog: "Hot Dog", pizza: "Pizza" }, "Pizza") }
 
       include_examples "has controls attributes",
                        {
                          class: ViewComponent::Storybook::Controls::OptionsConfig,
                          type: type.to_sym,
-                         param: :favorite_food,
-                         name: "Favorite Food",
                          default_value: "Pizza",
                          options: { hot_dog: "Hot Dog", pizza: "Pizza" }
                        }
     end
-  end
 
-  describe "#custom" do
-    subject do
-      custom(first_name: "J.R.R.", last_name: "Tolkien") do |first_name:, last_name:|
-        Author.new(first_name: first_name, last_name: last_name).full_name
-      end.param(:author)
+    describe "#custom" do
+      subject do
+        custom(first_name: "J.R.R.", last_name: "Tolkien") do |first_name:, last_name:|
+          Author.new(first_name: first_name, last_name: last_name).full_name
+        end
+      end
+
+      include_examples "has controls attributes",
+                       {
+                         class: ViewComponent::Storybook::Controls::CustomConfig
+                       }
+
+      it "returns cutom value from params" do
+        from_params = subject.value_from_params({})
+        expect(from_params).to eq("J.R.R. Tolkien")
+      end
     end
 
-    include_examples "has controls attributes",
-                     {
-                       class: ViewComponent::Storybook::Controls::CustomConfig,
-                       param: :author,
-                       name: "Author"
-                     }
+    describe "#klazz" do
+      subject do
+        klazz(Author, first_name: "J.R.R.", last_name: "Tolkien")
+      end
 
-    it "returns cutom value from params" do
-      from_params = subject.value_from_params({})
-      expect(from_params).to eq("J.R.R. Tolkien")
-    end
-  end
+      include_examples "has controls attributes",
+                       {
+                         class: ViewComponent::Storybook::Controls::CustomConfig
+                       }
 
-  describe "#klazz" do
-    subject do
-      klazz(Author, first_name: "J.R.R.", last_name: "Tolkien").param(:author)
-    end
-
-    include_examples "has controls attributes",
-                     {
-                       class: ViewComponent::Storybook::Controls::CustomConfig,
-                       param: :author,
-                       name: "Author"
-                     }
-
-    it "returns cutom value from params" do
-      from_params = subject.value_from_params({})
-      expect(from_params).to be_a(Author)
-      expect(from_params.full_name).to eq("J.R.R. Tolkien")
+      it "returns cutom value from params" do
+        from_params = subject.value_from_params({})
+        expect(from_params).to be_a(Author)
+        expect(from_params.full_name).to eq("J.R.R. Tolkien")
+      end
     end
   end
 end
