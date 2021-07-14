@@ -63,19 +63,22 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
     get "/rails/stories/kitchen_sink_component/jane_doe"
     body = Nokogiri::HTML(response.body).css("body div").to_html
 
-    expected_html = %(<div>
-      <p>My name is Jane Doe</p>
-      <p>My Birthday is 1950-03-26</p>
-      <p>My favorite color is red</p>
-      <p>I like people</p>
-      <p>I have 2 pets</p>
-      <p>I like to watch football and baseball</p>
-      <p>My favorite food is Ice Cream</p>
-      <p>I'm feeling Happy</p>
-      <p>Other things about me {"hair":"Brown","eyes":"Blue"}</p>
-    </div>)
+    expected_html =
+      <<~HTML.strip
+        <div>
+          <p>My name is Jane Doe</p>
+          <p>My Birthday is 1950-03-26</p>
+          <p>My favorite color is red</p>
+          <p>I like people</p>
+          <p>I have 2 pets</p>
+          <p>I like to watch football and baseball</p>
+          <p>My favorite food is Ice Cream</p>
+          <p>I'm feeling Happy</p>
+          <p>Other things about me {"hair":"Brown","eyes":"Blue"}</p>
+        </div>
+      HTML
 
-    expect(body).to match_html(expected_html)
+    expect(body).to eq(expected_html)
   end
 
   it "renders the kitchen sink with params" do
@@ -90,21 +93,24 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
       mood: :sad,
       other_things: { hair: "Blonde", eyes: "Green", weight: 175 }
     }
-    body = Nokogiri::HTML(response.body).css("body div").to_html
+    body_div = Nokogiri::HTML(response.body).css("body div").to_html
 
-    expected_html = %(<div>
-      <p>My name is John Doe</p>
-      <p>My Birthday is 1963-07-13</p>
-      <p>My favorite color is green</p>
-      <p>I do not like people</p>
-      <p>I have no pets</p>
-      <p>I like to watch ice_hockey, basketball, and baseball</p>
-      <p>My favorite food is hot_dog</p>
-      <p>I'm feeling sad</p>
-      <p>Other things about me {"hair":"Blonde","eyes":"Green","weight":"175"}</p>
-    </div>)
+    expected_html =
+      <<~HTML.strip
+        <div>
+          <p>My name is John Doe</p>
+          <p>My Birthday is 1963-07-13</p>
+          <p>My favorite color is green</p>
+          <p>I do not like people</p>
+          <p>I have no pets</p>
+          <p>I like to watch ice_hockey, basketball, and baseball</p>
+          <p>My favorite food is hot_dog</p>
+          <p>I'm feeling sad</p>
+          <p>Other things about me {"hair":"Blonde","eyes":"Green","weight":"175"}</p>
+        </div>
+      HTML
 
-    expect(body).to match_html(expected_html)
+    expect(body_div).to eq(expected_html)
   end
 
   it "renders the compoent with supplied parameters" do
@@ -166,7 +172,7 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
     it "renders the component block content" do
       get "/rails/stories/content_component/with_block_content"
 
-      expect(response.body).to include("<h1>Hello World!</h1>")
+      expect(response.body).to have_selector("h1", text: "Hello World!")
     end
 
     it "renders the component block content with helper" do
@@ -204,13 +210,13 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
     it "allows story to override with no layout" do
       get "/rails/stories/layout/no_layout"
 
-      expect(response.body.strip).to eq("<button>OK</button>")
+      expect(response.body).to eq("<button>OK</button>")
     end
 
     it "allows stories to set no layout" do
       get "/rails/stories/no_layout/default"
 
-      expect(response.body.strip).to eq("<button>OK</button>")
+      expect(response.body).to eq("<button>OK</button>")
     end
 
     it "allows story to override no layout with a layout" do

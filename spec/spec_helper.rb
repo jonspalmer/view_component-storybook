@@ -41,25 +41,3 @@ RSpec.configure do |config|
 
   config.include RSpec::Rails::RequestExampleGroup, type: :request
 end
-
-def trim_result(content)
-  content = content.to_s.lines.collect(&:strip).join("\n").strip
-
-  doc = Nokogiri::HTML.fragment(content)
-
-  doc.xpath("//text()").each do |node|
-    if node.content.match?(/\S/)
-      node.content = node.content.gsub(/\s+/, " ").strip
-    else
-      node.remove
-    end
-  end
-
-  doc.to_s.strip
-end
-
-RSpec::Matchers.define :match_html do |expected|
-  match do |actual|
-    trim_result(actual) == trim_result(expected)
-  end
-end

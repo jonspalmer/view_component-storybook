@@ -22,6 +22,7 @@ module ViewComponent
         @component = @story.component.new(*method_args.args, **method_args.kwargs)
 
         layout = @story.layout
+
         render layout: layout unless layout.nil?
       end
 
