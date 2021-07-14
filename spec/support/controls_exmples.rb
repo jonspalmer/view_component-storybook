@@ -2,13 +2,7 @@
 
 shared_examples "a controls config" do
   let(:param) { :button_text }
-  let(:default_value) { "OK" }
-  let(:value_from_param) { "OK" }
   let(:name) { nil }
-
-  it "#type" do
-    expect(subject.type).to eq(type)
-  end
 
   describe "#param" do
     it "can be set" do
@@ -51,14 +45,6 @@ shared_examples "a controls config" do
       expect(subject.valid?).to eq(true)
     end
 
-    context "without a default_value" do
-      let(:default_value) { nil }
-
-      it "is valid" do
-        expect(subject.valid?).to eq(true)
-      end
-    end
-
     context "without a param" do
       let(:param) { nil }
 
@@ -66,6 +52,27 @@ shared_examples "a controls config" do
         expect(subject.valid?).to eq(false)
         expect(subject.errors.size).to eq(1)
         expect(subject.errors[:param]).to eq(["can't be blank"])
+      end
+    end
+  end
+end
+
+shared_examples "a simple controls config" do
+  include_examples "a controls config"
+
+  let(:default_value) { "OK" }
+  let(:value_from_param) { "OK" }
+
+  it "#type" do
+    expect(subject.type).to eq(type)
+  end
+
+  describe "#valid?" do
+    context "without a default_value" do
+      let(:default_value) { nil }
+
+      it "is valid" do
+        expect(subject.valid?).to eq(true)
       end
     end
   end
@@ -106,7 +113,7 @@ shared_examples "a controls config" do
   end
 
   let(:param_value) { "OK" }
-  describe "#value_from_param" do
+  describe "#value_from_params" do
     it "parses param_value" do
       expect(subject.value_from_params(subject.param => param_value)).to eq(default_value)
     end

@@ -5,5 +5,5 @@ RSpec.describe ViewComponent::Storybook::Controls::TextConfig do
 
   let(:type) { :text }
 
-  it_behaves_like "a controls config"
+  it_behaves_like "a simple controls config"
 end
