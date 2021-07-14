@@ -2,7 +2,7 @@
 
 RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
   it "returns ok" do
-    get "/rails/stories/content_component/default"
+    get "/rails/stories/content_component/with_string_content"
 
     expect(response).to have_http_status(:ok)
   end
@@ -157,13 +157,19 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
   end
 
   describe "component content" do
-    it "renders the component content" do
-      get "/rails/stories/content_component/default"
+    it "renders the component string content" do
+      get "/rails/stories/content_component/with_string_content"
 
       expect(response.body).to include("<h1>Hello World!</h1>")
     end
 
-    it "renders the component content with helper" do
+    it "renders the component block content" do
+      get "/rails/stories/content_component/with_block_content"
+
+      expect(response.body).to include("<h1>Hello World!</h1>")
+    end
+
+    it "renders the component block content with helper" do
       get "/rails/stories/content_component/with_helper_content"
 
       expect(response.body).to include('<h1><a href="#">Hello World!</a></h1>')
