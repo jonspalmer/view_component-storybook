@@ -19,9 +19,15 @@ RSpec.describe ViewComponent::Storybook::Stories do
         title: "Content Component",
         stories: [
           {
-            name: :default,
+            name: :with_string_content,
             parameters: {
-              server: { id: "content_component/default" }
+              server: { id: "content_component/with_string_content" }
+            }
+          },
+          {
+            name: :with_block_content,
+            parameters: {
+              server: { id: "content_component/with_block_content" }
             }
           },
           {
@@ -417,10 +423,18 @@ RSpec.describe ViewComponent::Storybook::Stories do
             "title": "Content Component",
             "stories": [
               {
-                "name": "default",
+                "name": "with_string_content",
                 "parameters": {
                   "server": {
-                    "id": "content_component/default"
+                    "id": "content_component/with_string_content"
+                  }
+                }
+              },
+              {
+                "name": "with_block_content",
+                "parameters": {
+                  "server": {
+                    "id": "content_component/with_block_content"
                   }
                 }
               },

@@ -26,8 +26,8 @@ module ViewComponent
           story_config.layout = layout
         end
 
-        def content(&block)
-          story_config.content_block = block
+        def content(content_str = nil, &block)
+          story_config.content_block = content_str.present? ? proc { content_str } : block
         end
 
         def constructor(*args, **kwargs, &block)
