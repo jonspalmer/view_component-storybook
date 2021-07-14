@@ -138,6 +138,52 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
     expect(response.body).to have_selector("p", text: "Light Feather")
   end
 
+  it "renders a slotable_v2 component with default values" do
+    get "/rails/stories/slotable_v2/default",
+        params: {}
+
+    expect(response.body).to have_selector(".card.mt-4")
+
+    expect(response.body).to have_selector(".title", text: "This is my title!")
+
+    expect(response.body).to have_selector(".subtitle", text: "This is my subtitle!")
+
+    expect(response.body).to have_selector(".tab", text: "Tab A")
+    expect(response.body).to have_selector(".tab", text: "Tab B")
+
+    expect(response.body).to have_selector(".item", count: 3)
+    expect(response.body).to have_selector(".item.highlighted", count: 1)
+    expect(response.body).to have_selector(".item.normal", count: 2)
+
+    expect(response.body).to have_selector(".footer.text-blue")
+  end
+
+  it "renders a slotable_v2 component with params values" do
+    get "/rails/stories/slotable_v2/default",
+        params: {
+          classes: "mb-6",
+          subtitle__content: "Subtitle Override!",
+          tab1__content: "Tab 2",
+          item1__highlighted: "false",
+          footer__classes: "text-green"
+        }
+
+    expect(response.body).to have_selector(".card.mb-6")
+
+    expect(response.body).to have_selector(".title", text: "This is my title!")
+
+    expect(response.body).to have_selector(".subtitle", text: "Subtitle Override!")
+
+    expect(response.body).to have_selector(".tab", text: "Tab A")
+    expect(response.body).to have_selector(".tab", text: "Tab 2")
+
+    expect(response.body).to have_selector(".item", count: 3)
+    expect(response.body).to have_selector(".item.highlighted", count: 0)
+    expect(response.body).to have_selector(".item.normal", count: 3)
+
+    expect(response.body).to have_selector(".footer.text-green")
+  end
+
   it "ignores query params that don't match the the compoents args" do
     get "/rails/stories/demo/button_component/short_button", params: { button_text: "My Button", junk: true }
 

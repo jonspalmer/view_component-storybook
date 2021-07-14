@@ -18,7 +18,7 @@ module ViewComponent
 
         @story = @story_config.story(params_hash)
 
-        layout = @story.layout
+        layout = @story_config.layout
 
         render layout: layout unless layout.nil?
       end
@@ -31,7 +31,7 @@ module ViewComponent
 
       def find_story_configs
         stories_name = params[:stories]
-        @story_configs = ViewComponent::Storybook::Stories.find_story_configs(stories_name)
+        @story_configs = Stories.find_story_configs(stories_name)
 
         head :not_found unless @story_configs
       end

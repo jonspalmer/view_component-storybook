@@ -24,7 +24,13 @@ module ViewComponent
         ##
         # resolve the controls values from the params
         # call the target method or block with those values
-        def call(params, &block)
+        def call(params, &target_block)
+          method_args = resolve_method_args(params)
+
+          (target_block || target_method).call(*method_args.args, **method_args.kwargs)
+        end
+
+        def resolve_method_args(params)
           assign_control_params
 
           args_from_params = args.map do |arg|
@@ -34,7 +40,7 @@ module ViewComponent
             value_from_params(arg, params)
           end
 
-          (block || target_method).call(*args_from_params, **kwargs_from_params)
+          MethodArgs.new(target_method, *args_from_params, **kwargs_from_params)
         end
 
         def controls
@@ -62,7 +68,7 @@ module ViewComponent
 
           arg.param(param) if arg.param.nil? # don't overrite if set
           # Always add prefix
-          arg.param("#{param_prefix}__#{arg.param}".to_sym) if param_prefix.present?
+          arg.prefix_param(param_prefix) if param_prefix.present?
         end
 
         def value_from_params(arg, params)
@@ -70,7 +76,7 @@ module ViewComponent
         end
 
         def control?(arg)
-          arg.is_a?(ViewComponent::Storybook::Controls::ControlConfig)
+          arg.is_a?(Controls::ControlConfig)
         end
 
         def validate_controls
