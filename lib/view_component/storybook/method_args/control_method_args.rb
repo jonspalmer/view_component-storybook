@@ -6,9 +6,9 @@ module ViewComponent
       ##
       # Class representing arguments passed to a method which can be validated
       # against the args of the target method
-      # I addition the args and kwargs can contain Controls the values of which can
+      # In addition the args and kwargs can contain Controls the values of which can
       # be resolved from a params hash
-      class ControlMethodArgs < ValidatableMethodArgs
+      class ControlMethodArgs < MethodArgs
         include ActiveModel::Validations::Callbacks
 
         attr_reader :param_prefix
@@ -21,7 +21,10 @@ module ViewComponent
           self
         end
 
-        def resolve_method_args(params)
+        ##
+        # resolve the controls values from the params
+        # call the target method or block with those values
+        def call(params, &block)
           assign_control_params
 
           args_from_params = args.map do |arg|
@@ -31,7 +34,7 @@ module ViewComponent
             value_from_params(arg, params)
           end
 
-          MethodArgs.new(args_from_params, kwargs_from_params, block)
+          (block || target_method).call(*args_from_params, **kwargs_from_params)
         end
 
         def controls
@@ -63,13 +66,7 @@ module ViewComponent
         end
 
         def value_from_params(arg, params)
-          if control?(arg)
-            value = arg.value_from_params(params)
-            value = arg.default_value if value.nil? # nil only not falsey
-            value
-          else
-            arg
-          end
+          control?(arg) ? arg.value_from_params(params) : arg
         end
 
         def control?(arg)

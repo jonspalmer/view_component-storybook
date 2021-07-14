@@ -25,6 +25,18 @@ RSpec.describe ViewComponent::Storybook::Stories do
             }
           },
           {
+            name: :with_control_content,
+            parameters: {
+              server: { id: "content_component/with_control_content" }
+            },
+            args: {
+              content: "Hello World!"
+            },
+            argTypes: {
+              content: { control: { type: :text }, name: "Content" }
+            }
+          },
+          {
             name: :with_block_content,
             parameters: {
               server: { id: "content_component/with_block_content" }
@@ -431,6 +443,25 @@ RSpec.describe ViewComponent::Storybook::Stories do
                 }
               },
               {
+                "name": "with_control_content",
+                "parameters": {
+                  "server": {
+                    "id": "content_component/with_control_content"
+                  }
+                },
+                "args": {
+                  "content": "Hello World!"
+                },
+                "argTypes": {
+                  "content": {
+                    "control": {
+                      "type": "text"
+                    },
+                    "name": "Content"
+                  }
+                }
+              },
+              {
                 "name": "with_block_content",
                 "parameters": {
                   "server": {
@@ -481,13 +512,13 @@ RSpec.describe ViewComponent::Storybook::Stories do
     end
   end
 
-  describe ".find_stories" do
+  describe ".find_story_configs" do
     it "returns the Stories if they exist" do
-      expect(described_class.find_stories("demo/button_component")).to eq Demo::ButtonComponentStories
+      expect(described_class.find_story_configs("demo/button_component")).to eq Demo::ButtonComponentStories
     end
 
     it "returns nil if no stories exists" do
-      expect(described_class.find_stories("foo/button_component")).to eq nil
+      expect(described_class.find_story_configs("foo/button_component")).to eq nil
     end
   end
 

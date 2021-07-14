@@ -8,18 +8,15 @@ module ViewComponent
       prepend_view_path File.expand_path("../../../views", __dir__)
       prepend_view_path Rails.root.join("app/views") if defined?(Rails.root)
 
-      before_action :find_stories, :find_story, only: :show
+      before_action :find_story_configs, :find_story_config, only: :show
       before_action :require_local!, unless: :show_stories?
 
       content_security_policy(false) if respond_to?(:content_security_policy)
 
       def show
         params_hash = params.permit!.to_h
-        method_args = @story.constructor_args.resolve_method_args(params_hash)
 
-        @content_block = @story.content_block
-
-        @component = @story.component.new(*method_args.args, **method_args.kwargs)
+        @story = @story_config.story(params_hash)
 
         layout = @story.layout
 
@@ -32,17 +29,17 @@ module ViewComponent
         ViewComponent::Storybook.show_stories
       end
 
-      def find_stories
+      def find_story_configs
         stories_name = params[:stories]
-        @stories = ViewComponent::Storybook::Stories.find_stories(stories_name)
+        @story_configs = ViewComponent::Storybook::Stories.find_story_configs(stories_name)
 
-        head :not_found unless @stories
+        head :not_found unless @story_configs
       end
 
-      def find_story
+      def find_story_config
         story_name = params[:story]
-        @story = @stories.find_story(story_name)
-        head :not_found unless @story
+        @story_config = @story_configs.find_story_config(story_name)
+        head :not_found unless @story_config
       end
     end
   end

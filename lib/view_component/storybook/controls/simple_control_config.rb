@@ -23,7 +23,7 @@ module ViewComponent
         end
 
         def value_from_params(params)
-          params[param]
+          params.key?(param) ? params[param] : default_value
         end
 
         private
