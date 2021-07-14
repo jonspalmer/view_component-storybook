@@ -7,7 +7,7 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
     context "type: #{type}" do
       let(:type) { type }
 
-      it_behaves_like "a controls config" do
+      it_behaves_like "a simple controls config" do
         subject { described_class.new(type, options, default_value, param: param, name: name) }
 
         let(:default_value) { "blue" }
@@ -19,7 +19,7 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
       context "with symbol values" do
         let(:options) { { Red: :red, Blue: :blue, Yellow: :yellow } }
 
-        it_behaves_like "a controls config" do
+        it_behaves_like "a simple controls config" do
           subject { described_class.new(type, options, default_value, param: param, name: name) }
 
           let(:default_value) { :blue }
@@ -32,7 +32,7 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
       context "with array options" do
         let(:options) { %w[red blue yellow] }
 
-        it_behaves_like "a controls config" do
+        it_behaves_like "a simple controls config" do
           subject { described_class.new(type, options, default_value, param: param, name: name) }
 
           let(:default_value) { "blue" }
@@ -45,7 +45,7 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
       context "with symbol array values" do
         let(:options) { %i[red blue yellow] }
 
-        it_behaves_like "a controls config" do
+        it_behaves_like "a simple controls config" do
           subject { described_class.new(type, options, default_value, param: param, name: name) }
 
           let(:default_value) { :blue }

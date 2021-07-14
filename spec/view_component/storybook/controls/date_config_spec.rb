@@ -34,7 +34,7 @@ RSpec.describe ViewComponent::Storybook::Controls::DateConfig do
   let(:type) { :date }
 
   context "with Date value" do
-    it_behaves_like "a controls config" do
+    it_behaves_like "a simple controls config" do
       let(:default_value) { Date.new(2020, 2, 15) }
       let(:param_value) { "2020-02-15T00:00:00Z" }
 
@@ -45,7 +45,7 @@ RSpec.describe ViewComponent::Storybook::Controls::DateConfig do
   end
 
   context "with DateTime value" do
-    it_behaves_like "a controls config" do
+    it_behaves_like "a simple controls config" do
       let(:default_value) { Time.utc(2020, 2, 15, 2, 30, 45).to_datetime }
       let(:param_value) { "2020-02-15T02:30:45Z" }
 
@@ -56,7 +56,7 @@ RSpec.describe ViewComponent::Storybook::Controls::DateConfig do
   end
 
   context "with Time value" do
-    it_behaves_like "a controls config" do
+    it_behaves_like "a simple controls config" do
       let(:default_value) { Time.utc(2020, 2, 15, 2, 30, 45) }
       let(:param_value) { "2020-02-15T02:30:45Z" }
 

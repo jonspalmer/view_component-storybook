@@ -5,7 +5,7 @@ RSpec.describe ViewComponent::Storybook::Controls::ArrayConfig do
 
   let(:separator) { "," }
 
-  it_behaves_like "a controls config" do
+  it_behaves_like "a simple controls config" do
     let(:type) { :array }
     let(:default_value) { %w[red orange yellow] }
     let(:param_value) { "red,orange,yellow" }
