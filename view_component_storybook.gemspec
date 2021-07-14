@@ -36,6 +36,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "view_component", ">= 2.2"
 
   spec.add_development_dependency "bundler", "~> 2.2"
+  spec.add_development_dependency "capybara", "~> 3"
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "relaxed-rubocop", "~> 2.5"
   spec.add_development_dependency "rspec", "~> 3.10"

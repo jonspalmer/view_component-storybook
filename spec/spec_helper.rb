@@ -14,6 +14,12 @@ ActiveSupport::Deprecation.silenced = true
 
 require "rspec/expectations"
 require "rspec/rails"
+require 'capybara/rspec'
+
+RSpec.configure do |config|
+  config.include Capybara::RSpecMatchers, type: :request
+end
+
 require 'simplecov'
 SimpleCov.start do
   command_name "rails#{ENV['RAILS_VERSION']}-ruby#{ENV['RUBY_VERSION']}" if ENV["RUBY_VERSION"]
