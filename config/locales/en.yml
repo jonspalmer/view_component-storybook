@@ -2,7 +2,7 @@ en:
   activemodel:
     errors:
       models:
-        view_component/storybook/method_args/validatable_method_args:
+        view_component/storybook/method_args/method_args:
           attributes:
             args:
               too_few: expected at least %{min} but found %{count}

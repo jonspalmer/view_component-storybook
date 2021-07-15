@@ -169,6 +169,12 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
       expect(response.body).to have_selector("h1", text: "Hello World!")
     end
 
+    it "renders the component control content" do
+      get "/rails/stories/content_component/with_control_content"
+
+      expect(response.body).to include("<h1>Hello World!</h1>")
+    end
+
     it "renders the component block content" do
       get "/rails/stories/content_component/with_block_content"
 

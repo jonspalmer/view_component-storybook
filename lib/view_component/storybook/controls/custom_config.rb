@@ -9,7 +9,7 @@ module ViewComponent
         validate :validate_value_method_args
 
         def with_value(*args, **kwargs, &block)
-          @value_method_args = ViewComponent::Storybook::MethodArgs::ControlMethodArgs.new(block, *args, **kwargs, &block)
+          @value_method_args = ViewComponent::Storybook::MethodArgs::ControlMethodArgs.new(block, *args, **kwargs)
           @value_method_args.with_param_prefix(param)
           self
         end
@@ -35,9 +35,7 @@ module ViewComponent
         end
 
         def value_from_params(params)
-          method_args = value_method_args.resolve_method_args(params)
-
-          method_args.block.call(*method_args.args, **method_args.kwargs)
+          value_method_args.call(params)
         end
 
         private

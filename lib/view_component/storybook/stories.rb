@@ -60,7 +60,7 @@ module ViewComponent
         end
 
         # Find a component stories by its underscored class name.
-        def find_stories(stories_name)
+        def find_story_configs(stories_name)
           all.find { |stories| stories.stories_name == stories_name }
         end
 
@@ -70,7 +70,7 @@ module ViewComponent
         end
 
         # find the story by name
-        def find_story(name)
+        def find_story_config(name)
           story_configs.find { |config| config.name == name.to_sym }
         end
 

@@ -28,15 +28,13 @@ module ViewComponent
         end
 
         def content(content_str = nil, &block)
-          story_config.content_block = content_str.present? ? proc { content_str } : block
+          story_config.with_content(content_str, &block)
         end
 
         def constructor(*args, **kwargs, &block)
           story_config.constructor_args(*args, **kwargs)
-          story_config.content_block = block
+          story_config.with_content(nil, &block)
         end
-
-        delegate :component, to: :story_config
 
         private
 

@@ -121,5 +121,9 @@ shared_examples "a simple controls config" do
     it "parses nil param_value" do
       expect(subject.value_from_params(subject.param => nil)).to eq(nil)
     end
+
+    it "returns default_value if param is missing" do
+      expect(subject.value_from_params({})).to eq(default_value)
+    end
   end
 end

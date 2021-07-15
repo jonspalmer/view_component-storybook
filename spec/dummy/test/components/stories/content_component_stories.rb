@@ -5,6 +5,10 @@ class ContentComponentStories < ViewComponent::Storybook::Stories
     content "Hello World!"
   end
 
+  story :with_control_content do
+    content text("Hello World!")
+  end
+
   story :with_block_content do
     content do
       "Hello World!"
