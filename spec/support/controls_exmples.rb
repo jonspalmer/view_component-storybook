@@ -40,6 +40,14 @@ shared_examples "a controls config" do
     end
   end
 
+  describe "#prefix_param" do
+    it "prefixes the param" do
+      subject.param(:name).prefix_param(:author)
+
+      expect(subject.param).to eq(:author__name)
+    end
+  end
+
   describe "#valid?" do
     it "true for param that the component supports" do
       expect(subject.valid?).to eq(true)

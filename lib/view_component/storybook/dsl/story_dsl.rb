@@ -36,6 +36,10 @@ module ViewComponent
           story_config.with_content(nil, &block)
         end
 
+        def slot(slot_name, *args, **kwargs, &block)
+          story_config.slot(slot_name, *args, **kwargs, &block)
+        end
+
         private
 
         attr_reader :story_config

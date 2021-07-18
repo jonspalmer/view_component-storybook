@@ -317,8 +317,6 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
       end
 
       it "raises an excpetion" do
-        # subject.to_csf_params
-
         expect { subject.to_csf_params }.to(
           raise_exception(
             ViewComponent::Storybook::StoryConfig::ValidationError,

@@ -401,6 +401,36 @@ RSpec.describe ViewComponent::Storybook::Stories do
       )
     end
 
+    it "converts Stories with slots" do
+      expect(SlotableV2Stories.to_csf_params).to eq(
+        title: "Slotable V2",
+        stories: [
+          {
+            name: :default,
+            parameters: {
+              server: { id: "slotable_v2/default" }
+            },
+            args: {
+              classes: "mt-4",
+              subtitle__content: "This is my subtitle!",
+              tab1__content: "Tab B",
+              item1__highlighted: true,
+              item2__content: "Item C",
+              footer__classes: "text-blue"
+            },
+            argTypes: {
+              classes: { control: { type: :text }, name: "Classes" },
+              subtitle__content: { control: { type: :text }, name: "Subtitle  Content" },
+              tab1__content: { control: { type: :text }, name: "Tab1  Content" },
+              item1__highlighted: { control: { type: :boolean }, name: "Item1  Highlighted" },
+              item2__content: { control: { type: :text }, name: "Item2  Content" },
+              footer__classes: { control: { type: :text }, name: "Footer  Classes" }
+            }
+          }
+        ]
+      )
+    end
+
     it "raises an excpetion if stories are invalid" do
       expect { Invalid::DuplicateStoryStories.to_csf_params }.to(
         raise_exception(
@@ -507,7 +537,8 @@ RSpec.describe ViewComponent::Storybook::Stories do
         LegacyControlsDslStories,
         MixedArgsComponentStories,
         NoLayoutStories,
-        ParametersStories
+        ParametersStories,
+        SlotableV2Stories
       ]
     end
   end

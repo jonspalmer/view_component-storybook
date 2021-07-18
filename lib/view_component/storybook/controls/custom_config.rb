@@ -9,7 +9,7 @@ module ViewComponent
         validate :validate_value_method_args
 
         def with_value(*args, **kwargs, &block)
-          @value_method_args = ViewComponent::Storybook::MethodArgs::ControlMethodArgs.new(block, *args, **kwargs)
+          @value_method_args = MethodArgs::ControlMethodArgs.new(block, *args, **kwargs)
           @value_method_args.with_param_prefix(param)
           self
         end

@@ -69,8 +69,6 @@ module ViewComponent
             value_class.new(*a, **kwa)
           end
         end
-
-        Controls = ViewComponent::Storybook::Controls
       end
     end
   end
