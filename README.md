@@ -159,7 +159,7 @@ end
 ```ruby
 class ButtonComponentStories < ViewComponent::Storybook::Stories
   story(:default) do
-    controls do
+    constructor do
       button_text: text('Push Me Please!'),
       disabled: boolean(false),
       width_in_percent: number(min: 0, max: 100, step: 1),
