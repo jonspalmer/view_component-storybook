@@ -129,7 +129,7 @@ class HeaderComponentStories < ViewComponent::Storybook::Stories
 end
 ```
 
-### All control types
+### All control types with legacy controls
 
 ```ruby
 class ButtonComponentStories < ViewComponent::Storybook::Stories
@@ -153,6 +153,32 @@ class ButtonComponentStories < ViewComponent::Storybook::Stories
   end
 end
 ```
+
+### All control types with Constructor API
+
+```ruby
+class ButtonComponentStories < ViewComponent::Storybook::Stories
+  story(:default) do
+    constructor do
+      button_text: text('Push Me Please!'),
+      disabled: boolean(false),
+      width_in_percent: number(min: 0, max: 100, step: 1),
+      width_in_percent: range(min: 0, max: 100, step: 1),
+      background_color: color(preset_colors: ["#8CDED0", "#F7F6F7", "#83B8FE"]),
+      additional_attributes: object({ "aria-label": "Button label"}),
+      size: select([:sm, :md, :base, :lg], :base),
+      variants: multi_select([:rounded, :striped, :primary, :secondary], [:primary, :rounded]),
+      size: radio([:sm, :md, :base, :lg], :base),
+      size: inline_radio([:sm, :md, :base, :lg], :base),
+      variants: check([:rounded, :striped, :primary, :secondary], [:primary, :rounded]),
+      variants: inline_check([:rounded, :striped, :primary, :secondary], [:primary, :rounded]),
+      variants: array("rounded, striped, primary, secondary", ","),
+      expiration_date: date(Date.today)
+    end
+  end
+end
+```
+
 
 ### Custom control types
 
