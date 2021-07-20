@@ -113,7 +113,7 @@ Given a header class that looks like the following:
 class HeaderComponent < ViewComponent::Base
   def initialize(tag, bold: true)
     @tag = tag
-    @arguments = arguments
+    @bold = bold
   end
 end
 ```
