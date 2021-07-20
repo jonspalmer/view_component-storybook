@@ -105,7 +105,9 @@ end
 
 ### Constructor API
 
-Suppose you have a component that looks like this:
+ViewComponent stories provide a constructor API to provide flexibility in your ViewComponent initializers.
+
+Give a header class that looks like the following:
 
 ```ruby
 class HeaderComponent < ViewComponent::Base
@@ -116,7 +118,7 @@ class HeaderComponent < ViewComponent::Base
 end
 ```
 
-You can utilize the `constructor` syntax when you need some more flexibility with initialization.
+To render a HeaderComponent, use the `constructor` method.
 
 ```ruby
 class HeaderComponentStories < ViewComponent::Storybook::Stories
@@ -127,7 +129,7 @@ class HeaderComponentStories < ViewComponent::Storybook::Stories
 end
 ```
 
-### All control types:
+### All control types
 
 ```ruby
 class ButtonComponentStories < ViewComponent::Storybook::Stories
