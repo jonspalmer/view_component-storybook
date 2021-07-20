@@ -124,7 +124,7 @@ To render a HeaderComponent, use the `constructor` method.
 class HeaderComponentStories < ViewComponent::Storybook::Stories
   constructor(
     text("h1"),
-    bold: boolean()
+    bold: boolean(true)
   )
 end
 ```
