@@ -107,7 +107,7 @@ end
 
 ViewComponent stories provide a constructor API to provide flexibility in your ViewComponent initializers.
 
-Give a header class that looks like the following:
+Given a header class that looks like the following:
 
 ```ruby
 class HeaderComponent < ViewComponent::Base
