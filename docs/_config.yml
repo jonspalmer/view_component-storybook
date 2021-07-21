@@ -21,8 +21,8 @@
 title: ViewComponent Storybook
 
 description: "A framework for writing StorybookJS stories for Ruby on Rails ViewComponents"
-baseurl: "" 
-url: "https://jonspalmer.github.io/view_component_storybook/" 
+baseurl: "view_component_storybook" 
+url: "https://jonspalmer.github.io" 
 
 # Theme settings
 remote_theme: pmarsceill/just-the-docs
