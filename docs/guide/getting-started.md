@@ -127,7 +127,7 @@ yarn storybook
 ```
 
 The second command will open the Storybook app in your browser rendering your ExampleComponent story!
-![Hello World]({{ BASE_PATH }}/assets/images/hello_world.png)
+![Hello World]({{ site.baseurl }}/assets/images/hello_world.png)
 
 ## Implementation
 
@@ -160,6 +160,6 @@ end
 ```
 
 This adds text controls to the Storybook Controls panel. Changing the values re-renders the compoent.
-![Hello World Controls]({{ BASE_PATH }}/assets/images/hello_world_controls.png) 
+![Hello World Controls]({{ site.baseurl }}/assets/images/hello_world_controls.png) 
 
 Available controls and their options are documented on the [Controls](controls.md) page.
