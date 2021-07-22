@@ -25,6 +25,42 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
             }
           end
         end
+
+        context "with labels" do
+          it_behaves_like "a simple controls config" do
+            subject do
+              described_class.new(
+                type,
+                options,
+                default_value,
+                labels: { "red" => "Red", "blue" => "Blue", "yellow" => "Yellow" },
+                param: param,
+                name: name
+              )
+            end
+
+            let(:default_value) { "blue" }
+            let(:param_value) { "blue" }
+
+            let(:expected_csf_params) do
+              {
+                args: {
+                  button_text: expected_csf_value,
+                },
+                argTypes: {
+                  button_text: {
+                    control: {
+                      type: type,
+                      labels: { "red" => "Red", "blue" => "Blue", "yellow" => "Yellow" }
+                    },
+                    name: "Button Text",
+                    options: options
+                  },
+                },
+              }
+            end
+          end
+        end
       end
 
       context "with symbol array values" do

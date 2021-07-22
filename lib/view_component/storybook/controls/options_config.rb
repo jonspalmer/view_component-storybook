@@ -6,16 +6,17 @@ module ViewComponent
       class OptionsConfig < SimpleControlConfig
         TYPES = %i[select multi-select radio inline-radio check inline-check].freeze
 
-        attr_reader :type, :options, :symbol_value
+        attr_reader :type, :options, :labels, :symbol_value
 
         validates :type, :options, presence: true
         validates :type, inclusion: { in: TYPES }, unless: -> { type.nil? }
         validates :default_value, inclusion: { in: ->(config) { config.options } }, unless: -> { options.nil? || default_value.nil? }
 
-        def initialize(type, options, default_value, param: nil, name: nil)
+        def initialize(type, options, default_value, labels: nil, param: nil, name: nil)
           super(default_value, param: param, name: name)
           @type = type
           @options = options
+          @labels = labels
           @symbol_value = default_value.is_a?(Symbol)
         end
 
@@ -30,6 +31,12 @@ module ViewComponent
 
         def to_csf_params
           super.deep_merge(argTypes: { param => { options: options } })
+        end
+
+        private
+
+        def csf_control_params
+          labels.nil? ? super : super.merge(labels: labels)
         end
       end
     end

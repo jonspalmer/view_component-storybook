@@ -28,24 +28,24 @@ module ViewComponent
           Controls::ObjectConfig.new(default_value)
         end
 
-        def select(options, default_value)
-          Controls::OptionsConfig.new(:select, options, default_value)
+        def select(options, default_value, labels: nil)
+          Controls::OptionsConfig.new(:select, options, default_value, labels: labels)
         end
 
-        def multi_select(options, default_value)
-          Controls::OptionsConfig.new(:'multi-select', options, default_value)
+        def multi_select(options, default_value, labels: nil)
+          Controls::OptionsConfig.new(:'multi-select', options, default_value, labels: labels)
         end
 
-        def radio(options, default_value)
-          Controls::OptionsConfig.new(:radio, options, default_value)
+        def radio(options, default_value, labels: nil)
+          Controls::OptionsConfig.new(:radio, options, default_value, labels: labels)
         end
 
-        def inline_radio(options, default_value)
-          Controls::OptionsConfig.new(:'inline-radio', options, default_value)
+        def inline_radio(options, default_value, labels: nil)
+          Controls::OptionsConfig.new(:'inline-radio', options, default_value, labels: labels)
         end
 
-        def check(options, default_value)
-          Controls::OptionsConfig.new(:check, options, default_value)
+        def check(options, default_value, labels: nil)
+          Controls::OptionsConfig.new(:check, options, default_value, labels: labels)
         end
 
         def inline_check(options, default_value)

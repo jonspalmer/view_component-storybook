@@ -73,7 +73,7 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
           <p>I have 2 pets</p>
           <p>I like to watch football and baseball</p>
           <p>My favorite food is Ice Cream</p>
-          <p>I'm feeling Happy</p>
+          <p>I'm feeling happy</p>
           <p>Other things about me {"hair":"Brown","eyes":"Blue"}</p>
         </div>
       HTML
