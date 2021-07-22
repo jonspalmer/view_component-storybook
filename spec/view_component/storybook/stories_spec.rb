@@ -467,7 +467,6 @@ RSpec.describe ViewComponent::Storybook::Stories do
           "Invalid::InvalidConstrutorStories invalid: (Story configs 'invalid_kwards' is invalid: (Constructor args invalid: (Kwargs 'junk' is invalid)))"
         )
       )
-
     end
   end
 
