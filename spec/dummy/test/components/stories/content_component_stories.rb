@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class ContentComponentStories < ViewComponent::Storybook::Stories
-  self.title = "Custom Stories Title"
-  
+
   story :with_string_content do
     content "Hello World!"
   end
