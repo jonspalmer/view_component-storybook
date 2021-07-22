@@ -467,12 +467,7 @@ RSpec.describe ViewComponent::Storybook::Stories do
           "Invalid::InvalidConstrutorStories invalid: (Story configs 'invalid_kwards' is invalid: (Constructor args invalid: (Kwargs 'junk' is invalid)))"
         )
       )
-    it "raises an exception if stories are invalid" do
-      expect { Invalid::DuplicateStoryStories.to_csf_params }.to raise_exception(ActiveModel::ValidationError)
-    end
 
-    it "raises an exception if a story_config is invalid" do
-      expect { Invalid::DuplicateControlsStories.to_csf_params }.to raise_exception(ActiveModel::ValidationError)
     end
   end
 
@@ -556,7 +551,6 @@ RSpec.describe ViewComponent::Storybook::Stories do
         CustomControlStories,
         Demo::ButtonComponentStories,
         Demo::HeadingComponentStories,
-        Invalid::DuplicateControlsStories,
         Invalid::DuplicateStoryStories,
         Invalid::InvalidConstrutorStories,
         KitchenSinkComponentStories,
