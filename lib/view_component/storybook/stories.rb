@@ -7,11 +7,16 @@ module ViewComponent
       include ActiveModel::Validations
 
       class_attribute :story_configs, default: []
-      class_attribute :parameters, :title, :stories_layout
+      class_attribute :parameters, :stories_title, :stories_layout
 
       validate :validate_story_configs
 
       class << self
+        def title(title = nil)
+          self.stories_title = title unless title.nil?
+          stories_title
+        end
+
         def story(name, component = default_component, &block)
           story_config = StoryConfig.configure(story_id(name), name, component, layout, &block)
           story_configs << story_config
@@ -92,7 +97,7 @@ module ViewComponent
         def inherited(other)
           super(other)
           # setup class defaults
-          other.title = other.stories_name.humanize.titlecase
+          other.stories_title = other.stories_name.humanize.titlecase
           other.story_configs = []
         end
 
