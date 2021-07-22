@@ -235,16 +235,18 @@ RSpec.describe ViewComponent::Storybook::Stories do
               favorite_food: {
                 control: {
                   type: :select,
-                  options: { burgers: "Burgers", hot_dog: "Hot Dog", ice_cream: "Ice Cream", pizza: "Pizza" }
+                  # options: { burgers: "Burgers", hot_dog: "Hot Dog", ice_cream: "Ice Cream", pizza: "Pizza" }
                 },
                 name: "Favorite Food",
+                options: ["Burgers", "Hot Dog", "Ice Cream", "Pizza"]
               },
               mood: {
                 control: {
                   type: :radio,
-                  options: { happy: "Happy", sad: "Sad", angry: "Angry", content: "Content" },
+                  # options: { happy: "Happy", sad: "Sad", angry: "Angry", content: "Content" },
                 },
-                name: "Mood"
+                name: "Mood",
+                options: ["Happy", "Sad", "Angry", "Content"]
               },
               other_things: { control: { type: :object }, name: "Other Things" },
             }
