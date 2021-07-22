@@ -2,7 +2,7 @@
 
 module Demo
   class HeadingComponentStories < ViewComponent::Storybook::Stories
-    stories_title 'Heading Component'
+    title 'Heading Component'
 
     story :default do
       controls do
