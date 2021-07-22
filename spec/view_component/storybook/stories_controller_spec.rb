@@ -159,12 +159,13 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
   end
 
   it "renders a slotable_v2 component with params values" do
+    
     get "/rails/stories/slotable_v2/default",
         params: {
           classes: "mb-6",
           subtitle__content: "Subtitle Override!",
-          tab1__content: "Tab 2",
-          item1__highlighted: "false",
+          tab2__content: "Tab 2",
+          item2__highlighted: "false",
           footer__classes: "text-green"
         }
 
