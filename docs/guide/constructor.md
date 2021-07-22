@@ -44,7 +44,7 @@ class HeaderComponentStories < ViewComponent::Storybook::Stories
 end
 ```
 
-The list of Control options is described in [Controls](/guide/controls.html)
+The list of Control options is described in [Controls](controls.md)
 
 ## Validation
 
@@ -72,4 +72,4 @@ class HeaderComponentStories < ViewComponent::Storybook::Stories
 end
 ```
 
-_To view documentation for controls DSL (deprecated) see [legacy_controls_dsl](/guide/legacy_controls_dsl.html)._
+_To view documentation for controls DSL (deprecated) see [legacy_controls_dsl](/guide/legacy_controls_dsl.md)._

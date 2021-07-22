@@ -7,7 +7,7 @@ nav_order: 4
 
 # Controls
 
-Controls define Storybook [controls](https://storybook.js.org/docs/react/essentials/controls) that enable dynamic rendering of story content. They can be used are arguments to Story [constructors](/guide/constructors.html), [content](/guide/content.html) or [slots](/guide/slots.html).
+Controls define Storybook [controls](https://storybook.js.org/docs/react/essentials/controls) that enable dynamic rendering of story content. They can be used are arguments to Story [constructors](constructor.md), [content](content.md) or [slots](slots.md).
 
 ## Boolean Controls
 

@@ -13,4 +13,4 @@ A framework for writing [Storybook](https://github.com/storybookjs/storybook/) s
 A ViewComponent Story is a Ruby object that captures the rendered state of a ViewComponent. Developers write multiple stories per component that describe all the “interesting” states a ViewComponent can support.
 
 
-[Getting started →](/guide/getting-started.html)
+[Getting started →](/guide/getting-started.md)

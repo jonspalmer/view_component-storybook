@@ -4,7 +4,7 @@ nav_exclude: true
 
 # Legacy Controls DSL (deprecated)
 
-_Controls DSL is now deprectaed and will be removed in 1.0. Please migrate to [Constructor](/guide/constructor.html)_
+_Controls DSL is now deprectaed and will be removed in 1.0. Please migrate to [Constructor](constructor.md)_
 
 ```ruby
 class ButtonComponentStories < ViewComponent::Storybook::Stories
