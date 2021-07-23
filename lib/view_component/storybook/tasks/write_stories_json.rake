@@ -12,7 +12,7 @@ namespace :view_component_storybook do
       exceptions << e
     end
 
-    raise StandardError, exceptions.map(:message).join(", ") if exceptions.present?
+    raise StandardError, exceptions.map(&:message).join(", ") if exceptions.present?
 
     puts "Done"
   end
