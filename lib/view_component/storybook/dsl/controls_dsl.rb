@@ -33,7 +33,7 @@ module ViewComponent
         end
 
         def multi_select(options, default_value, labels: nil)
-          Controls::OptionsConfig.new(:'multi-select', options, default_value, labels: labels)
+          Controls::MultiOptionsConfig.new(:'multi-select', options, default_value, labels: labels)
         end
 
         def radio(options, default_value, labels: nil)
@@ -45,11 +45,11 @@ module ViewComponent
         end
 
         def check(options, default_value, labels: nil)
-          Controls::OptionsConfig.new(:check, options, default_value, labels: labels)
+          Controls::MultiOptionsConfig.new(:check, options, default_value, labels: labels)
         end
 
         def inline_check(options, default_value)
-          Controls::OptionsConfig.new(:'inline-check', options, default_value)
+          Controls::MultiOptionsConfig.new(:'inline-check', options, default_value)
         end
 
         def array(default_value, separator = ",")

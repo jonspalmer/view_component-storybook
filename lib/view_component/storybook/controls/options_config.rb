@@ -3,22 +3,11 @@
 module ViewComponent
   module Storybook
     module Controls
-      class OptionsConfig < SimpleControlConfig
+      class OptionsConfig < BaseOptionsConfig
         TYPES = %i[select multi-select radio inline-radio check inline-check].freeze
 
-        attr_reader :type, :options, :labels, :symbol_value
-
-        validates :type, :options, presence: true
         validates :type, inclusion: { in: TYPES }, unless: -> { type.nil? }
         validates :default_value, inclusion: { in: ->(config) { config.options } }, unless: -> { options.nil? || default_value.nil? }
-
-        def initialize(type, options, default_value, labels: nil, param: nil, name: nil)
-          super(default_value, param: param, name: name)
-          @type = type
-          @options = options
-          @labels = labels
-          @symbol_value = default_value.is_a?(Symbol)
-        end
 
         def value_from_params(params)
           params_value = super(params)
@@ -37,6 +26,10 @@ module ViewComponent
 
         def csf_control_params
           labels.nil? ? super : super.merge(labels: labels)
+        end
+
+        def symbol_value
+          @symbol_value ||= default_value.is_a?(Symbol)
         end
       end
     end
