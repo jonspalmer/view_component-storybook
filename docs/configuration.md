@@ -30,6 +30,17 @@ Story classes live in `test/components/stories`, which can be configured using t
 config.view_component_storybook.stories_path = Rails.root.join("spec/components/stories")
 ```
 
+## Stories Route
+
+Stories are served from <http://localhost:3000/rails/stories> by default. To use a different endpoint, set the `stroies_route` option:
+
+```ruby
+# config/application.rb
+config.view_component_storybook.stroies_route = "/stories"
+```
+
+This example will make the previews available from <http://localhost:3000/stories>.
+
 ## Configuring Asset Hosts
 
 Storybook typically runs on a different port or url from the Rails application. To use Javascript, CSS or other assets served by the Rails application in ViewComponents configure `asset_hosts`
