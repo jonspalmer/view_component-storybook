@@ -159,7 +159,6 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
   end
 
   it "renders a slotable_v2 component with params values" do
-    
     get "/rails/stories/slotable_v2/default",
         params: {
           classes: "mb-6",

@@ -86,41 +86,60 @@ array(["Football", "Baseball", "Basketball", "Hockey"])
 
 ## Enum Controls
 
-### select(options, default_value)
+### select(options, default_value, labels: nil)
 Render an enum control as a select dropdown input:
 ```ruby
 select([:small, :medium, :large, :xlarge], :small)
 ```
+Supports labels:
+```ruby
+select(
+  [:small, :medium, :large, :xlarge],
+  :small
+  labels: {
+    small: "Small",
+    medium: "Medium",
+    large: "Large",
+    xlarge: "X-Large"
+  }
+)
+```
 
-### multi_select(options, default_value)
+
+### multi_select(options, default_value, labels: nil)
 Render an enum control as a multi-select dropdown input:
 ```ruby
 select([:small, :medium, :large, :xlarge], [:small, :large])
 ```
+Supports labels see [select](#selectoptions-default_value-labels-nil)
 
-### radio(options, default_value)
+### radio(options, default_value, labels: nil)
 Render an enum control as a radio button inputs:
 ```ruby
 radio([:small, :medium, :large, :xlarge], :small)
 ```
+Supports labels see [select](#selectoptions-default_value-labels-nil)
 
-### inline_radio(options, default_value)
+### inline_radio(options, default_value, labels: nil)
 Render an enum control as a inline radio button inputs:
 ```ruby
 radio([:small, :medium, :large, :xlarge], :small)
 ```
+Supports labels see [select](#selectoptions-default_value-labels-nil)
 
-### check(options, default_value)
+### check(options, default_value, labels: nil)
 Render an enum control as a multi-select checkbox inputs:
 ```ruby
 check([:small, :medium, :large, :xlarge], [:small, :large])
 ```
+Supports labels see [select](#selectoptions-default_value-labels-nil)
 
-### inline_check(options, default_value)
+### inline_check(options, default_value, labels: nil)
 Render an enum control as a multi-select checkbox inputs:
 ```ruby
 inline_check([:small, :medium, :large, :xlarge], [:small, :large])
 ```
+Supports labels see [select](#selectoptions-default_value-labels-nil)
 
 ## Custom Controls
 

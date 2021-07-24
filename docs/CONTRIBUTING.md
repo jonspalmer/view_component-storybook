@@ -5,7 +5,7 @@ title: Contributing
 
 # Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/jonspalmer/view_component_storybook.
+Bug reports and pull requests are welcome on GitHub at [https://github.com/jonspalmer/view_component_storybook](https://github.com/jonspalmer/view_component_storybook).
 
 ## Development
 

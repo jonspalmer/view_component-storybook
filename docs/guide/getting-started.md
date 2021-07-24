@@ -99,7 +99,7 @@ Add a template for the new component:
 ### Write a story for ExampleComponent
 
 ```ruby
-# test/components/stories/example_componeont_stories.rb
+# test/components/stories/example_component_stories.rb
 class ExampleComponentStories < ViewComponent::Storybook::Stories
   story :hello_world do
     constructor(title: "my title") do
