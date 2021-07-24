@@ -434,17 +434,17 @@ RSpec.describe ViewComponent::Storybook::Stories do
             args: {
               classes: "mt-4",
               subtitle__content: "This is my subtitle!",
-              tab1__content: "Tab B",
-              item1__highlighted: true,
-              item2__content: "Item C",
+              tab2__content: "Tab B",
+              item2__highlighted: true,
+              item3__content: "Item C",
               footer__classes: "text-blue"
             },
             argTypes: {
               classes: { control: { type: :text }, name: "Classes" },
               subtitle__content: { control: { type: :text }, name: "Subtitle  Content" },
-              tab1__content: { control: { type: :text }, name: "Tab1  Content" },
-              item1__highlighted: { control: { type: :boolean }, name: "Item1  Highlighted" },
-              item2__content: { control: { type: :text }, name: "Item2  Content" },
+              tab2__content: { control: { type: :text }, name: "Tab2  Content" },
+              item2__highlighted: { control: { type: :boolean }, name: "Item2  Highlighted" },
+              item3__content: { control: { type: :text }, name: "Item3  Content" },
               footer__classes: { control: { type: :text }, name: "Footer  Classes" }
             }
           }

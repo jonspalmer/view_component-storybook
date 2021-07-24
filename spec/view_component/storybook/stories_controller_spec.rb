@@ -163,8 +163,8 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
         params: {
           classes: "mb-6",
           subtitle__content: "Subtitle Override!",
-          tab1__content: "Tab 2",
-          item1__highlighted: "false",
+          tab2__content: "Tab 2",
+          item2__highlighted: "false",
           footer__classes: "text-green"
         }
 
