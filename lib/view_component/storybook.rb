@@ -31,6 +31,16 @@ module ViewComponent
     #
     mattr_accessor :show_stories, instance_writer: false
 
+    # Set the entry route for component stories:
+    #
+    #     config.view_component_storybook.stories_route = "/stories"
+    #
+    # Defaults to `/rails/stories` when `show_stories` is enabled.
+    #
+    mattr_accessor :stories_route, instance_writer: false do
+      "/rails/stories"
+    end
+
     ActiveSupport.run_load_hooks(:view_component_storybook, self)
   end
 end

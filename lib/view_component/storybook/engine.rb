@@ -12,6 +12,7 @@ module ViewComponent
         options = app.config.view_component_storybook
 
         options.show_stories = Rails.env.development? if options.show_stories.nil?
+        options.stories_route ||= ViewComponent::Storybook.stories_route
 
         if options.show_stories
           options.stories_path ||= defined?(Rails.root) ? Rails.root.join("test/components/stories") : nil
@@ -33,7 +34,7 @@ module ViewComponent
 
         if options.show_stories
           app.routes.prepend do
-            get "/rails/stories/*stories/:story" => "view_component/storybook/stories#show", :internal => true
+            get "#{options.stories_route}/*stories/:story" => "view_component/storybook/stories#show", :internal => true
           end
         end
       end
