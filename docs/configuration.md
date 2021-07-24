@@ -5,6 +5,22 @@ title: Configuration
 
 # Configuration
 
+## Application Url
+
+The Rails application url that Storybook calls for story html is configured in `.storybook/preview.js`.
+FOr local development this is typically:
+
+```javascript
+// .storybook/preview.js
+export const parameters = {
+  server: {
+    url: `http://localhost:3000/rails/stories`,
+  },
+};
+```
+
+Other environements, such as production, require equivalent configuration.
+
 ## Stories Path
 
 Story classes live in `test/components/stories`, which can be configured using the `stories_path` setting. For example to use RSpec set the following configuration:
