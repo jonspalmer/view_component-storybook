@@ -221,7 +221,7 @@ RSpec.describe ViewComponent::Storybook::Stories do
               number_pets: 2,
               sports: %w[football baseball],
               favorite_food: "Ice Cream",
-              mood: "Happy",
+              mood: :happy,
               other_things: { eyes: "Blue", hair: "Brown" }
 
             },
@@ -235,16 +235,17 @@ RSpec.describe ViewComponent::Storybook::Stories do
               favorite_food: {
                 control: {
                   type: :select,
-                  options: { burgers: "Burgers", hot_dog: "Hot Dog", ice_cream: "Ice Cream", pizza: "Pizza" }
                 },
                 name: "Favorite Food",
+                options: ["Burgers", "Hot Dog", "Ice Cream", "Pizza"]
               },
               mood: {
                 control: {
                   type: :radio,
-                  options: { happy: "Happy", sad: "Sad", angry: "Angry", content: "Content" },
+                  labels: { happy: "Happy", sad: "Sad", angry: "Angry", content: "Content" },
                 },
-                name: "Mood"
+                name: "Mood",
+                options: [:happy, :sad, :angry, :content]
               },
               other_things: { control: { type: :object }, name: "Other Things" },
             }

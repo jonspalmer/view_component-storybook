@@ -13,7 +13,9 @@ module ViewComponent
       autoload :BooleanConfig
       autoload :ColorConfig
       autoload :NumberConfig
+      autoload :BaseOptionsConfig
       autoload :OptionsConfig
+      autoload :MultiOptionsConfig
       autoload :ArrayConfig
       autoload :DateConfig
       autoload :ObjectConfig

@@ -109,54 +109,70 @@ RSpec.describe ViewComponent::Storybook::Dsl::ControlsDsl do
                      }
   end
 
-  %w[select multi-select radio inline-radio check inline-check].each do |type|
+  %w[select radio inline-radio].each do |type|
     dsl_method = type.underscore
 
     describe "##{dsl_method}" do
-      subject { send(dsl_method, { hot_dog: "Hot Dog", pizza: "Pizza" }, "Pizza") }
+      subject { send(dsl_method, [:hot_dog, :pizza], :pizza) }
 
       include_examples "has controls attributes",
                        {
                          class: ViewComponent::Storybook::Controls::OptionsConfig,
                          type: type.to_sym,
-                         default_value: "Pizza",
-                         options: { hot_dog: "Hot Dog", pizza: "Pizza" }
+                         default_value: :pizza,
+                         options: [:hot_dog, :pizza]
                        }
     end
+  end
 
-    describe "#custom" do
-      subject do
-        custom(first_name: "J.R.R.", last_name: "Tolkien") do |first_name:, last_name:|
-          Author.new(first_name: first_name, last_name: last_name).full_name
-        end
-      end
+  %w[multi-select check inline-check].each do |type|
+    dsl_method = type.underscore
+
+    describe "##{dsl_method}" do
+      subject { send(dsl_method, [:hot_dog, :pizza], [:pizza]) }
 
       include_examples "has controls attributes",
                        {
-                         class: ViewComponent::Storybook::Controls::CustomConfig
+                         class: ViewComponent::Storybook::Controls::MultiOptionsConfig,
+                         type: type.to_sym,
+                         default_value: [:pizza],
+                         options: [:hot_dog, :pizza]
                        }
+    end
+  end
 
-      it "returns cutom value from params" do
-        from_params = subject.value_from_params({})
-        expect(from_params).to eq("J.R.R. Tolkien")
+  describe "#custom" do
+    subject do
+      custom(first_name: "J.R.R.", last_name: "Tolkien") do |first_name:, last_name:|
+        Author.new(first_name: first_name, last_name: last_name).full_name
       end
     end
 
-    describe "#klazz" do
-      subject do
-        klazz(Author, first_name: "J.R.R.", last_name: "Tolkien")
-      end
+    include_examples "has controls attributes",
+                     {
+                       class: ViewComponent::Storybook::Controls::CustomConfig
+                     }
 
-      include_examples "has controls attributes",
-                       {
-                         class: ViewComponent::Storybook::Controls::CustomConfig
-                       }
+    it "returns cutom value from params" do
+      from_params = subject.value_from_params({})
+      expect(from_params).to eq("J.R.R. Tolkien")
+    end
+  end
 
-      it "returns cutom value from params" do
-        from_params = subject.value_from_params({})
-        expect(from_params).to be_a(Author)
-        expect(from_params.full_name).to eq("J.R.R. Tolkien")
-      end
+  describe "#klazz" do
+    subject do
+      klazz(Author, first_name: "J.R.R.", last_name: "Tolkien")
+    end
+
+    include_examples "has controls attributes",
+                     {
+                       class: ViewComponent::Storybook::Controls::CustomConfig
+                     }
+
+    it "returns cutom value from params" do
+      from_params = subject.value_from_params({})
+      expect(from_params).to be_a(Author)
+      expect(from_params.full_name).to eq("J.R.R. Tolkien")
     end
   end
 end
