@@ -13,6 +13,7 @@ module ViewComponent
           @type = type
           @options = options
           @labels = labels
+          normalize_options
         end
 
         def to_csf_params
@@ -23,6 +24,16 @@ module ViewComponent
 
         def csf_control_params
           labels.nil? ? super : super.merge(labels: labels)
+        end
+
+        def normalize_options
+          return unless options.is_a?(Hash)
+
+          warning = "Hash options is deprecated and will be removed in v1.0.0. Use array options and `labels` instead."
+          ActiveSupport::Deprecation.warn(warning)
+
+          @labels = options.invert
+          @options = options.values
         end
       end
     end

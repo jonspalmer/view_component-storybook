@@ -3,88 +3,27 @@
 RSpec.describe ViewComponent::Storybook::Controls::MultiOptionsConfig do
   described_class::TYPES.each do |type|
     context "type: #{type}" do
+      subject { described_class.new(type, options, default_value, labels: labels, param: param, name: name) }
+
       let(:type) { type }
+      let(:labels) { {} }
 
       context "with array options" do
         let(:options) { %w[red blue yellow] }
 
-        it_behaves_like "a simple controls config" do
-          subject { described_class.new(type, options, default_value, param: param, name: name) }
-
-          let(:default_value) { ["blue"] }
-          let(:param_value) { "blue" }
-
-          let(:expected_csf_params) do
-            {
-              args: {
-                button_text: expected_csf_value,
-              },
-              argTypes: {
-                button_text: { control: { type: type }, name: "Button Text", options: options },
-              },
-            }
-          end
-        end
+        it_behaves_like "an options config", ["blue"]
 
         context "with labels" do
-          labels = { "red" => "Red", "blue" => "Blue", "yellow" => "Yellow" }
+          let(:labels) { { "red" => "Red", "blue" => "Blue", "yellow" => "Yellow" } }
 
-          it_behaves_like "a simple controls config" do
-            subject do
-              described_class.new(
-                type,
-                options,
-                default_value,
-                labels: labels,
-                param: param,
-                name: name
-              )
-            end
-
-            let(:default_value) { ["blue"] }
-            let(:param_value) { "blue" }
-
-            let(:expected_csf_params) do
-              {
-                args: {
-                  button_text: expected_csf_value,
-                },
-                argTypes: {
-                  button_text: {
-                    control: {
-                      type: type,
-                      labels: labels
-                    },
-                    name: "Button Text",
-                    options: options
-                  },
-                },
-              }
-            end
-          end
+          it_behaves_like "an options config", ["blue"]
         end
       end
 
       context "with symbol array values" do
         let(:options) { %i[red blue yellow] }
 
-        it_behaves_like "a simple controls config" do
-          subject { described_class.new(type, options, default_value, param: param, name: name) }
-
-          let(:default_value) { [:blue] }
-          let(:param_value) { "blue" }
-
-          let(:expected_csf_params) do
-            {
-              args: {
-                button_text: expected_csf_value,
-              },
-              argTypes: {
-                button_text: { control: { type: type }, name: "Button Text", options: options },
-              },
-            }
-          end
-        end
+        it_behaves_like "an options config", [:blue]
       end
     end
   end

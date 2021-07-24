@@ -137,7 +137,7 @@ RSpec.describe ViewComponent::Storybook::Dsl::LegacyControlsDsl do
     dsl_method = type.underscore
 
     describe "##{dsl_method}" do
-      before { subject.send(dsl_method, :favorite_food, { hot_dog: "Hot Dog", pizza: "Pizza" }, "Pizza") }
+      before { subject.send(dsl_method, :favorite_food, { "Hot Dog" => :hot_dog, "Pizza" => :pizza }, :pizza) }
 
       include_examples "has controls attributes", [
         {
@@ -145,8 +145,9 @@ RSpec.describe ViewComponent::Storybook::Dsl::LegacyControlsDsl do
           type: type.to_sym,
           param: :favorite_food,
           name: "Favorite Food",
-          default_value: "Pizza",
-          options: { hot_dog: "Hot Dog", pizza: "Pizza" }
+          default_value: :pizza,
+          options: [:hot_dog, :pizza],
+          labels: { hot_dog: "Hot Dog", pizza: "Pizza" }
         }
       ]
     end

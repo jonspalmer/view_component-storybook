@@ -135,3 +135,35 @@ shared_examples "a simple controls config" do
     end
   end
 end
+
+shared_examples "an options config" do |default_value|
+  it_behaves_like "a simple controls config" do
+    let(:default_value) { default_value }
+    let(:param_value) { "blue" }
+
+    let(:expected_csf_params) do
+      control_labels = labels ? { labels: labels } : {}
+
+      {
+        args: {
+          button_text: expected_csf_value,
+        },
+        argTypes: {
+          button_text: { control: { type: type, **control_labels }, name: "Button Text", options: options },
+        },
+      }
+    end
+  end
+
+  context "with hash options" do
+    subject { described_class.new(type, options, default_value) }
+
+    let(:default_value) { default_value }
+    let(:options) { { "Hot Dog" => :hot_dog, "Pizza" => :pizza } }
+
+    it "converts options to labels" do
+      expect(subject.options).to eq([:hot_dog, :pizza])
+      expect(subject.labels).to eq(hot_dog: "Hot Dog", pizza: "Pizza")
+    end
+  end
+end
