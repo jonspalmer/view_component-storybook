@@ -7,24 +7,29 @@ module ViewComponent
       include ActiveModel::Validations
 
       class_attribute :story_configs, default: []
-      class_attribute :parameters, :stories_title, :stories_layout
+      class_attribute :stories_parameters, :stories_title, :stories_layout
 
       validate :validate_story_configs
 
       class << self
         def title(title = nil)
+          # if no argument is passed act like a getter
           self.stories_title = title unless title.nil?
           stories_title
         end
 
         def story(name, component = default_component, &block)
-          story_config = StoryConfig.configure(story_id(name), name, component, layout, &block)
+          story_config = StoryConfig.new(story_id(name), name, component, layout, &block)
+          story_config.instance_eval(&block)
+          # config = new(id, name, component_class, layout)
           story_configs << story_config
           story_config
         end
 
-        def parameters(**params)
-          self.parameters = params
+        def parameters(params = nil)
+          # if no argument is passed act like a getter
+          self.stories_parameters = params unless params.nil?
+          stories_parameters
         end
 
         def layout(layout = nil)

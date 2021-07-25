@@ -2,21 +2,21 @@
 
 class ContentComponentStories < ViewComponent::Storybook::Stories
   story :with_string_content do
-    content "Hello World!"
+    with_content "Hello World!"
   end
 
   story :with_control_content do
-    content text("Hello World!")
+    with_content text("Hello World!")
   end
 
   story :with_block_content do
-    content do
+    with_content do
       "Hello World!"
     end
   end
 
   story :with_helper_content do
-    content do
+    with_content do
       link_to "Hello World!", "#"
     end
   end
