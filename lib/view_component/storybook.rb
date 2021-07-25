@@ -12,7 +12,7 @@ module ViewComponent
     autoload :StoryConfig
     autoload :Story
     autoload :Slots
-    autoload :WithContent
+    autoload :ContentConcern
     autoload :MethodArgs
     autoload :Dsl
 

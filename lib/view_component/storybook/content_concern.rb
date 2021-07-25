@@ -2,8 +2,12 @@
 
 module ViewComponent
   module Storybook
-    module WithContent
-      attr_reader :content_control, :content_block
+    module ContentConcern
+      extend ActiveSupport::Concern
+
+      included do
+        attr_reader :content_control, :content_block
+      end
 
       def content(content = nil, &block)
         case content

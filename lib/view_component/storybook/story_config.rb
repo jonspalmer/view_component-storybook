@@ -4,7 +4,7 @@ module ViewComponent
   module Storybook
     class StoryConfig
       include ActiveModel::Validations
-      include WithContent
+      include ContentConcern
       include Controls::ControlsHelpers
 
       attr_reader :id, :name, :component_class
