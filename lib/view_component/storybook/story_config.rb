@@ -25,7 +25,7 @@ module ViewComponent
           *args,
           **kwargs
         )
-        with_content(nil, &block)
+        content(nil, &block)
 
         self
       end

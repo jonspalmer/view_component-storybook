@@ -64,7 +64,7 @@ Returning the rendered html to Storybook:
 
 ## #content
 
-In addition to passing content as a block to `constructor` ViewComponent Storybook accepts content with `with_content`. Content is passed as a string value or a block that supports view helpers. 
+In addition to passing content as a block to `constructor` ViewComponent Storybook accepts content with `content`. Content is passed as a string value or a block that supports view helpers. 
 
 ```ruby
 # test/components/stories/example_component_stories.rb

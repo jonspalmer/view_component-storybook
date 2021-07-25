@@ -5,7 +5,7 @@ module ViewComponent
     module WithContent
       attr_reader :content_control, :content_block
 
-      def with_content(content = nil, &block)
+      def content(content = nil, &block)
         case content
         when Storybook::Controls::ControlConfig
           @content_control = content.param(content_param)
