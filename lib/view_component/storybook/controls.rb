@@ -20,6 +20,7 @@ module ViewComponent
       autoload :DateConfig
       autoload :ObjectConfig
       autoload :CustomConfig
+      autoload :ControlsHelpers
     end
   end
 end

@@ -6,9 +6,9 @@ class SlotableV2Stories < ViewComponent::Storybook::Stories
       classes: text("mt-4")
     )
 
-    slot(:title).with_content("This is my title!")
+    slot(:title).content("This is my title!")
 
-    slot(:subtitle).with_content(
+    slot(:subtitle).content(
       text("This is my subtitle!")
     )
 
@@ -16,15 +16,15 @@ class SlotableV2Stories < ViewComponent::Storybook::Stories
       "Tab A"
     end
 
-    slot(:tab).with_content(text("Tab B"))
+    slot(:tab).content(text("Tab B"))
 
-    slot(:item).with_content("Item A")
+    slot(:item).content("Item A")
 
     slot(:item, highlighted: boolean(true)) do
       "Item B"
     end
 
-    slot(:item).with_content(text("Item C"))
+    slot(:item).content(text("Item C"))
 
     slot(:footer, classes: text("text-blue")) do
       "This is the footer"

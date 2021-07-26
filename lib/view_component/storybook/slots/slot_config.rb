@@ -4,7 +4,7 @@ module ViewComponent
   module Storybook
     module Slots
       class SlotConfig
-        include WithContent
+        include ContentConcern
 
         attr_reader :slot_name, :slot_method_args, :param, :content_block
 
