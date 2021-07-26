@@ -21,7 +21,6 @@ module ViewComponent
         def story(name, component = default_component, &block)
           story_config = StoryConfig.new(story_id(name), name, component, layout, &block)
           story_config.instance_eval(&block)
-          # config = new(id, name, component_class, layout)
           story_configs << story_config
           story_config
         end
