@@ -4,10 +4,10 @@ module ViewComponent
   module Storybook
     class StoryConfig
       include ActiveModel::Validations
-      include WithContent
+      include ContentConcern
+      include Controls::ControlsHelpers
 
       attr_reader :id, :name, :component_class
-      attr_accessor :parameters, :layout
 
       validate :validate_constructor_args
 
@@ -19,16 +19,42 @@ module ViewComponent
         @slots ||= {}
       end
 
-      def constructor_args(*args, **kwargs)
-        if args.empty? && kwargs.empty?
-          @constructor_args ||= MethodArgs::ControlMethodArgs.new(component_constructor)
+      def constructor(*args, **kwargs, &block)
+        @constructor_args = MethodArgs::ControlMethodArgs.new(
+          component_constructor,
+          *args,
+          **kwargs
+        )
+        content(nil, &block)
+
+        self
+      end
+
+      # Once deprecated block version is removed make this a private getter
+      def controls(&block)
+        if block_given?
+          ActiveSupport::Deprecation.warn("`controls` will be removed in v1.0.0. Use `#constructor` instead.")
+          controls_dsl = Dsl::LegacyControlsDsl.new
+          controls_dsl.instance_eval(&block)
+
+          controls_hash = controls_dsl.controls.index_by(&:param)
+          constructor(**controls_hash)
         else
-          @constructor_args = MethodArgs::ControlMethodArgs.new(
-            component_constructor,
-            *args,
-            **kwargs
-          )
+          list = constructor_args.controls.dup
+          list << content_control if content_control
+          list += slots.flat_map(&:controls) if slots
+          list
         end
+      end
+
+      def layout(layout = nil)
+        @layout = layout unless layout.nil?
+        @layout
+      end
+
+      def parameters(parameters = nil)
+        @parameters = parameters unless parameters.nil?
+        @parameters
       end
 
       def slot(slot_name, *args, **kwargs, &block)
@@ -96,12 +122,6 @@ module ViewComponent
         Storybook::Story.new(component, story_content_block, story_slots, layout)
       end
 
-      def self.configure(id, name, component_class, layout, &configuration)
-        config = new(id, name, component_class, layout)
-        Dsl::StoryDsl.evaluate!(config, &configuration)
-        config
-      end
-
       class ValidationError < StandardError
         attr_reader :story_config
 
@@ -114,19 +134,16 @@ module ViewComponent
 
       private
 
+      def constructor_args
+        @constructor_args ||= MethodArgs::ControlMethodArgs.new(component_constructor)
+      end
+
       def component_constructor
         component_class.instance_method(:initialize)
       end
 
       def slots
         @slots.values.flatten
-      end
-
-      def controls
-        list = constructor_args.controls.dup
-        list << content_control if content_control
-        list += slots.flat_map(&:controls) if slots
-        list
       end
 
       def validate_constructor_args

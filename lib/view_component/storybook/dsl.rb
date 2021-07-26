@@ -7,8 +7,6 @@ module ViewComponent
     module Dsl
       extend ActiveSupport::Autoload
 
-      autoload :StoryDsl
-      autoload :ControlsDsl
       autoload :LegacyControlsDsl
     end
   end

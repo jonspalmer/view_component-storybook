@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe ViewComponent::Storybook::Dsl::ControlsDsl do
+RSpec.describe ViewComponent::Storybook::Controls::ControlsHelpers do
   include described_class
 
   shared_examples "has controls attributes" do |control_attributes|

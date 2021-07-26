@@ -42,7 +42,7 @@ end
 ## Dynamic Slots with Controls
 
 Like components dynamic slots are configured by passing control arguements. Slot content with controls is 
-configured via `with_content`:
+configured via `content`:
 
 ```ruby
 # test/components/stories/blog_componeont_stories.rb
@@ -68,7 +68,7 @@ and "Post2  Title".
 
 ## Dynamic Slot content with Controls
 
-Like components slots accept content as controls via `with_content`:
+Like components slots accept content as controls via `content`:
 
 ```ruby
 # test/components/stories/blog_componeont_stories.rb
@@ -79,10 +79,10 @@ class BlogComponentStories < ViewComponent::Storybook::Stories
     end
 
     slot(:post, title: text("My blog post"))
-      .with_content(text("Really interesting stuff."))
+      .content(text("Really interesting stuff."))
 
     slot(:post, title: text("Another post!"))
-      .with_content(text("Blog every day."))
+      .content(text("Blog every day."))
   end
 end
 ```

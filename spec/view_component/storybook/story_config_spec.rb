@@ -7,7 +7,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
 
   describe "#valid?" do
     it "is valid" do
-      subject.constructor_args(
+      subject.constructor(
         title: ViewComponent::Storybook::Controls::TextConfig.new("OK")
       )
 
@@ -17,7 +17,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
     context "without too many args" do
       subject do
         story = described_class.new("mixed_args_story_config", "Mixed Args Story Config", MixedArgsComponent, false)
-        story.constructor_args(
+        story.constructor(
           ViewComponent::Storybook::Controls::TextConfig.new("OK"),
           ViewComponent::Storybook::Controls::TextConfig.new("Not OK!"),
           message: ViewComponent::Storybook::Controls::TextConfig.new("Hello World!")
@@ -34,7 +34,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
     context "without too few args" do
       subject do
         story = described_class.new("mixed_args_story_config", "Mixed Args Story Config", MixedArgsComponent, false)
-        story.constructor_args(
+        story.constructor(
           message: ViewComponent::Storybook::Controls::TextConfig.new("Hello World!")
         )
         story
@@ -54,7 +54,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
 
     it "validates constructor_args kwargs" do
       # This control is invalid because its key doesn't match the components kwargs
-      subject.constructor_args(
+      subject.constructor(
         junk: ViewComponent::Storybook::Controls::TextConfig.new("OK")
       )
       expect(subject.valid?).to eq(false)
@@ -63,7 +63,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
 
     it "validates constructor_args controls" do
       # This control is invalid because its value isn't a boolean
-      subject.constructor_args(
+      subject.constructor(
         title: ViewComponent::Storybook::Controls::BooleanConfig.new("OK")
       )
       expect(subject.valid?).to eq(false)
@@ -92,7 +92,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
 
     context "with constructor_args" do
       before do
-        subject.constructor_args(
+        subject.constructor(
           title: ViewComponent::Storybook::Controls::TextConfig.new("OK")
         )
       end
@@ -119,7 +119,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
       subject do
         # use ArgsComponent as a component that doesn't require controls
         story = described_class.new("args_story_config", "Args Story Config", ArgsComponent, false)
-        story.parameters = { size: :large, color: :red }
+        story.parameters(size: :large, color: :red)
         story
       end
 
@@ -139,10 +139,10 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
 
     context "with constructor_args and params" do
       before do
-        subject.constructor_args(
+        subject.constructor(
           title: ViewComponent::Storybook::Controls::TextConfig.new("OK")
         )
-        subject.parameters = { size: :large, color: :red }
+        subject.parameters(size: :large, color: :red)
       end
 
       it "writes csf params" do
@@ -168,7 +168,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
     context "with rest kwargs" do
       subject do
         story = described_class.new("kwargs_story_config", "Kwargs Story Config", KwargsComponent, false)
-        story.constructor_args(
+        story.constructor(
           message: ViewComponent::Storybook::Controls::TextConfig.new("Hello World!")
         )
         story
@@ -195,7 +195,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
     context "with rest args" do
       subject do
         story = described_class.new("args_story_config", "Args Story Config", ArgsComponent, false)
-        story.constructor_args(
+        story.constructor(
           ViewComponent::Storybook::Controls::TextConfig.new("OK")
         )
         story
@@ -221,7 +221,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
 
     context "with invalid kwargs" do
       before do
-        subject.constructor_args(
+        subject.constructor(
           junk: ViewComponent::Storybook::Controls::TextConfig.new("OK")
         )
       end
@@ -250,7 +250,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
     context "without too many args" do
       subject do
         story = described_class.new("mixed_args_story_config", "Mixed Args Story Config", MixedArgsComponent, false)
-        story.constructor_args(
+        story.constructor(
           ViewComponent::Storybook::Controls::TextConfig.new("OK"),
           ViewComponent::Storybook::Controls::TextConfig.new("Not OK!"),
           message: ViewComponent::Storybook::Controls::TextConfig.new("Hello World!")
@@ -271,7 +271,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
     context "without too few args" do
       subject do
         story = described_class.new("mixed_args_story_config", "Mixed Args Story Config", MixedArgsComponent, false)
-        story.constructor_args(
+        story.constructor(
           message: ViewComponent::Storybook::Controls::TextConfig.new("Hello World!")
         )
         story
@@ -289,7 +289,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
 
     context "with invlaid controls" do
       before do
-        subject.constructor_args(
+        subject.constructor(
           title: ViewComponent::Storybook::Controls::BooleanConfig.new("OK")
         )
       end
@@ -311,7 +311,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
         custom_control = ViewComponent::Storybook::Controls::CustomConfig.new.with_value(message: message_control) do |greating:|
           "#{greating} Sarah"
         end
-        subject.constructor_args(
+        subject.constructor(
           title: custom_control
         )
       end
