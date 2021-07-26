@@ -10,7 +10,7 @@ module ViewComponentStorybook
 
       def install
         insert_into_file '.gitignore', '*/*.stories.json'
-        run_yarn
+        add_yarn_dependencies
         generate_storybook_files
       end
 
