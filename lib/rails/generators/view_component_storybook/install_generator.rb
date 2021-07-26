@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rails/generators/abstract_generator"
-
 module ViewComponentStorybook
   module Generators
     class InstallGenerator < Rails::Generators::Base
