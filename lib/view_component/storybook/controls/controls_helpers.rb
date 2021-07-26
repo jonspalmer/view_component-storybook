@@ -2,8 +2,8 @@
 
 module ViewComponent
   module Storybook
-    module Dsl
-      module ControlsDsl
+    module Controls
+      module ControlsHelpers
         def text(default_value)
           Controls::TextConfig.new(default_value)
         end

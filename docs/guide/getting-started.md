@@ -27,13 +27,13 @@ nav_order: 1
 
 ### Storybook Installation
 
-1. Add Storybook Server as a dev dependedncy. 
+1. Add Storybook Server as a dev dependency. 
    ```console
    yarn add @storybook/server @storybook/addon-controls --dev
    ```
   Storybook Controls addon isn't required but is strongly recommended.
 
-2. Add an NPM script start Storybook. In ``package.json`, add:
+2. Add an NPM script to start Storybook. In `package.json`, add:
 
    ```json
    {
@@ -43,7 +43,7 @@ nav_order: 1
    }
    ```
 
-3. Configure Storybook to find the json stories the gem creates. Create `.storybook/main.js`,
+3. Configure Storybook to find the json stories that the gem creates. Create `.storybook/main.js`,
 
    ```javascript
    module.exports = {
@@ -160,6 +160,7 @@ class ExampleComponentStories < ViewComponent::Storybook::Stories
   story :hello_world  do
     constructor(title: text("my title"))
     content(text("Hello World!"))
+  end
 end
 ```
 

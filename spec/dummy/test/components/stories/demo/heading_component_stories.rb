@@ -5,9 +5,9 @@ module Demo
     title 'Heading Component'
 
     story :default do
-      controls do
-        heading_text "Heading"
-      end
+      constructor(
+        heading_text: text("Heading")
+      )
     end
   end
 end
