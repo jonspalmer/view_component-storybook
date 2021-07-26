@@ -17,7 +17,7 @@ module ViewComponentStorybook
 
       private
 
-      def run_yarn
+      def add_yarn_dependencies
         run 'yarn add @storybook/server @storybook/addon-controls --dev'
       end
 
