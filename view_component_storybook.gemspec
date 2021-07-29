@@ -33,7 +33,7 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = ">= 2.5.0"
 
-  spec.add_dependency "view_component", ">= 2.2"
+  spec.add_dependency "view_component", ">= 2.36"
 
   spec.add_development_dependency "bundler", "~> 2.2"
   spec.add_development_dependency "capybara", "~> 3"
