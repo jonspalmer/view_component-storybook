@@ -64,8 +64,8 @@ module ViewComponent
           super
         end
       end
-    
-      def respond_to?(method_name, include_private = false)
+
+      def respond_to_missing?(method_name, _include_private = false)
         component_class.slot_type(method_name).present?
       end
 
@@ -134,7 +134,6 @@ module ViewComponent
         constructor_args_errors = constructor_args.errors.full_messages.join(', ')
         errors.add(:constructor_args, :invalid, errors: constructor_args_errors)
       end
-
 
       def slot(slot_name, *args, **kwargs, &block)
         # if the name is a slot then build a SlotConfig with slot_name and param the same
