@@ -18,21 +18,21 @@ class BlogComponent < ViewComponent::Base
 end
 ```
 
-Stories declare slots with `slot` passing the name of the slot, the arguments for the slot instance and an optional content block that supports view helpers:
+Stories declare slots by callling the method name matching the component's slot passing the arguments for the slot instance and an optional content block that supports view helpers:
 
 ```ruby
 # test/components/stories/blog_componeont_stories.rb
 class BlogComponentStories < ViewComponent::Storybook::Stories
   story :posts do
-    slot(:header, classes: "") do
+    header(classes: "") do
       link_to "My blog", root_path
     end
 
-    slot(:post, title: "My blog post") do
+    post(title: "My blog post") do
       Really interesting stuff.
     end
 
-    slot(:post, title: "Another post!") do 
+    post(title: "Another post!") do 
       Blog every day.
     end
   end
@@ -48,15 +48,15 @@ configured via `content`:
 # test/components/stories/blog_componeont_stories.rb
 class BlogComponentStories < ViewComponent::Storybook::Stories
   story :posts do
-    slot(:header, classes: text("")) do
+    header(classes: text("")) do
       link_to "My blog", root_path
     end
 
-    slot(:post, title: text("My blog post")) do
+    post(title: text("My blog post")) do
       Really interesting stuff.
     end
 
-    slot(:post, title: text("Another post!")) do
+    post(title: text("Another post!")) do
       Blog every day.
     end
   end
@@ -74,14 +74,14 @@ Like components slots accept content as controls via `content`:
 # test/components/stories/blog_componeont_stories.rb
 class BlogComponentStories < ViewComponent::Storybook::Stories
   story :posts do
-    slot(:header, classes: text("")) do
+    header(classes: text("")) do
       link_to "My blog", root_path
     end
 
-    slot(:post, title: text("My blog post"))
+    post(title: text("My blog post"))
       .content(text("Really interesting stuff."))
 
-    slot(:post, title: text("Another post!"))
+    post(title: text("Another post!"))
       .content(text("Blog every day."))
   end
 end
@@ -112,7 +112,7 @@ end
 # test/components/stories/navigation_componeont_stories.rb
 class NavigationComponentStories < ViewComponent::Storybook::Stories
   story :nav do
-    slot(:links, array(
+    links(array(
       [
         { name: "Home", href: "/" },
         { name: "Pricing", href: "/pricing" },

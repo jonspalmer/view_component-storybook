@@ -6,27 +6,27 @@ class SlotableV2Stories < ViewComponent::Storybook::Stories
       classes: text("mt-4")
     )
 
-    slot(:title).content("This is my title!")
+    title.content("This is my title!")
 
-    slot(:subtitle).content(
+    subtitle.content(
       text("This is my subtitle!")
     )
 
-    slot(:tab) do
+    tab do
       "Tab A"
     end
 
-    slot(:tab).content(text("Tab B"))
+    tab.content(text("Tab B"))
 
-    slot(:item).content("Item A")
+    item.content("Item A")
 
-    slot(:item, highlighted: boolean(true)) do
+    item(highlighted: boolean(true)) do
       "Item B"
     end
 
-    slot(:item).content(text("Item C"))
+    item.content(text("Item C"))
 
-    slot(:footer, classes: text("text-blue")) do
+    footer(classes: text("text-blue")) do
       "This is the footer"
     end
   end
