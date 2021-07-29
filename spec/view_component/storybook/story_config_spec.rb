@@ -326,4 +326,48 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
       end
     end
   end
+
+  describe "slot methods" do
+    subject do
+      described_class.new("slots_story_config", "Slots Story Config", SlotsV2Component, false)
+    end
+
+    it "adds single slot method" do
+      expect(subject.title).to be_a(ViewComponent::Storybook::Slots::SlotConfig)
+    end
+
+    it "adds collection slot method" do
+      expect(subject.tabs).to be_a(ViewComponent::Storybook::Slots::SlotConfig)
+    end
+
+    it "adds collection item slot method" do
+      expect(subject.tab).to be_a(ViewComponent::Storybook::Slots::SlotConfig)
+    end
+
+    it "raised an exception for non-slot method" do
+      expect { subject.junk }.to raise_exception NoMethodError
+    end
+  end
+
+  describe "respond_to_missing?" do
+    subject do
+      described_class.new("slots_story_config", "Slots Story Config", SlotsV2Component, false)
+    end
+
+    it "responds to single slot method" do
+      expect(subject).to respond_to(:title)
+    end
+
+    it "responds to collection slot method" do
+      expect(subject).to respond_to(:tabs)
+    end
+
+    it "responds to collection item slot method" do
+      expect(subject).to respond_to(:tab)
+    end
+
+    it "does not respond non-slot method" do
+      expect(subject).not_to respond_to(:junk)
+    end
+  end
 end
