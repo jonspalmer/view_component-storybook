@@ -1,3 +1,4 @@
+<%- if ViewComponent::Base.render_monkey_patch_enabled || Rails.version.to_f >= 6.1 -%>
 <%= render(@story.component) do |c| -%>
   <% @story.slots.each do |slot| -%>
     <%- slot.call do -%>
@@ -5,4 +6,14 @@
     <%- end -%>
   <%- end -%>
   <%- instance_eval(&@story.content_block) if @story.content_block -%>
+<%- end -%>
+<%- else -%>
+<%= render_component(@story.component) do |c| -%>
+  <% @story.slots.each do |slot| -%>
+    <%- slot.call do -%>
+      <%= instance_eval(&slot.content_block) if slot.content_block -%>
+    <%- end -%>
+  <%- end -%>
+  <%- instance_eval(&@story.content_block) if @story.content_block -%>
+<%- end -%>
 <%- end -%>
