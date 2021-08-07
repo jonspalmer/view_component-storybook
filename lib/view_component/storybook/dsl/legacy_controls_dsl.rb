@@ -56,7 +56,7 @@ module ViewComponent
           controls << Controls::OptionsConfig.new(:'inline-check', options, value, param: param, name: name)
         end
 
-        def array(param, value, separator = nil, name: nil)
+        def array(param, value, _separator = nil, name: nil)
           controls << Controls::ObjectConfig.new(value, param: param, name: name)
         end
 
