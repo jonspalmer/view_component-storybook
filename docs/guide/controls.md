@@ -123,7 +123,7 @@ Supports labels see [select](#selectoptions-default_value-labels-nil)
 ### inline_radio(options, default_value, labels: nil)
 Render an enum control as a inline radio button inputs:
 ```ruby
-radio([:small, :medium, :large, :xlarge], :small)
+inline_radio([:small, :medium, :large, :xlarge], :small)
 ```
 Supports labels see [select](#selectoptions-default_value-labels-nil)
 
