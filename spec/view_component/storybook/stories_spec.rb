@@ -231,7 +231,7 @@ RSpec.describe ViewComponent::Storybook::Stories do
               favorite_color: { control: { type: :color }, name: "Favorite Color" },
               like_people: { control: { type: :boolean }, name: "Like People" },
               number_pets: { control: { type: :number }, name: "Number Pets" },
-              sports: { control: { type: :array, separator: "," }, name: "Sports" },
+              sports: { control: { type: :object }, name: "Sports" },
               favorite_food: {
                 control: {
                   type: :select,
