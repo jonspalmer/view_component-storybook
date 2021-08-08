@@ -7,6 +7,8 @@ title: Changelog
 
 ## main
 
+* Allow Object Controls with arrays of simple values
+
 ## 0.10.0
 
 * New Stories API

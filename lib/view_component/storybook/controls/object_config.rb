@@ -13,7 +13,9 @@ module ViewComponent
           if params_value.is_a?(String)
             parsed_json = JSON.parse(params_value)
             if parsed_json.is_a?(Array)
-              parsed_json.map(&:deep_symbolize_keys)
+              parsed_json.map do |item|
+                item.is_a?(Hash) ? item.deep_symbolize_keys : item
+              end
             else
               parsed_json.deep_symbolize_keys
             end
