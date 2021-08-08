@@ -7,6 +7,8 @@ title: Changelog
 
 ## main
 
+## 0.10.1
+
 * Allow Object Controls with arrays of simple values
 
 ## 0.10.0
