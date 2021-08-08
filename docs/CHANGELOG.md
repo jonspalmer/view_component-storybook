@@ -7,6 +7,8 @@ title: Changelog
 
 ## main
 
+## 0.10.0
+
 * New Stories API
   * `title` - custom stories title 
   * `constructor` - component args
