@@ -52,8 +52,9 @@ module ViewComponent
           Controls::MultiOptionsConfig.new(:'inline-check', options, default_value)
         end
 
-        def array(default_value, separator = ",")
-          Controls::ArrayConfig.new(default_value, separator)
+        def array(default_value, separator = nil)
+          ActiveSupport::Deprecation.warn("`array` `separator` argument will be removed in v1.0.0.") if separator
+          Controls::ObjectConfig.new(default_value)
         end
 
         def date(default_value)

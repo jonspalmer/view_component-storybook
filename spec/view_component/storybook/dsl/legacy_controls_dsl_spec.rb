@@ -172,11 +172,10 @@ RSpec.describe ViewComponent::Storybook::Dsl::LegacyControlsDsl do
 
       include_examples "has controls attributes", [
         {
-          class: ViewComponent::Storybook::Controls::ArrayConfig,
+          class: ViewComponent::Storybook::Controls::ObjectConfig,
           param: :sports,
           name: "Sports",
           default_value: %w[football baseball],
-          separator: "|"
         }
       ]
     end

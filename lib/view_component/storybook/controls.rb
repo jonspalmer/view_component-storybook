@@ -16,7 +16,6 @@ module ViewComponent
       autoload :BaseOptionsConfig
       autoload :OptionsConfig
       autoload :MultiOptionsConfig
-      autoload :ArrayConfig
       autoload :DateConfig
       autoload :ObjectConfig
       autoload :CustomConfig
