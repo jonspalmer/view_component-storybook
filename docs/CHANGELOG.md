@@ -17,6 +17,7 @@ title: Changelog
   * Klazz Control
 * Deprecated Controls DSL
 * Add support for Object Controls with array values
+* Remove ArrayConfig - array aliases ObjectConfig
 * Updated Options Control to match Storybook 6.2 syntax
   * `options` as array
   * add `labels` option
