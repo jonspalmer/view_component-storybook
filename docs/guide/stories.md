@@ -63,7 +63,7 @@ Components are rendered in the default application layout. The layout for a set 
 ```ruby
 # test/components/stories/header_componeont_stories.rb
 class HeaderComponentStories < ViewComponent::Storybook::Stories
-  layout :desktop
+  layout 'desktop'
   
   story :h1 do
     constructor("h1")
