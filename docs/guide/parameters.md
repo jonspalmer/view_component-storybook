@@ -7,7 +7,7 @@ nav_order: 8
 
 # Parameters
 
-Configure Storybook addons with `parameters`. Global parameters are defined in `.storybook/preview.js` - this is how the Storybook Rails [application url](/configuration.html#application-url). Parameteters specified at the Stories and Story level are merged in that order. For example disable the a11y addon for all stories and enable it for one:
+Configure Storybook addons with `parameters`. Global parameters are defined in `.storybook/preview.js` - this is how the Storybook Rails [application url](/configuration.html#application-url). Parameters specified at the Stories and Story level are merged in that order. For example disable the a11y addon for all stories and enable it for one:
 
 
 ```ruby
