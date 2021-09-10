@@ -14,12 +14,30 @@ nav_order: 1
 1. In `Gemfile`, add:
    ```ruby
    gem "view_component", require: "view_component/engine"
+   gem "rack-cors"
+   
+   group :development, :test do
+     gem "view_component_storybook"
+   end
    ```
 1. In `config/application.rb`, add: 
    ```ruby
    require "view_component/storybook/engine"
    ```
-1. In`.gitignore`, add:
+1. In `config/environments/development.rb`, add:
+   ```ruby
+   # Allow use of Storybook
+   config.middleware.insert_before(0, Rack::Cors) do
+     allow do
+       origins "*"
+         resource "/rails/stories/*", headers: :any, methods: [:get]
+       end
+     end
+   end
+   
+   config.action_controller.asset_host = "http://localhost:3000"
+   ```
+3. In`.gitignore`, add:
    ```text
    **/*.stories.json
    ```
