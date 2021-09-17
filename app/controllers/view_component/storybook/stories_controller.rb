@@ -41,6 +41,12 @@ module ViewComponent
         @story_config = @story_configs.find_story_config(story_name)
         head :not_found unless @story_config
       end
+
+      def render_component_method
+        ViewComponent::Base.render_monkey_patch_enabled || Rails.version.to_f >= 6.1 ? :render : :render_component
+      end
+
+      helper_method :render_component_method
     end
   end
 end
