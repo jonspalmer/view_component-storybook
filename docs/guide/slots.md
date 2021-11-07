@@ -21,7 +21,7 @@ end
 Stories declare slots by callling the method name matching the component's slot passing the arguments for the slot instance and an optional content block that supports view helpers:
 
 ```ruby
-# test/components/stories/blog_componeont_stories.rb
+# test/components/stories/blog_component_stories.rb
 class BlogComponentStories < ViewComponent::Storybook::Stories
   story :posts do
     header(classes: "") do
@@ -45,7 +45,7 @@ Like components dynamic slots are configured by passing control arguements. Slot
 configured via `content`:
 
 ```ruby
-# test/components/stories/blog_componeont_stories.rb
+# test/components/stories/blog_component_stories.rb
 class BlogComponentStories < ViewComponent::Storybook::Stories
   story :posts do
     header(classes: text("")) do
@@ -71,7 +71,7 @@ and "Post2  Title".
 Like components slots accept content as controls via `content`:
 
 ```ruby
-# test/components/stories/blog_componeont_stories.rb
+# test/components/stories/blog_component_stories.rb
 class BlogComponentStories < ViewComponent::Storybook::Stories
   story :posts do
     header(classes: text("")) do
@@ -109,7 +109,7 @@ end
 ```
 
 ```ruby
-# test/components/stories/navigation_componeont_stories.rb
+# test/components/stories/navigation_component_stories.rb
 class NavigationComponentStories < ViewComponent::Storybook::Stories
   story :nav do
     links(array(
