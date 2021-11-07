@@ -14,10 +14,7 @@ nav_order: 1
 1. In `Gemfile`, add:
    ```ruby
    gem "view_component", require: "view_component/engine"
-   ```
-1. In `config/application.rb`, add: 
-   ```ruby
-   require "view_component/storybook/engine"
+   gem "view_component_storybook", require: "view_component/storybook/engine"
    ```
 1. In`.gitignore`, add:
    ```text
