@@ -29,7 +29,7 @@ nav_order: 1
    # Allow use of Storybook
    config.middleware.insert_before(0, Rack::Cors) do
      allow do
-       origins "*"
+       origins "*" do
          resource "/rails/stories/*", headers: :any, methods: [:get]
        end
      end
