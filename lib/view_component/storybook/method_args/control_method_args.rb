@@ -47,8 +47,6 @@ module ViewComponent
           @controls ||= (args + kwargs.values).select(&method(:control?))
         end
 
-        private
-
         def assign_control_params
           return if @assigned_control_params
 
@@ -62,6 +60,8 @@ module ViewComponent
 
           @assigned_control_params = true
         end
+
+        private
 
         def add_param_if_control(arg, param)
           return unless control?(arg)

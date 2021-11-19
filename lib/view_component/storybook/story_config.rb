@@ -70,6 +70,10 @@ module ViewComponent
       end
 
       def to_csf_params
+        slots.each do |slot_config|
+          slot_config.slot_method_args.assign_control_params
+        end
+
         validate!
         csf_params = { name: name, parameters: { server: { id: id } } }
         csf_params.deep_merge!(parameters: parameters) if parameters.present?

@@ -325,6 +325,57 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
         )
       end
     end
+
+    context "with slots" do
+      subject do
+        described_class.new("slots_story_config", "Slots Story Config", SlotsV2Component, false)
+      end
+
+      context "without controls" do
+        before do
+          subject.item()
+        end
+
+        it "writes csf params" do
+          expect(subject.to_csf_params).to eq(
+            {
+              name: "Slots Story Config",
+              parameters: {
+                server: { id: "slots_story_config" }
+              }
+            }
+          )
+        end
+      end
+
+      context "with constructor args" do
+        before do
+          subject.item(highlighted: ViewComponent::Storybook::Controls::BooleanConfig.new(true))
+        end
+
+        it "writes csf params" do
+          expect(subject.to_csf_params).to eq(
+            {
+              name: "Slots Story Config",
+              parameters: {
+                server: { id: "slots_story_config" }
+              },
+              args: {
+                item1__highlighted: true
+              },
+              argTypes: {
+                item1__highlighted: {
+                  control: {
+                    type: :boolean
+                  },
+                  name: "Item1  Highlighted"
+                }
+              }
+            }
+          )
+        end
+      end
+    end
   end
 
   describe "slot methods" do
