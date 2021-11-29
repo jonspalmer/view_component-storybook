@@ -16,7 +16,7 @@ nav_order: 1
    gem "view_component", require: "view_component/engine"
    gem "view_component_storybook", require: "view_component/storybook/engine"
    ```
-1. In`.gitignore`, add:
+2. In`.gitignore`, add:
    ```text
    **/*.stories.json
    ```
