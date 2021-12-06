@@ -18,6 +18,8 @@ module ViewComponent
           options.stories_path ||= defined?(Rails.root) ? Rails.root.join("test/components/stories") : nil
         end
 
+        options.stories_title_generator ||= ViewComponent::Storybook.stories_title_generator
+
         ActiveSupport.on_load(:view_component_storybook) do
           options.each { |k, v| send("#{k}=", v) }
         end

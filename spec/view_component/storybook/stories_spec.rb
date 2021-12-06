@@ -298,7 +298,8 @@ RSpec.describe ViewComponent::Storybook::Stories do
       )
     end
 
-    it "converts Stories with customer Stories title" do
+    it "converts Stories with a custom story title generator" do
+      # Uses a custom title generator defined in spec/dummy/config/environments/test.rb
       expect(Demo::HeadingComponentStories.to_csf_params).to eq(
         title: "Heading Component",
         stories: [
