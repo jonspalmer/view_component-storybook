@@ -15,8 +15,8 @@ module ViewComponent
           @content_block = content_block
         end
 
-        def call(&block)
-          component.send(slot_name, *slot_method_args.args, **slot_method_args.kwargs, &block)
+        def call
+          component.send(slot_name, *slot_method_args.args, **slot_method_args.kwargs, &content_block)
         end
       end
     end
