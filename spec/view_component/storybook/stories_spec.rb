@@ -436,7 +436,7 @@ RSpec.describe ViewComponent::Storybook::Stories do
               subtitle__content: "This is my subtitle!",
               tab2__content: "Tab B",
               item2__highlighted: true,
-              item3__content: "Item C",
+              item4__content: "Item C",
               footer__classes: "text-blue"
             },
             argTypes: {
@@ -444,7 +444,7 @@ RSpec.describe ViewComponent::Storybook::Stories do
               subtitle__content: { control: { type: :text }, name: "Subtitle  Content" },
               tab2__content: { control: { type: :text }, name: "Tab2  Content" },
               item2__highlighted: { control: { type: :boolean }, name: "Item2  Highlighted" },
-              item3__content: { control: { type: :text }, name: "Item3  Content" },
+              item4__content: { control: { type: :text }, name: "Item4  Content" },
               footer__classes: { control: { type: :text }, name: "Footer  Classes" }
             }
           }

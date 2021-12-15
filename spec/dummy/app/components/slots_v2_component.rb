@@ -23,6 +23,9 @@ class SlotsV2Component < ViewComponent::Base
   end
 
   class MyHighlightComponent < ViewComponent::Base
+
+    renders_one :subslot
+
     def initialize(highlighted: false)
       super
       @highlighted = highlighted
