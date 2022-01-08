@@ -112,7 +112,7 @@ end
 # test/components/stories/navigation_component_stories.rb
 class NavigationComponentStories < ViewComponent::Storybook::Stories
   story :nav do
-    links(array(
+    links(
       [
         { name: "Home", href: "/" },
         { name: "Pricing", href: "/pricing" },
