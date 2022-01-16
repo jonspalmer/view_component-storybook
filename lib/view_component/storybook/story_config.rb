@@ -9,7 +9,7 @@ module ViewComponent
 
       attr_reader :id, :name, :component_class
 
-      validate :validate_constructor_args
+      validate :validate_constructor_args, :validate_slots_args
 
       def initialize(id, name, component_class, layout)
         @id = id
@@ -133,6 +133,13 @@ module ViewComponent
 
         constructor_args_errors = constructor_args.errors.full_messages.join(', ')
         errors.add(:constructor_args, :invalid, errors: constructor_args_errors)
+      end
+
+      def validate_slots_args
+        slots.reject(&:valid?).each do |slot_config|
+          slot_errors = slot_config.errors.full_messages.join(', ')
+          errors.add(:slots, :invalid, errors: slot_errors)
+        end
       end
 
       def slot(slot_name, *args, **kwargs, &block)
