@@ -16,6 +16,15 @@ module ViewComponent
         validate :validate_controls
         before_validation :assign_control_params
 
+        def self.from_component_class(component_class, *args, **kwargs)
+          initialize_method = if component_class.private_method_defined?(:__dry_initializer_initialize__)
+                                component_class.instance_method(:__dry_initializer_initialize__)
+                              else
+                                component_class.instance_method(:initialize)
+                              end
+          new(initialize_method, *args, **kwargs)
+        end
+
         def with_param_prefix(prefix)
           @param_prefix = prefix
           self
