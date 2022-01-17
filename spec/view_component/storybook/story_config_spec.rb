@@ -153,24 +153,13 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
         end
       end
 
-      xit "validates constructor_args required kwargs" do
+      it "validates constructor_args required kwargs" do
         subject.constructor(
           ViewComponent::Storybook::Controls::TextConfig.new("OK"),
         )
 
         # The constructor_args are invalid because its 'message' key is missing
         expect(subject.valid?).to eq(false)
-        expect(subject.errors[:constructor_args].length).to eq(1)
-      end
-
-      xit "validates constructor_args kwargs" do
-        # This control is invalid because its key doesn't match the components kwargs
-        subject.constructor(
-          ViewComponent::Storybook::Controls::TextConfig.new("OK"),
-          junk: ViewComponent::Storybook::Controls::TextConfig.new("Hello World!")
-        )
-        expect(subject.valid?).to eq(false)
-        puts "subject.errors: #{subject.errors.full_messages}"
         expect(subject.errors[:constructor_args].length).to eq(1)
       end
     end

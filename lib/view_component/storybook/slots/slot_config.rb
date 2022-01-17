@@ -64,7 +64,7 @@ module ViewComponent
           if registered_slot[:renderable] || registered_slot[:renderable_class_name]
             # The slot is a component - either a class or a string representing the class
             component_class = registered_slot[:renderable] || component_class.const_get(registered_slot[:renderable_class_name])
-            MethodArgs::ControlMethodArgs.from_component_class(component_class, *args, **kwargs)
+            MethodArgs::ComponentConstructorArgs.from_component_class(component_class, *args, **kwargs)
           else
             # the slot is a lamba or a simple content slot
             slot_lamba = registered_slot[:renderable_function] || proc {}

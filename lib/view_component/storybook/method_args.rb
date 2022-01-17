@@ -9,8 +9,9 @@ module ViewComponent
 
       autoload :MethodArgs
       autoload :MethodParametersNames
-      autoload :ValidatableMethodArgs
       autoload :ControlMethodArgs
+      autoload :ComponentConstructorArgs
+      autoload :DryInitializerComponentConstructorArgs
     end
   end
 end
