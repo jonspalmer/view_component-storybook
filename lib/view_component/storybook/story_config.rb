@@ -120,10 +120,6 @@ module ViewComponent
         @constructor_args ||= MethodArgs::ComponentConstructorArgs.from_component_class(component_class)
       end
 
-      # def component_constructor
-      #   component_class.instance_method(:initialize)
-      # end
-
       def slots
         @slots.values.flatten
       end
