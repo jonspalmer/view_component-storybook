@@ -47,9 +47,7 @@ module ViewComponent
 
         def write_csf_json
           json_path = File.join(stories_path, "#{stories_name}.stories.json")
-          File.open(json_path, "w") do |f|
-            f.write(JSON.pretty_generate(to_csf_params))
-          end
+          File.write(json_path, JSON.pretty_generate(to_csf_params))
           json_path
         end
 
