@@ -20,8 +20,8 @@ module ViewComponent
       end
 
       def constructor(*args, **kwargs, &block)
-        @constructor_args = MethodArgs::ControlMethodArgs.new(
-          component_constructor,
+        @constructor_args = MethodArgs::ComponentConstructorArgs.from_component_class(
+          component_class,
           *args,
           **kwargs
         )
@@ -117,11 +117,7 @@ module ViewComponent
       private
 
       def constructor_args
-        @constructor_args ||= MethodArgs::ControlMethodArgs.new(component_constructor)
-      end
-
-      def component_constructor
-        component_class.instance_method(:initialize)
+        @constructor_args ||= MethodArgs::ComponentConstructorArgs.from_component_class(component_class)
       end
 
       def slots

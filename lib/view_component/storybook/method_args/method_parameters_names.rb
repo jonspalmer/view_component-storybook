@@ -57,7 +57,7 @@ module ViewComponent
         def kwarg_names
           @kwarg_names ||= parameters.map do |type, name|
             name if KWARG_TYPES.include?(type)
-          end.compact.to_set
+          end.compact
         end
 
         def arg_names

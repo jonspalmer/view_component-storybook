@@ -127,6 +127,42 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
         end
       end
     end
+
+    context "with dry-initializer" do
+      subject do
+        described_class.new("dry_story_config", "Dry Story Config", DryComponent, false)
+      end
+
+      it "is valid" do
+        subject.constructor(
+          ViewComponent::Storybook::Controls::TextConfig.new("OK"),
+          message: ViewComponent::Storybook::Controls::TextConfig.new("OK")
+        )
+
+        expect(subject.valid?).to eq(true)
+      end
+
+      context "without too few args" do
+        it "validates constructor_args args" do
+          subject.constructor(
+            message: ViewComponent::Storybook::Controls::TextConfig.new("Hello World!")
+          )
+
+          expect(subject.valid?).to eq(false)
+          expect(subject.errors[:constructor_args].length).to eq(1)
+        end
+      end
+
+      it "validates constructor_args required kwargs" do
+        subject.constructor(
+          ViewComponent::Storybook::Controls::TextConfig.new("OK"),
+        )
+
+        # The constructor_args are invalid because its 'message' key is missing
+        expect(subject.valid?).to eq(false)
+        expect(subject.errors[:constructor_args].length).to eq(1)
+      end
+    end
   end
 
   describe "#to_csf_params" do

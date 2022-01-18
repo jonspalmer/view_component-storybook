@@ -19,11 +19,12 @@ module ViewComponent
         end
 
         def self.from_component(component_class, slot_name, param, *args, **kwargs, &block)
-          slot_method_args =
-            MethodArgs::ControlMethodArgs
-            .new(target_slot_method(component_class, slot_name), *args, **kwargs)
-            .with_param_prefix(param)
-          new(slot_name, slot_method_args, param, block)
+          new(
+            slot_name,
+            slot_method_args(component_class, slot_name, *args, **kwargs).with_param_prefix(param),
+            param,
+            block
+          )
         end
 
         def slot(componeont, params)
@@ -51,23 +52,27 @@ module ViewComponent
           errors.add(:slot_method_args, :invalid, errors: slot_method_args_errors)
         end
 
-        def self.target_slot_method(component_class, slot_name)
+        def self.slot_method_args(component_class, slot_name, *args, **kwargs)
+          # Reverse engineer the signature of the slot so that we can validate control args to the slot
+          # The slot methods themselves just have rest params so we can't introspect them. Instead we
+          # look for 'renderable' details of the registered slot
+          # This approach is tightly coupled to internal ViewCopmonent apis and might prove to be brittle
           registred_slot_name = component_class.slot_type(slot_name) == :collection_item ? ActiveSupport::Inflector.pluralize(slot_name).to_sym : slot_name
 
           registered_slot = component_class.registered_slots[registred_slot_name]
 
-          if registered_slot[:renderable_function]
-            registered_slot[:renderable_function]
-          elsif registered_slot[:renderable]
-            registered_slot[:renderable].instance_method(:initialize)
-          elsif registered_slot[:renderable_class_name]
-            component_class.const_get(registered_slot[:renderable_class_name]).instance_method(:initialize)
+          if registered_slot[:renderable] || registered_slot[:renderable_class_name]
+            # The slot is a component - either a class or a string representing the class
+            component_class = registered_slot[:renderable] || component_class.const_get(registered_slot[:renderable_class_name])
+            MethodArgs::ComponentConstructorArgs.from_component_class(component_class, *args, **kwargs)
           else
-            proc {}
+            # the slot is a lamba or a simple content slot
+            slot_lamba = registered_slot[:renderable_function] || proc {}
+            MethodArgs::ControlMethodArgs.new(slot_lamba, *args, **kwargs)
           end
         end
 
-        private_class_method :target_slot_method
+        private_class_method :slot_method_args
       end
     end
   end
