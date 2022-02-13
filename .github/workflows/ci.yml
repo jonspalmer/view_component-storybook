@@ -25,19 +25,25 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # 7/11/21 Something is busted in main disable for now
-        # rails_version: [5.2.6, 6.0.3.7, 6.1.4, main]
-        rails_version: [5.2.6, 6.0.4.4, 6.1.4.4]
-        ruby_version: [2.5.9, 2.6.8, 2.7.4, 3.0.2]
+        rails_version: [5.2.6.2, 6.0.4.6, 6.1.4.6, 7.0.2.2, main]
+        ruby_version: [2.5, 2.6, 2.7, 3.0, 3.1]
         exclude:
-          - rails_version: 5.2.6
-            ruby_version: 3.0.2
-          - rails_version: 6.0.4.4
-            ruby_version: 3.0.2
+          - rails_version: 5.2.6.2
+            ruby_version: 3.0
+            - rails_version: 5.2.6.2
+            ruby_version: 3.1
+          - rails_version: 6.0.4.6
+            ruby_version: 3.0
+          - rails_version: 6.0.4.6
+            ruby_version: 3.1
+          - rails_version: 7.0.2.2
+            ruby_version: 2.5
+          - rails_version: 7.0.2.2
+            ruby_version: 2.6
           - rails_version: main
-            ruby_version: 2.5.9
+            ruby_version: 2.5
           - rails_version: main
-            ruby_version: 2.6.8
+            ruby_version: 2.6
     steps:
     - uses: actions/checkout@master
     - name: Setup Ruby
