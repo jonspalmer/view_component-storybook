@@ -229,7 +229,7 @@ DEPENDENCIES
   rake (~> 13.0)
   relaxed-rubocop (~> 2.5)
   rspec (~> 3.10)
-  rspec-rails (~> 5.0)
+  rspec-rails (~> 5.1)
   rubocop (~> 1.18)
   rubocop-rails (~> 2.11)
   rubocop-rspec (~> 2.1)
