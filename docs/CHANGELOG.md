@@ -9,7 +9,7 @@ title: Changelog
 
 ## 0.11.0
 
-* Add support for dry-initialzier
+* Add support for dry-initializer
 * Validate Slots
 
 ## 0.10.1
