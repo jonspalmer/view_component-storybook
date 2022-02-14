@@ -46,7 +46,7 @@ module ViewComponent
 end
 
 # :nocov:
-unless defined?(ViewComponent::Storybook)
+unless defined?(ViewComponent::Storybook::Stories)
   ActiveSupport::Deprecation.warn(
     "This manually engine loading is deprecated and will be removed in v1.0.0. " \
     "Remove `require \"view_component/storybook/engine\"`."
