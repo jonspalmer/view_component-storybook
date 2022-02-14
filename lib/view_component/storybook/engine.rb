@@ -11,7 +11,7 @@ module ViewComponent
         options = app.config.view_component_storybook
 
         options.show_stories = Rails.env.development? if options.show_stories.nil?
-        options.stories_route ||= ViewComponent::Storybook.stories_route
+        options.stories_route ||= "/rails/stories"
 
         if options.show_stories
           options.stories_path ||= defined?(Rails.root) ? Rails.root.join("test/components/stories") : nil
