@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "rails"
-require "view_component/storybook"
 
 module ViewComponent
   module Storybook
@@ -45,3 +44,14 @@ module ViewComponent
     end
   end
 end
+
+# :nocov:
+unless defined?(ViewComponent::Storybook)
+  ActiveSupport::Deprecation.warn(
+    "This manually engine loading is deprecated and will be removed in v1.0.0. " \
+    "Remove `require \"view_component/storybook/engine\"`."
+  )
+
+  require "view_component/storybook"
+end
+# :nocov:

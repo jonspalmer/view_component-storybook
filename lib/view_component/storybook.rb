@@ -41,6 +41,17 @@ module ViewComponent
       "/rails/stories"
     end
 
+    # :nocov:
+    if defined?(ViewComponent::Storybook::Engine)
+      ActiveSupport::Deprecation.warn(
+        "This manually engine loading is deprecated and will be removed in v1.0.0. " \
+        "Remove `require \"view_component/storybook/engine\"`."
+      )
+    elsif defined?(Rails::Engine)
+      require "view_component/storybook/engine"
+    end
+    # :nocov:
+
     ActiveSupport.run_load_hooks(:view_component_storybook, self)
   end
 end

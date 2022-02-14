@@ -1,18 +1,14 @@
 # frozen_string_literal: true
 
-require File.expand_path('boot', __dir__)
+require File.expand_path("../boot", __FILE__)
 
-require "rails"
 require "active_model/railtie"
 require "action_controller/railtie"
 require "action_view/railtie"
-require "view_component/engine"
-require "view_component/storybook/engine"
 require "sprockets/railtie"
 
-# Require the gems listed in Gemfile, including any gems
-# you've limited to :test, :development, or :production.
-Bundler.require(*Rails.groups)
+require "view_component"
+require "view_component/storybook"
 
 module Dummy
   class Application < Rails::Application
