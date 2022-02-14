@@ -16,7 +16,7 @@ nav_order: 1
    gem "view_component"
    gem "view_component_storybook"
    ```
-1. In`.gitignore`, add:
+2. In`.gitignore`, add:
    ```text
    **/*.stories.json
    ```
