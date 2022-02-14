@@ -37,9 +37,7 @@ module ViewComponent
     #
     # Defaults to `/rails/stories` when `show_stories` is enabled.
     #
-    mattr_accessor :stories_route, instance_writer: false do
-      "/rails/stories"
-    end
+    mattr_accessor :stories_route, instance_writer: false
 
     # :nocov:
     if defined?(ViewComponent::Storybook::Engine)

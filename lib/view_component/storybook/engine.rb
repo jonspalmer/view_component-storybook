@@ -11,7 +11,7 @@ module ViewComponent
         options = app.config.view_component_storybook
 
         options.show_stories = Rails.env.development? if options.show_stories.nil?
-        options.stories_route ||= ViewComponent::Storybook.stories_route
+        options.stories_route ||= "/rails/stories"
 
         if options.show_stories
           options.stories_path ||= defined?(Rails.root) ? Rails.root.join("test/components/stories") : nil
@@ -46,7 +46,7 @@ module ViewComponent
 end
 
 # :nocov:
-unless defined?(ViewComponent::Storybook)
+unless defined?(ViewComponent::Storybook::Stories)
   ActiveSupport::Deprecation.warn(
     "This manually engine loading is deprecated and will be removed in v1.0.0. " \
     "Remove `require \"view_component/storybook/engine\"`."
