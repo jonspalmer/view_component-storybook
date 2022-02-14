@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 require "bundler/setup"
-require "view_component/storybook"
-require "action_view"
-require "action_controller"
 
 # Configure Rails Envinronment
 # we need to do this before including capybara
