@@ -20,6 +20,11 @@ nav_order: 1
    ```text
    **/*.stories.json
    ```
+3. In `config/application.rb`, add:
+   ```ruby
+   require 'view_component'
+   require 'view_component/storybook'
+   ```
 
 
 ### Storybook Installation
