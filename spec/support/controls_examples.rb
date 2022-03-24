@@ -50,14 +50,14 @@ shared_examples "a controls config" do
 
   describe "#valid?" do
     it "true for param that the component supports" do
-      expect(subject.valid?).to eq(true)
+      expect(subject.valid?).to be(true)
     end
 
     context "without a param" do
       let(:param) { nil }
 
       it "is invalid" do
-        expect(subject.valid?).to eq(false)
+        expect(subject.valid?).to be(false)
         expect(subject.errors.size).to eq(1)
         expect(subject.errors[:param]).to eq(["can't be blank"])
       end
@@ -80,7 +80,7 @@ shared_examples "a simple controls config" do
       let(:default_value) { nil }
 
       it "is valid" do
-        expect(subject.valid?).to eq(true)
+        expect(subject.valid?).to be(true)
       end
     end
   end
@@ -127,7 +127,7 @@ shared_examples "a simple controls config" do
     end
 
     it "parses nil param_value" do
-      expect(subject.value_from_params(subject.param => nil)).to eq(nil)
+      expect(subject.value_from_params(subject.param => nil)).to be_nil
     end
 
     it "returns default_value if param is missing" do

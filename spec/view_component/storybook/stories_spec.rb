@@ -3,12 +3,12 @@
 RSpec.describe ViewComponent::Storybook::Stories do
   describe ".valid?" do
     it "duplicate stories are invalid" do
-      expect(Invalid::DuplicateStoryStories.valid?).to eq(false)
+      expect(Invalid::DuplicateStoryStories.valid?).to be(false)
       expect(Invalid::DuplicateStoryStories.errors[:story_configs].length).to eq(1)
     end
 
     it "is invalid if stories are invalid" do
-      expect(Invalid::InvalidConstrutorStories.valid?).to eq(false)
+      expect(Invalid::InvalidConstrutorStories.valid?).to be(false)
       expect(Invalid::InvalidConstrutorStories.errors[:story_configs].length).to eq(1)
     end
   end
@@ -572,31 +572,31 @@ RSpec.describe ViewComponent::Storybook::Stories do
     end
 
     it "returns nil if no stories exists" do
-      expect(described_class.find_story_configs("foo/button_component")).to eq nil
+      expect(described_class.find_story_configs("foo/button_component")).to be_nil
     end
   end
 
   describe ".exists?" do
     it "is true for stories that exist" do
-      expect(described_class.stories_exists?("demo/button_component")).to eq true
+      expect(described_class.stories_exists?("demo/button_component")).to be true
     end
 
     it "is false for stories that doesn't exist" do
-      expect(described_class.stories_exists?("foo/button_component")).to eq false
+      expect(described_class.stories_exists?("foo/button_component")).to be false
     end
   end
 
   describe ".story_exists?" do
     it "is true for a story that exists" do
-      expect(Demo::ButtonComponentStories.story_exists?(:short_button)).to eq true
+      expect(Demo::ButtonComponentStories.story_exists?(:short_button)).to be true
     end
 
     it "can be called with a string" do
-      expect(Demo::ButtonComponentStories.story_exists?("short_button")).to eq true
+      expect(Demo::ButtonComponentStories.story_exists?("short_button")).to be true
     end
 
     it "is false for a story that dones't exist" do
-      expect(Demo::ButtonComponentStories.story_exists?(:foo_button)).to eq false
+      expect(Demo::ButtonComponentStories.story_exists?(:foo_button)).to be false
     end
   end
 end

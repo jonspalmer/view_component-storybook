@@ -39,7 +39,7 @@ RSpec.describe ViewComponent::Storybook::Controls::NumberConfig do
     it "invalid without type" do
       subject = described_class.new(nil, "blue", param: :button_text)
 
-      expect(subject.valid?).to eq(false)
+      expect(subject.valid?).to be(false)
       expect(subject.errors.size).to eq(1)
       expect(subject.errors[:type]).to eq(["can't be blank"])
     end
@@ -47,7 +47,7 @@ RSpec.describe ViewComponent::Storybook::Controls::NumberConfig do
     it "invalid with unsupported type" do
       subject = described_class.new(:foo,  "blue", param: :button_text)
 
-      expect(subject.valid?).to eq(false)
+      expect(subject.valid?).to be(false)
       expect(subject.errors.size).to eq(1)
       expect(subject.errors[:type]).to eq(["is not included in the list"])
     end

@@ -265,7 +265,7 @@ RSpec.describe ViewComponent::Storybook::Dsl::LegacyControlsDsl do
 
   describe ".respond_to_missing?" do
     it "responds to all methods" do
-      expect(subject.respond_to?(:foo)).to eq(true)
+      expect(subject.respond_to?(:foo)).to be(true)
     end
   end
 end

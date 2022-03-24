@@ -12,7 +12,7 @@ RSpec.describe ViewComponent::Storybook::Slots::SlotConfig do
       end
 
       it "validates method_args args" do
-        expect(subject.valid?).to eq(true)
+        expect(subject.valid?).to be(true)
       end
     end
 
@@ -22,7 +22,7 @@ RSpec.describe ViewComponent::Storybook::Slots::SlotConfig do
       end
 
       it "validates method_args args" do
-        expect(subject.valid?).to eq(false)
+        expect(subject.valid?).to be(false)
         expect(subject.errors[:slot_method_args].length).to eq(1)
       end
     end
@@ -33,7 +33,7 @@ RSpec.describe ViewComponent::Storybook::Slots::SlotConfig do
       end
 
       it "validates method_args args" do
-        expect(subject.valid?).to eq(true)
+        expect(subject.valid?).to be(true)
       end
     end
 
@@ -43,7 +43,7 @@ RSpec.describe ViewComponent::Storybook::Slots::SlotConfig do
       end
 
       it "validates method_args args" do
-        expect(subject.valid?).to eq(true)
+        expect(subject.valid?).to be(true)
       end
     end
 
@@ -53,7 +53,7 @@ RSpec.describe ViewComponent::Storybook::Slots::SlotConfig do
       end
 
       it "validates method_args args" do
-        expect(subject.valid?).to eq(false)
+        expect(subject.valid?).to be(false)
         expect(subject.errors[:slot_method_args].length).to eq(1)
       end
     end
@@ -64,7 +64,7 @@ RSpec.describe ViewComponent::Storybook::Slots::SlotConfig do
       end
 
       it "validates method_args args" do
-        expect(subject.valid?).to eq(false)
+        expect(subject.valid?).to be(false)
         expect(subject.errors[:slot_method_args].length).to eq(1)
       end
     end
@@ -76,7 +76,7 @@ RSpec.describe ViewComponent::Storybook::Slots::SlotConfig do
 
       it "validates method_args args" do
         # This message is invalid because its value isn't a string
-        expect(subject.valid?).to eq(false)
+        expect(subject.valid?).to be(false)
         expect(subject.errors[:slot_method_args].length).to eq(1)
       end
     end
@@ -88,7 +88,7 @@ RSpec.describe ViewComponent::Storybook::Slots::SlotConfig do
         end
 
         it "validates method_args args" do
-          expect(subject.valid?).to eq(true)
+          expect(subject.valid?).to be(true)
         end
       end
 
@@ -98,7 +98,7 @@ RSpec.describe ViewComponent::Storybook::Slots::SlotConfig do
         end
 
         it "validates method_args args" do
-          expect(subject.valid?).to eq(true)
+          expect(subject.valid?).to be(true)
         end
       end
 
@@ -109,7 +109,7 @@ RSpec.describe ViewComponent::Storybook::Slots::SlotConfig do
 
         it "validates method_args args" do
           # The slot_method_args are invalid because ExtraComponent doesn't have any positional args
-          expect(subject.valid?).to eq(false)
+          expect(subject.valid?).to be(false)
           expect(subject.errors[:slot_method_args].length).to eq(1)
         end
       end
@@ -121,7 +121,7 @@ RSpec.describe ViewComponent::Storybook::Slots::SlotConfig do
 
         it "validates method_args args" do
           # The slot_method_args are invalid because ExtraComponent requires a `message` kwargs
-          expect(subject.valid?).to eq(false)
+          expect(subject.valid?).to be(false)
           expect(subject.errors[:slot_method_args].length).to eq(1)
         end
       end
@@ -133,7 +133,7 @@ RSpec.describe ViewComponent::Storybook::Slots::SlotConfig do
 
         it "validates method_args args" do
           # The slot_method_args are invalid because ExtraComponent doesn't support a `do` kwargs
-          expect(subject.valid?).to eq(false)
+          expect(subject.valid?).to be(false)
           expect(subject.errors[:slot_method_args].length).to eq(1)
         end
       end

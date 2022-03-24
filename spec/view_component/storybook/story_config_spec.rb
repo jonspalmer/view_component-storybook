@@ -11,7 +11,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
         title: ViewComponent::Storybook::Controls::TextConfig.new("OK")
       )
 
-      expect(subject.valid?).to eq(true)
+      expect(subject.valid?).to be(true)
     end
 
     context "without too many args" do
@@ -26,7 +26,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
       end
 
       it "validates constructor_args args" do
-        expect(subject.valid?).to eq(false)
+        expect(subject.valid?).to be(false)
         expect(subject.errors[:constructor_args].length).to eq(1)
       end
     end
@@ -41,14 +41,14 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
       end
 
       it "validates constructor_args args" do
-        expect(subject.valid?).to eq(false)
+        expect(subject.valid?).to be(false)
         expect(subject.errors[:constructor_args].length).to eq(1)
       end
     end
 
     it "validates constructor_args required kwargs" do
       # The constructor_args are invalid because its 'title' key is missing
-      expect(subject.valid?).to eq(false)
+      expect(subject.valid?).to be(false)
       expect(subject.errors[:constructor_args].length).to eq(1)
     end
 
@@ -57,7 +57,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
       subject.constructor(
         junk: ViewComponent::Storybook::Controls::TextConfig.new("OK")
       )
-      expect(subject.valid?).to eq(false)
+      expect(subject.valid?).to be(false)
       expect(subject.errors[:constructor_args].length).to eq(1)
     end
 
@@ -66,7 +66,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
       subject.constructor(
         title: ViewComponent::Storybook::Controls::BooleanConfig.new("OK")
       )
-      expect(subject.valid?).to eq(false)
+      expect(subject.valid?).to be(false)
       expect(subject.errors[:constructor_args].length).to eq(1)
     end
 
@@ -81,7 +81,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
         end
 
         it "validates slots arguments" do
-          expect(subject.valid?).to eq(true)
+          expect(subject.valid?).to be(true)
         end
       end
 
@@ -91,7 +91,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
         end
 
         it "validates slots arguments" do
-          expect(subject.valid?).to eq(true)
+          expect(subject.valid?).to be(true)
         end
 
         context "with invalid args" do
@@ -100,7 +100,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
           end
 
           it "validates slots arguments" do
-            expect(subject.valid?).to eq(false)
+            expect(subject.valid?).to be(false)
             expect(subject.errors[:slots].length).to eq(1)
           end
         end
@@ -112,7 +112,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
         end
 
         it "validates slots arguments" do
-          expect(subject.valid?).to eq(true)
+          expect(subject.valid?).to be(true)
         end
 
         context "with invalid args" do
@@ -121,7 +121,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
           end
 
           it "validates slots arguments" do
-            expect(subject.valid?).to eq(false)
+            expect(subject.valid?).to be(false)
             expect(subject.errors[:slots].length).to eq(1)
           end
         end
@@ -139,7 +139,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
           message: ViewComponent::Storybook::Controls::TextConfig.new("OK")
         )
 
-        expect(subject.valid?).to eq(true)
+        expect(subject.valid?).to be(true)
       end
 
       context "without too few args" do
@@ -148,7 +148,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
             message: ViewComponent::Storybook::Controls::TextConfig.new("Hello World!")
           )
 
-          expect(subject.valid?).to eq(false)
+          expect(subject.valid?).to be(false)
           expect(subject.errors[:constructor_args].length).to eq(1)
         end
       end
@@ -159,7 +159,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
         )
 
         # The constructor_args are invalid because its 'message' key is missing
-        expect(subject.valid?).to eq(false)
+        expect(subject.valid?).to be(false)
         expect(subject.errors[:constructor_args].length).to eq(1)
       end
     end
