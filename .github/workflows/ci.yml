@@ -30,8 +30,12 @@ jobs:
         exclude:
           - rails_version: 5.2.6
             ruby_version: 3.0.3
+          - rails_version: 5.2.6
+            ruby_version: 3.1.1
           - rails_version: 6.0.4.7
             ruby_version: 3.0.3
+          - rails_version: 6.0.4.7
+            ruby_version: 3.1.1
           - rails_version: 7.0.2.3
             ruby_version: 2.5.9
           - rails_version: 7.0.2.3
