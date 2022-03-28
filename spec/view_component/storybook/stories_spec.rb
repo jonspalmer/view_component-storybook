@@ -298,25 +298,26 @@ RSpec.describe ViewComponent::Storybook::Stories do
       )
     end
 
-    it "converts Stories with a custom story title generator" do
-      # Uses a custom title generator defined in spec/dummy/config/environments/test.rb
-      expect(Demo::HeadingComponentStories.to_csf_params).to eq(
-        title: "Heading Component",
-        stories: [
-          {
-            name: :default,
-            parameters: {
-              server: { id: "demo/heading_component/default" }
-            },
-            args: {
-              heading_text: "Heading"
-            },
-            argTypes: {
-              heading_text: { control: { type: :text }, name: "Heading Text" }
+    context 'with a custom story title defined' do
+      it "converts Stories" do
+        expect(Demo::HeadingComponentStories.to_csf_params).to eq(
+          title: "Heading Component",
+          stories: [
+            {
+              name: :default,
+              parameters: {
+                server: { id: "demo/heading_component/default" }
+              },
+              args: {
+                heading_text: "Heading"
+              },
+              argTypes: {
+                heading_text: { control: { type: :text }, name: "Heading Text" }
+              }
             }
-          }
-        ]
-      )
+          ]
+        )
+      end
     end
 
     it "converts Stories with parameters" do

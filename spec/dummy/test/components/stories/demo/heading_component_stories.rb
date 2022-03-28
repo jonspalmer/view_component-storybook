@@ -2,6 +2,8 @@
 
 module Demo
   class HeadingComponentStories < ViewComponent::Storybook::Stories
+    title 'Heading Component'
+
     story :default do
       constructor(
         heading_text: text("Heading")

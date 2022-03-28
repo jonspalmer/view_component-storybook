@@ -21,15 +21,6 @@ Dummy::Application.configure do
 
   config.view_component_storybook.show_stories = true
 
-  config.view_component_storybook.stories_title_generator = lambda { |stories|
-    # Test a custom story title generator
-    if stories.stories_name == "demo/heading_component"
-      return stories.stories_name.delete_prefix('demo/').humanize.titlecase
-    end
-
-    stories.stories_name.humanize.titlecase
-  }
-
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 
