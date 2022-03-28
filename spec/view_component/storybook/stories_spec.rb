@@ -320,6 +320,35 @@ RSpec.describe ViewComponent::Storybook::Stories do
       end
     end
 
+    context 'with a custom story title generator defined' do
+      let(:stories_class_name) { 'Demo::ButtonComponentStories' }
+      let(:custom_story_title) { 'CustomStoryTitle' }
+
+      before do
+        # Creating the class dynamically leaves `name` nil
+        allow(described_class).to receive(:name).and_return(stories_class_name)
+        # Descendant tracking appends our dynamic class to the list of
+        # descendants which (logically) causes failures on the .all example
+        # below
+        allow(ActiveSupport::DescendantsTracker).to receive(:store_inherited)
+        stub_const(stories_class_name, Class.new(described_class))
+      end
+
+      around do |example|
+        original_generator = ViewComponent::Storybook.stories_title_generator
+        ViewComponent::Storybook.stories_title_generator = ->(_stories) { custom_story_title }
+        example.run
+        ViewComponent::Storybook.stories_title_generator = original_generator
+      end
+
+      it "converts Stories" do
+        expect(Demo::ButtonComponentStories.to_csf_params).to eq(
+          title: custom_story_title,
+          stories: []
+        )
+      end
+    end
+
     it "converts Stories with parameters" do
       expect(ParametersStories.to_csf_params).to eq(
         title: "Parameters",
