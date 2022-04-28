@@ -61,7 +61,27 @@ module ViewComponent
 
           registered_slot = component_class.registered_slots[registred_slot_name]
 
-          if registered_slot[:renderable] || registered_slot[:renderable_class_name]
+          if registered_slot.nil?
+            # maybe the slot is a polymorphic slot?
+            component_class.registered_slots.each do |registered_slot_name, slot_config|
+              next unless slot_config[:renderable_hash]
+
+              slot_config[:renderable_hash].each do |poly_name, poly_config|
+                poly_slot_name = "#{ActiveSupport::Inflector.singularize(registered_slot_name)}_#{poly_name}"
+
+                if poly_slot_name.to_sym == slot_name
+                  if (component_class = poly_config[:renderable] || "#{component_class}::#{poly_config[:renderable_class_name]}".safe_constantize)
+                    return MethodArgs::ComponentConstructorArgs.from_component_class(component_class, *args, **kwargs)
+                  else
+                    slot_lamba = poly_config[:renderable_function] || proc {}
+
+                    return MethodArgs::ControlMethodArgs.new(slot_lamba, *args, **kwargs)
+                  end
+                end
+              end
+            end
+
+          elsif registered_slot[:renderable] || registered_slot[:renderable_class_name]
             # The slot is a component - either a class or a string representing the class
             component_class = registered_slot[:renderable] || component_class.const_get(registered_slot[:renderable_class_name])
             MethodArgs::ComponentConstructorArgs.from_component_class(component_class, *args, **kwargs)

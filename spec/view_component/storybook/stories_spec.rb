@@ -561,6 +561,7 @@ RSpec.describe ViewComponent::Storybook::Stories do
         MixedArgsComponentStories,
         NoLayoutStories,
         ParametersStories,
+        PolymorphicStories,
         SlotableV2Stories
       ]
     end

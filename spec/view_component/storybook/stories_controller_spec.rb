@@ -185,6 +185,15 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
     expect(response.body).to have_selector(".footer.text-green")
   end
 
+  it "renders a polymorphic component with default values" do
+    get "/rails/stories/polymorphic/default",
+        params: {}
+
+    expect(response.body).to have_selector('.polymorphic .item-type-one', text: 'Hello World')
+    expect(response.body).to have_selector('.polymorphic .item-type-two', text: 'Bonjour monde')
+    expect(response.body).to have_selector('.polymorphic .item-type-three', text: 'Hàlo a Shaoghail')
+  end
+
   it "ignores query params that don't match the the compoents args" do
     get "/rails/stories/demo/button_component/short_button", params: { button_text: "My Button", junk: true }
 
