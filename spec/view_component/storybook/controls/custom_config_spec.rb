@@ -2,7 +2,7 @@
 
 RSpec.describe ViewComponent::Storybook::Controls::CustomConfig do
   subject do
-    described_class.new(param: param, name: name).with_value(
+    described_class.new(param: param, name: name, description: description).with_value(
       message: ViewComponent::Storybook::Controls::TextConfig.new("Hello")
     ) do |message:|
       message.upcase
@@ -11,6 +11,7 @@ RSpec.describe ViewComponent::Storybook::Controls::CustomConfig do
 
   let(:param) { :greeting }
   let(:name) { nil }
+  let(:description) { nil }
 
   it_behaves_like "a controls config"
 
@@ -19,7 +20,7 @@ RSpec.describe ViewComponent::Storybook::Controls::CustomConfig do
 
     context "with args missmatch" do
       subject do
-        described_class.new(param: param, name: name).with_value(
+        described_class.new(param: param, name: name, description: description).with_value(
           message: ViewComponent::Storybook::Controls::TextConfig.new("Hello")
         ) do |msg:|
           msg.upcase

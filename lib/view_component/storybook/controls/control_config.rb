@@ -8,9 +8,10 @@ module ViewComponent
 
         validates :param, presence: true
 
-        def initialize(param: nil, name: nil)
+        def initialize(param: nil, name: nil, description: nil)
           @param = param
           @name = name
+          @description = description
         end
 
         def name(new_name = nil)
@@ -20,6 +21,13 @@ module ViewComponent
             @name = new_name
             self
           end
+        end
+
+        def description(new_description = nil)
+          return @description if new_description.nil?
+
+          @description = new_description
+          self
         end
 
         def param(new_param = nil)

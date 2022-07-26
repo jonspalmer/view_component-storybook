@@ -207,7 +207,7 @@ For example this story results in two controls with names "First Name" and "Last
 class PersonComponentStories < ViewComponent::Storybook::Stories
   story :person do
     constructor(
-      first_name: text("Nelson"), 
+      first_name: text("Nelson"),
       last_name:  text("Mandela")
     )
   end
@@ -221,9 +221,35 @@ The control name is configured using `name`:
 class PersonComponentStories < ViewComponent::Storybook::Stories
   story :person do
     constructor(
-      first_name: text("Nelson").name("First"), 
+      first_name: text("Nelson").name("First"),
       last_name:  text("Mandela").name("Last")
     )
   end
 end
+```
+
+## Adding a description to the control
+
+You can provide additional information about the control by passing a string
+into the `description` method.
+
+```ruby
+# test/components/stories/person_component_stories.rb
+class PersonComponentStories < ViewComponent::Storybook::Stories
+  story :person do
+    constructor(
+      first_name: text("Nelson").description("The person's first name"),
+      last_name:  text("Mandela").description("The person's last name")
+    )
+  end
+end
+```
+
+To have Storybook.js display your description you will need to add the following
+to `.storybook/preview.js`:
+
+```js
+export const parameters = {
+  controls: { expanded: true }
+}
 ```

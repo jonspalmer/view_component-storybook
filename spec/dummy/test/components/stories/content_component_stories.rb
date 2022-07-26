@@ -9,6 +9,10 @@ class ContentComponentStories < ViewComponent::Storybook::Stories
     content text("Hello World!")
   end
 
+  story :with_described_control do
+    content text("Hello World!").description('My first computer program.')
+  end
+
   story :with_block_content do
     content do
       "Hello World!"

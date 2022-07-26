@@ -34,4 +34,10 @@ class CustomControlStories < ViewComponent::Storybook::Stories
       button_text: custom_control
     )
   end
+
+  story :described_control, Demo::ButtonComponent do
+    constructor(
+      button_text: text('DO NOT PUSH!').description('Make this irresistible.')
+    )
+  end
 end
