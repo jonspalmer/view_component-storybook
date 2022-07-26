@@ -3,7 +3,7 @@
 RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
   described_class::TYPES.each do |type|
     context "type: #{type}" do
-      subject { described_class.new(type, options, default_value, labels: labels, param: param, name: name) }
+      subject { described_class.new(type, options, default_value, labels: labels, param: param, name: name, description: description) }
 
       let(:type) { type }
       let(:labels) { {} }

@@ -9,8 +9,8 @@ module ViewComponent
       class SimpleControlConfig < ControlConfig
         attr_reader :default_value
 
-        def initialize(default_value, param: nil, name: nil)
-          super(param: param, name: name)
+        def initialize(default_value, param: nil, name: nil, description: nil)
+          super(param: param, name: name, description: description)
           @default_value = default_value
         end
 
@@ -18,7 +18,9 @@ module ViewComponent
           validate!
           {
             args: { param => csf_value },
-            argTypes: { param => { control: csf_control_params, name: name } }
+            argTypes: {
+              param => { control: csf_control_params, name: name, description: description }.compact
+            }
           }
         end
 

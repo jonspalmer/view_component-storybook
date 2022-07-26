@@ -3,6 +3,7 @@
 shared_examples "a controls config" do
   let(:param) { :button_text }
   let(:name) { nil }
+  let(:description) { nil }
 
   describe "#param" do
     it "can be set" do
@@ -37,6 +38,30 @@ shared_examples "a controls config" do
 
     it "set returns the control" do
       expect(subject.name("Button")).to eq(subject)
+    end
+  end
+
+  describe '#description' do
+    it "by default is nil" do
+      expect(subject.description).to be_nil
+    end
+
+    context "with description" do
+      let(:description) { "Text for the button" }
+
+      it "can be passed in the constructor" do
+        expect(subject.description).to eq("Text for the button")
+      end
+    end
+
+    it "can be set" do
+      subject.description("Text for the button")
+
+      expect(subject.description).to eq("Text for the button")
+    end
+
+    it "set returns the control" do
+      expect(subject.description("Text for the button")).to eq(subject)
     end
   end
 
@@ -109,6 +134,15 @@ shared_examples "a simple controls config" do
       it "creates params" do
         name_params = { argTypes: { button_text: { name: "Text" } } }
         expect(subject.to_csf_params).to eq(expected_csf_params.deep_merge(name_params))
+      end
+    end
+
+    context "with description" do
+      let(:description) { "Descriptive Text" }
+
+      it "creates params" do
+        description_params = { argTypes: { button_text: { description: "Descriptive Text" } } }
+        expect(subject.to_csf_params).to eq(expected_csf_params.deep_merge(description_params))
       end
     end
 

@@ -37,6 +37,18 @@ RSpec.describe ViewComponent::Storybook::Stories do
             }
           },
           {
+            name: :with_described_control,
+            parameters: {
+              server: { id: "content_component/with_described_control" }
+            },
+            args: {
+              content: "Hello World!"
+            },
+            argTypes: {
+              content: { control: { type: :text }, description: "My first computer program.", name: "Content" }
+            }
+          },
+          {
             name: :with_block_content,
             parameters: {
               server: { id: "content_component/with_block_content" }
@@ -458,6 +470,18 @@ RSpec.describe ViewComponent::Storybook::Stories do
               button_text__name__first_name: { control: { type: :text }, name: "Button Text  Name  First Name" },
               button_text__name__last_name: { control: { type: :text }, name: "Button Text  Name  Last Name" }
             }
+          },
+          {
+            name: :described_control,
+            args: {
+              button_text: "DO NOT PUSH!"
+            },
+            argTypes: {
+              button_text: { control: { type: :text }, description: "Make this irresistible.", name: "Button Text" }
+            },
+            parameters: {
+              server: { id: "custom_control/described_control" }
+            }
           }
         ]
       )
@@ -550,6 +574,26 @@ RSpec.describe ViewComponent::Storybook::Stories do
                       "type": "text"
                     },
                     "name": "Content"
+                  }
+                }
+              },
+              {
+                "name": "with_described_control",
+                "parameters": {
+                  "server": {
+                    "id": "content_component/with_described_control"
+                  }
+                },
+                "args": {
+                  "content": "Hello World!"
+                },
+                "argTypes": {
+                  "content": {
+                    "control": {
+                      "type": "text"
+                    },
+                    "name": "Content",
+                    "description": "My first computer program."
                   }
                 }
               },
