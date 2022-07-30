@@ -19,7 +19,8 @@ end
 
 require 'simplecov'
 SimpleCov.start do
-  command_name "rails#{ENV.fetch('RAILS_VERSION')}-ruby#{ENV.fetch('RUBY_VERSION')}" if ENV.fetch("RUBY_VERSION")
+  ruby_version = ENV.fetch('RUBY_VERSION', nil)
+  command_name "rails#{ENV.fetch('RAILS_VERSION')}-ruby#{ruby_version}" if ruby_version
   add_filter 'spec'
 end
 
