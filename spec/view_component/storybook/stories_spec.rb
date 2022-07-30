@@ -322,14 +322,6 @@ RSpec.describe ViewComponent::Storybook::Stories do
 
     context "with a custom story title generator defined" do
       let(:custom_story_title) { "CustomStoryTitle" }
-
-      around do |example|
-        original_generator = ViewComponent::Storybook.stories_title_generator
-        ViewComponent::Storybook.stories_title_generator = ->(_stories) { custom_story_title }
-        example.run
-        ViewComponent::Storybook.stories_title_generator = original_generator
-      end
-
       let(:component_class) do
         Class.new(described_class) do
           class << self
@@ -338,6 +330,13 @@ RSpec.describe ViewComponent::Storybook::Stories do
             end
           end
         end
+      end
+
+      around do |example|
+        original_generator = ViewComponent::Storybook.stories_title_generator
+        ViewComponent::Storybook.stories_title_generator = ->(_stories) { custom_story_title }
+        example.run
+        ViewComponent::Storybook.stories_title_generator = original_generator
       end
 
       before do
