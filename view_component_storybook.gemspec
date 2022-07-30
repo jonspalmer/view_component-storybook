@@ -47,5 +47,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rubocop-rspec", "~> 2.1"
   spec.add_development_dependency "simplecov", "~> 0.21.2"
   spec.add_development_dependency "simplecov-console", "~> 0.9"
+  spec.add_development_dependency "sprockets-rails", "~> 3.4.2"
   spec.metadata['rubygems_mfa_required'] = 'true'
 end

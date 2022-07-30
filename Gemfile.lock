@@ -235,6 +235,7 @@ DEPENDENCIES
   rubocop-rspec (~> 2.1)
   simplecov (~> 0.21.2)
   simplecov-console (~> 0.9)
+  sprockets-rails (~> 3.4.2)
   view_component_storybook!
 
 BUNDLED WITH
