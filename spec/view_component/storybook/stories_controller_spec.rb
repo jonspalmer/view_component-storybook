@@ -16,7 +16,7 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
   it "renders the compoent" do
     get "/rails/stories/demo/button_component/short_button"
 
-    expect(response.body).to have_selector("button", text: "OK")
+    expect(response.body).to have_button(text: "OK")
   end
 
   it "renders a compoent with positional args" do
@@ -56,7 +56,7 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
   it "renders a compoent with legacy cotrols dsl" do
     get "/rails/stories/legacy_controls_dsl/short_button"
 
-    expect(response.body).to have_selector("button", text: "OK")
+    expect(response.body).to have_button(text: "OK")
   end
 
   it "renders the kitchen sink" do
@@ -116,13 +116,13 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
   it "renders the compoent with supplied parameters" do
     get "/rails/stories/demo/button_component/short_button", params: { button_text: "My Button" }
 
-    expect(response.body).to have_selector("button", text: "My Button")
+    expect(response.body).to have_button(text: "My Button")
   end
 
   it "renders a compoent with custom controls" do
     get "/rails/stories/custom_control/custom_text", params: { button_text__greeting: "Hello", button_text__name: "Nemo" }
 
-    expect(response.body).to have_selector("button", text: "Hello Nemo")
+    expect(response.body).to have_button(text: "Hello Nemo")
   end
 
   it "renders a compoent with custom controls for rest args" do
@@ -187,7 +187,7 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
   it "ignores query params that don't match the the compoents args" do
     get "/rails/stories/demo/button_component/short_button", params: { button_text: "My Button", junk: true }
 
-    expect(response.body).to have_selector("button", text: "My Button")
+    expect(response.body).to have_button(text: "My Button")
   end
 
   it "returns 404 for a stories that don't exist" do
