@@ -333,7 +333,7 @@ RSpec.describe ViewComponent::Storybook::Stories do
       before do
         # stories_title_generator is triggered when a class is declared.
         # To test this behavior we have to create a new class dynamically onew we've
-        # configured the stories_title_generator in the around block above 
+        # configured the stories_title_generator in the around block above
 
         # Descendant tracking appends our dynamic class to the list of
         # descendants which (logically) causes failures on the .all example
