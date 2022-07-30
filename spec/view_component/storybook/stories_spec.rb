@@ -298,7 +298,7 @@ RSpec.describe ViewComponent::Storybook::Stories do
       )
     end
 
-    context 'with a custom story title defined' do
+    context "with a custom story title defined" do
       it "converts Stories" do
         expect(Demo::HeadingComponentStories.to_csf_params).to eq(
           title: "Heading Component",
@@ -320,19 +320,8 @@ RSpec.describe ViewComponent::Storybook::Stories do
       end
     end
 
-    context 'with a custom story title generator defined' do
-      let(:stories_class_name) { 'Demo::ButtonComponentStories' }
-      let(:custom_story_title) { 'CustomStoryTitle' }
-
-      before do
-        # Creating the class dynamically leaves `name` nil
-        allow(described_class).to receive(:name).and_return(stories_class_name)
-        # Descendant tracking appends our dynamic class to the list of
-        # descendants which (logically) causes failures on the .all example
-        # below
-        allow(ActiveSupport::DescendantsTracker).to receive(:store_inherited)
-        stub_const(stories_class_name, Class.new(described_class))
-      end
+    context "with a custom story title generator defined" do
+      let(:custom_story_title) { "CustomStoryTitle" }
 
       around do |example|
         original_generator = ViewComponent::Storybook.stories_title_generator
@@ -341,11 +330,35 @@ RSpec.describe ViewComponent::Storybook::Stories do
         ViewComponent::Storybook.stories_title_generator = original_generator
       end
 
+      before do
+        # stories_title_generator is triggered when a class is declared.
+        # To test this behavior we have to create a new class dynamically onew we've
+        # configured the stories_title_generator in the around block above 
+
+        # Descendant tracking appends our dynamic class to the list of
+        # descendants which (logically) causes failures on the .all example
+        # below
+        allow(ActiveSupport::DescendantsTracker).to receive(:store_inherited).once
+
+        component_class = Class.new(described_class) do
+          class << self
+            def name
+              "Demo::MoreButtonComponentStories"
+            end
+          end
+        end
+        stub_const("Demo::MoreButtonComponentStories", component_class)
+      end
+
       it "converts Stories" do
-        expect(Demo::ButtonComponentStories.to_csf_params).to eq(
+        expect(Demo::MoreButtonComponentStories.to_csf_params).to eq(
           title: custom_story_title,
           stories: []
         )
+      end
+
+      it "allows compoents to override the title" do
+        expect(Demo::HeadingComponentStories.to_csf_params[:title]).to eq("Heading Component")
       end
     end
 
