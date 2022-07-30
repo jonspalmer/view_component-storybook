@@ -41,11 +41,12 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "relaxed-rubocop", "~> 2.5"
   spec.add_development_dependency "rspec", "~> 3.10"
-  spec.add_development_dependency "rspec-rails", "~> 5.0"
+  spec.add_development_dependency "rspec-rails", "~> 5.1"
   spec.add_development_dependency "rubocop", "~> 1.18"
   spec.add_development_dependency "rubocop-rails", "~> 2.11"
   spec.add_development_dependency "rubocop-rspec", "~> 2.1"
   spec.add_development_dependency "simplecov", "~> 0.21.2"
   spec.add_development_dependency "simplecov-console", "~> 0.9"
+  spec.add_development_dependency "sprockets-rails", "~> 3.4.2"
   spec.metadata['rubygems_mfa_required'] = 'true'
 end

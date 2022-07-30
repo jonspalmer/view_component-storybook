@@ -545,7 +545,7 @@ RSpec.describe ViewComponent::Storybook::Stories do
 
   describe ".all" do
     it "has all stories" do
-      expect(described_class.all).to eq [
+      expect(described_class.all).to match_array [
         ArgsComponentStories,
         ContentComponentStories,
         CustomControlStories,
