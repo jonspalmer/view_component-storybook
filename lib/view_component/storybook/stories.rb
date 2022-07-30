@@ -99,7 +99,7 @@ module ViewComponent
         def inherited(other)
           super(other)
           # setup class defaults
-          other.stories_title = other.stories_name.humanize.titlecase
+          other.stories_title = Storybook.stories_title_generator.call(other)
           other.story_configs = []
         end
 

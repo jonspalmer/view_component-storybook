@@ -19,7 +19,7 @@ export const parameters = {
 };
 ```
 
-Other environements, such as production, require equivalent configuration.
+Other environments, such as production, require equivalent configuration.
 
 ## Stories Path
 
@@ -40,6 +40,19 @@ config.view_component_storybook.stories_route = "/stories"
 ```
 
 This example will make the previews available from <http://localhost:3000/stories>.
+
+## Stories Title Generation
+
+You may wish to customize how the title of stories are generated, this can be done by setting a custom `stories_title_generator` lambda function:
+
+```ruby
+# config/application.rb
+config.view_component_storybook.stories_title_generator = lambda { |stories|
+  stories.stories_name.humanize.delete_prefix('Namespace/').titlecase
+}
+```
+
+This example will result in a title of `Example Component` instead of `Namespace/Example Component` for a stories file located at `namespace/example_component_stories.rb` (in your stories directory).
 
 ## Configuring Asset Hosts
 

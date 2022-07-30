@@ -50,6 +50,15 @@ module ViewComponent
     end
     # :nocov:
 
+    # Define how component stories titles are generated:
+    #
+    #     config.view_component_storybook.stories_title_generator = lambda { |stories|
+    #       stories.stories_name.humanize.upcase
+    #     }
+    #
+    mattr_accessor :stories_title_generator, instance_writer: false,
+                                             default: ->(stories) { stories.stories_name.humanize.titlecase }
+
     ActiveSupport.run_load_hooks(:view_component_storybook, self)
   end
 end
