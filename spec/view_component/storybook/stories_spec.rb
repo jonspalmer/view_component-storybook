@@ -8,8 +8,8 @@ RSpec.describe ViewComponent::Storybook::Stories do
     end
 
     it "is invalid if stories are invalid" do
-      expect(Invalid::InvalidConstrutorStories.valid?).to be(false)
-      expect(Invalid::InvalidConstrutorStories.errors[:story_configs].length).to eq(1)
+      expect(Invalid::InvalidConstructorStories.valid?).to be(false)
+      expect(Invalid::InvalidConstructorStories.errors[:story_configs].length).to eq(1)
     end
   end
 
@@ -462,10 +462,10 @@ RSpec.describe ViewComponent::Storybook::Stories do
     end
 
     it "raises an excpetion if a story_config is invalid" do
-      expect { Invalid::InvalidConstrutorStories.to_csf_params }.to(
+      expect { Invalid::InvalidConstructorStories.to_csf_params }.to(
         raise_exception(
           ViewComponent::Storybook::Stories::ValidationError,
-          "Invalid::InvalidConstrutorStories invalid: (Story configs 'invalid_kwards' is invalid: (Constructor args invalid: (Kwargs 'junk' is invalid)))"
+          "Invalid::InvalidConstructorStories invalid: (Story configs 'invalid_kwards' is invalid: (Constructor args invalid: (Kwargs 'junk' is invalid)))"
         )
       )
     end
@@ -553,7 +553,7 @@ RSpec.describe ViewComponent::Storybook::Stories do
         Demo::HeadingComponentStories,
         DryComponentStories,
         Invalid::DuplicateStoryStories,
-        Invalid::InvalidConstrutorStories,
+        Invalid::InvalidConstructorStories,
         KitchenSinkComponentStories,
         KwargsComponentStories,
         LayoutStories,
