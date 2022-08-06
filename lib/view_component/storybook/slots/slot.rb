@@ -16,7 +16,7 @@ module ViewComponent
         end
 
         def call(&block)
-          component.send(slot_name, *slot_method_args.args, **slot_method_args.kwargs, &block)
+          component.send("with_#{slot_name}", *slot_method_args.args, **slot_method_args.kwargs, &block)
         end
       end
     end
