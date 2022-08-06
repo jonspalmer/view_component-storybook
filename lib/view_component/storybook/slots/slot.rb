@@ -16,7 +16,7 @@ module ViewComponent
         end
 
         def call(context)
-          component.send(slot_name, *slot_method_args.args, **slot_method_args.kwargs) do |*args|
+          component.send("with_#{slot_name}", *slot_method_args.args, **slot_method_args.kwargs) do |*args|
             context.instance_exec(*args, &content_block)
           end
         end
