@@ -1,6 +1,6 @@
 <%= render(@story.component) do |c| -%>
   <% @story.slots.each do |slot| -%>
-    <%= sanitize slot.call.to_s %>
+    <%- sanitize slot.call(self).to_s -%>
   <%- end -%>
   <%- instance_eval(&@story.content_block) if @story.content_block -%>
 <%- end -%>

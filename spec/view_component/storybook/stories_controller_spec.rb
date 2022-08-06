@@ -152,8 +152,10 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
     expect(response.body).to have_selector(".tab", text: "Tab B")
 
     expect(response.body).to have_selector(".item", count: 4)
-    expect(response.body).to have_selector(".item", text: "Subslot", count: 1)
+    expect(response.body).to have_selector(".item.highlighted", count: 1)
     expect(response.body).to have_selector(".item.normal", count: 3)
+    expect(response.body).to have_selector(".item[4] h3", text: "Subslot", count: 1)
+    expect(response.body).to have_selector(".item[4] p", text: "Item D", count: 1)
 
     expect(response.body).to have_selector(".footer.text-blue")
   end
@@ -178,9 +180,9 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
     expect(response.body).to have_selector(".tab", text: "Tab 2")
 
     expect(response.body).to have_selector(".item", count: 4)
-    expect(response.body).to have_selector(".item", text: "Subslot", count: 1)
     expect(response.body).to have_selector(".item.highlighted", count: 0)
     expect(response.body).to have_selector(".item.normal", count: 4)
+    expect(response.body).to have_selector(".item h3", text: "Subslot", count: 1)
 
     expect(response.body).to have_selector(".footer.text-green")
   end
