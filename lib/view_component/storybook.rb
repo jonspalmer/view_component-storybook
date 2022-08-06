@@ -37,9 +37,27 @@ module ViewComponent
     #
     # Defaults to `/rails/stories` when `show_stories` is enabled.
     #
-    mattr_accessor :stories_route, instance_writer: false do
-      "/rails/stories"
+    mattr_accessor :stories_route, instance_writer: false
+
+    # :nocov:
+    if defined?(ViewComponent::Storybook::Engine)
+      ActiveSupport::Deprecation.warn(
+        "This manually engine loading is deprecated and will be removed in v1.0.0. " \
+        "Remove `require \"view_component/storybook/engine\"`."
+      )
+    elsif defined?(Rails::Engine)
+      require "view_component/storybook/engine"
     end
+    # :nocov:
+
+    # Define how component stories titles are generated:
+    #
+    #     config.view_component_storybook.stories_title_generator = lambda { |stories|
+    #       stories.stories_name.humanize.upcase
+    #     }
+    #
+    mattr_accessor :stories_title_generator, instance_writer: false,
+                                             default: ->(stories) { stories.stories_name.humanize.titlecase }
 
     ActiveSupport.run_load_hooks(:view_component_storybook, self)
   end

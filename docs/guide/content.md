@@ -26,7 +26,7 @@ end
 ```ruby
 # test/components/stories/example_component_stories.rb
 class ExampleComponentStories < ViewComponent::Storybook::Stories
-  story :hellp do
+  story :hello do
     constructor(title: "my title") do
       "Hello World!"
     end

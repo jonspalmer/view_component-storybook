@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 require "bundler/setup"
-require "view_component/storybook"
-require "action_view"
-require "action_controller"
 
 # Configure Rails Envinronment
 # we need to do this before including capybara
@@ -22,7 +19,9 @@ end
 
 require 'simplecov'
 SimpleCov.start do
-  command_name "rails#{ENV['RAILS_VERSION']}-ruby#{ENV['RUBY_VERSION']}" if ENV["RUBY_VERSION"]
+  ruby_version = ENV.fetch('RUBY_VERSION', nil)
+  rails_version = ENV.fetch('RAILS_VERSION', nil)
+  command_name "rails#{rails_version}-ruby#{ruby_version}" if ruby_version && rails_version
   add_filter 'spec'
 end
 

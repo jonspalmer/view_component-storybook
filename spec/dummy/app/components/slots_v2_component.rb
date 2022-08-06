@@ -17,6 +17,8 @@ class SlotsV2Component < ViewComponent::Base
 
   renders_one :extra, "ExtraComponent"
 
+  renders_one :example, ExampleComponent
+
   def initialize(classes: "")
     super
     @classes = classes

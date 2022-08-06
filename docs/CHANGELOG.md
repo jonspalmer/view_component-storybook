@@ -7,6 +7,15 @@ title: Changelog
 
 ## main
 
+## 0.11.1
+
+* Fix for stories_route by when using deprecated `require "view_component/storybook/engine\"`
+
+## 0.11.0
+
+* Add support for dry-initializer
+* Validate Slots
+
 ## 0.10.1
 
 * Allow Object Controls with arrays of simple values

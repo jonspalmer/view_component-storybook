@@ -14,7 +14,7 @@ RSpec.describe ViewComponent::Storybook::Controls::DateConfig do
     end
 
     it "is valid" do
-      expect(subject.valid?).to eq(true)
+      expect(subject.valid?).to be(true)
     end
 
     it "has an integer value in csf_params" do

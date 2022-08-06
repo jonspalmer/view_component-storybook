@@ -64,32 +64,32 @@ RSpec.describe ViewComponent::Storybook::Controls::MultiOptionsConfig do
     it "valid with single array value" do
       subject = described_class.new(:check, options, ["blue"], param: :button_text)
 
-      expect(subject.valid?).to eq(true)
+      expect(subject.valid?).to be(true)
     end
 
     it "valid with multi array value" do
       subject = described_class.new(:check, options, ["blue", "red"], param: :button_text)
 
-      expect(subject.valid?).to eq(true)
+      expect(subject.valid?).to be(true)
     end
 
     it "valid with non-array value" do
       subject = described_class.new(:check, options, "blue", param: :button_text)
 
-      expect(subject.valid?).to eq(true)
+      expect(subject.valid?).to be(true)
     end
 
     it "valid with nil default_value provided its in the options list" do
       options << nil
       subject = described_class.new(:check, options, nil, param: :button_text)
 
-      expect(subject.valid?).to eq(true)
+      expect(subject.valid?).to be(true)
     end
 
     it "invalid without type" do
       subject = described_class.new(nil, options, ["blue"], param: :button_text)
 
-      expect(subject.valid?).to eq(false)
+      expect(subject.valid?).to be(false)
       expect(subject.errors.size).to eq(1)
       expect(subject.errors[:type]).to eq(["can't be blank"])
     end
@@ -97,7 +97,7 @@ RSpec.describe ViewComponent::Storybook::Controls::MultiOptionsConfig do
     it "invalid with unsupported type" do
       subject = described_class.new(:foo, options, ["blue"], param: :button_text)
 
-      expect(subject.valid?).to eq(false)
+      expect(subject.valid?).to be(false)
       expect(subject.errors.size).to eq(1)
       expect(subject.errors[:type]).to eq(["is not included in the list"])
     end
@@ -105,7 +105,7 @@ RSpec.describe ViewComponent::Storybook::Controls::MultiOptionsConfig do
     it "invalid with value not in the options list" do
       subject = described_class.new(:check, options, ["green"], param: :button_text)
 
-      expect(subject.valid?).to eq(false)
+      expect(subject.valid?).to be(false)
       expect(subject.errors.size).to eq(1)
       expect(subject.errors[:default_value]).to eq(["is not included in the list"])
     end
@@ -113,7 +113,7 @@ RSpec.describe ViewComponent::Storybook::Controls::MultiOptionsConfig do
     it "invalid with value partially in the options list" do
       subject = described_class.new(:check, options, ["green", "red"], param: :button_text)
 
-      expect(subject.valid?).to eq(false)
+      expect(subject.valid?).to be(false)
       expect(subject.errors.size).to eq(1)
       expect(subject.errors[:default_value]).to eq(["is not included in the list"])
     end

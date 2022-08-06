@@ -35,13 +35,13 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
     it "valid with value" do
       subject = described_class.new(:radio, options, "blue", param: :button_text)
 
-      expect(subject.valid?).to eq(true)
+      expect(subject.valid?).to be(true)
     end
 
     it "invalid without type" do
       subject = described_class.new(nil, options, "blue", param: :button_text)
 
-      expect(subject.valid?).to eq(false)
+      expect(subject.valid?).to be(false)
       expect(subject.errors.size).to eq(1)
       expect(subject.errors[:type]).to eq(["can't be blank"])
     end
@@ -49,7 +49,7 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
     it "invalid with unsupported type" do
       subject = described_class.new(:foo, options, "blue", param: :button_text)
 
-      expect(subject.valid?).to eq(false)
+      expect(subject.valid?).to be(false)
       expect(subject.errors.size).to eq(1)
       expect(subject.errors[:type]).to eq(["is not included in the list"])
     end
@@ -57,7 +57,7 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
     it "invalid with value not in the options list" do
       subject = described_class.new(:radio, options, "green", param: :button_text)
 
-      expect(subject.valid?).to eq(false)
+      expect(subject.valid?).to be(false)
       expect(subject.errors.size).to eq(1)
       expect(subject.errors[:default_value]).to eq(["is not included in the list"])
     end
@@ -66,7 +66,7 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
       options << nil
       subject = described_class.new(:radio, options, nil, param: :button_text)
 
-      expect(subject.valid?).to eq(true)
+      expect(subject.valid?).to be(true)
     end
   end
 end

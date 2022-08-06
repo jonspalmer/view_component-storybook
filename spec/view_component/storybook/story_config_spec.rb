@@ -11,7 +11,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
         title: ViewComponent::Storybook::Controls::TextConfig.new("OK")
       )
 
-      expect(subject.valid?).to eq(true)
+      expect(subject.valid?).to be(true)
     end
 
     context "without too many args" do
@@ -26,7 +26,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
       end
 
       it "validates constructor_args args" do
-        expect(subject.valid?).to eq(false)
+        expect(subject.valid?).to be(false)
         expect(subject.errors[:constructor_args].length).to eq(1)
       end
     end
@@ -41,14 +41,14 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
       end
 
       it "validates constructor_args args" do
-        expect(subject.valid?).to eq(false)
+        expect(subject.valid?).to be(false)
         expect(subject.errors[:constructor_args].length).to eq(1)
       end
     end
 
     it "validates constructor_args required kwargs" do
       # The constructor_args are invalid because its 'title' key is missing
-      expect(subject.valid?).to eq(false)
+      expect(subject.valid?).to be(false)
       expect(subject.errors[:constructor_args].length).to eq(1)
     end
 
@@ -57,7 +57,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
       subject.constructor(
         junk: ViewComponent::Storybook::Controls::TextConfig.new("OK")
       )
-      expect(subject.valid?).to eq(false)
+      expect(subject.valid?).to be(false)
       expect(subject.errors[:constructor_args].length).to eq(1)
     end
 
@@ -66,8 +66,102 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
       subject.constructor(
         title: ViewComponent::Storybook::Controls::BooleanConfig.new("OK")
       )
-      expect(subject.valid?).to eq(false)
+      expect(subject.valid?).to be(false)
       expect(subject.errors[:constructor_args].length).to eq(1)
+    end
+
+    context "with slots" do
+      subject do
+        described_class.new("slots_story_config", "Slots Story Config", SlotsV2Component, false)
+      end
+
+      context "with content only slot" do
+        before do
+          subject.tab
+        end
+
+        it "validates slots arguments" do
+          expect(subject.valid?).to be(true)
+        end
+      end
+
+      context "with lambda slot" do
+        before do
+          subject.item(highlighted: true)
+        end
+
+        it "validates slots arguments" do
+          expect(subject.valid?).to be(true)
+        end
+
+        context "with invalid args" do
+          before do
+            subject.item(message: "Hi")
+          end
+
+          it "validates slots arguments" do
+            expect(subject.valid?).to be(false)
+            expect(subject.errors[:slots].length).to eq(1)
+          end
+        end
+      end
+
+      context "with Component slot" do
+        before do
+          subject.extra(message: "Hello World")
+        end
+
+        it "validates slots arguments" do
+          expect(subject.valid?).to be(true)
+        end
+
+        context "with invalid args" do
+          before do
+            subject.extra(title: "His")
+          end
+
+          it "validates slots arguments" do
+            expect(subject.valid?).to be(false)
+            expect(subject.errors[:slots].length).to eq(1)
+          end
+        end
+      end
+    end
+
+    context "with dry-initializer" do
+      subject do
+        described_class.new("dry_story_config", "Dry Story Config", DryComponent, false)
+      end
+
+      it "is valid" do
+        subject.constructor(
+          ViewComponent::Storybook::Controls::TextConfig.new("OK"),
+          message: ViewComponent::Storybook::Controls::TextConfig.new("OK")
+        )
+
+        expect(subject.valid?).to be(true)
+      end
+
+      context "without too few args" do
+        it "validates constructor_args args" do
+          subject.constructor(
+            message: ViewComponent::Storybook::Controls::TextConfig.new("Hello World!")
+          )
+
+          expect(subject.valid?).to be(false)
+          expect(subject.errors[:constructor_args].length).to eq(1)
+        end
+      end
+
+      it "validates constructor_args required kwargs" do
+        subject.constructor(
+          ViewComponent::Storybook::Controls::TextConfig.new("OK"),
+        )
+
+        # The constructor_args are invalid because its 'message' key is missing
+        expect(subject.valid?).to be(false)
+        expect(subject.errors[:constructor_args].length).to eq(1)
+      end
     end
   end
 
@@ -323,6 +417,85 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
             "'Example Story Config' invalid: (Constructor args invalid: (Controls 'Title' is invalid: (Value method args invalid: (Kwargs 'message' is invalid, Kwargs expected keys [greating] but found [message]))))"
           )
         )
+      end
+    end
+
+    context "with slots" do
+      subject do
+        described_class.new("slots_story_config", "Slots Story Config", SlotsV2Component, false)
+      end
+
+      context "without controls" do
+        before do
+          subject.item
+        end
+
+        it "writes csf params" do
+          expect(subject.to_csf_params).to eq(
+            {
+              name: "Slots Story Config",
+              parameters: {
+                server: { id: "slots_story_config" }
+              }
+            }
+          )
+        end
+      end
+
+      context "with lambda slot controls" do
+        before do
+          subject.item(highlighted: ViewComponent::Storybook::Controls::BooleanConfig.new(true))
+        end
+
+        it "writes csf params" do
+          expect(subject.to_csf_params).to eq(
+            {
+              name: "Slots Story Config",
+              parameters: {
+                server: { id: "slots_story_config" }
+              },
+              args: {
+                item1__highlighted: true
+              },
+              argTypes: {
+                item1__highlighted: {
+                  control: {
+                    type: :boolean
+                  },
+                  name: "Item1  Highlighted"
+                }
+              }
+            }
+          )
+        end
+      end
+
+      context "with component slot controls" do
+        before do
+          subject.example(title: ViewComponent::Storybook::Controls::TextConfig.new("Hello World!"))
+        end
+
+        it "writes csf params" do
+          expect(subject.to_csf_params).to eq(
+            {
+              name: "Slots Story Config",
+              parameters: {
+                server: { id: "slots_story_config" }
+              },
+              args: {
+                example__title: "Hello World!"
+              },
+              argTypes: {
+                example__title: {
+                  control: {
+                    type: :text
+                  },
+                  name: "Example  Title"
+                }
+              }
+            }
+          )
+        end
       end
     end
   end

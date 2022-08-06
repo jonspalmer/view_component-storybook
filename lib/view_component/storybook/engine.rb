@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "rails"
-require "view_component/storybook"
 
 module ViewComponent
   module Storybook
@@ -12,11 +11,13 @@ module ViewComponent
         options = app.config.view_component_storybook
 
         options.show_stories = Rails.env.development? if options.show_stories.nil?
-        options.stories_route ||= ViewComponent::Storybook.stories_route
+        options.stories_route ||= "/rails/stories"
 
         if options.show_stories
           options.stories_path ||= defined?(Rails.root) ? Rails.root.join("test/components/stories") : nil
         end
+
+        options.stories_title_generator ||= ViewComponent::Storybook.stories_title_generator
 
         ActiveSupport.on_load(:view_component_storybook) do
           options.each { |k, v| send("#{k}=", v) }
@@ -45,3 +46,14 @@ module ViewComponent
     end
   end
 end
+
+# :nocov:
+unless defined?(ViewComponent::Storybook::Stories)
+  ActiveSupport::Deprecation.warn(
+    "This manually engine loading is deprecated and will be removed in v1.0.0. " \
+    "Remove `require \"view_component/storybook/engine\"`."
+  )
+
+  require "view_component/storybook"
+end
+# :nocov:
