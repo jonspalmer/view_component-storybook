@@ -24,10 +24,6 @@ class SlotableV2Stories < ViewComponent::Storybook::Stories
       "Item B"
     end
 
-    item do |i|
-      i.subslot { "Subslot" }
-    end
-
     item.content(text("Item C"))
 
     item do |i|
