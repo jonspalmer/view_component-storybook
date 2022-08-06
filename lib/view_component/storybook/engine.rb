@@ -27,7 +27,9 @@ module ViewComponent
       initializer "view_component.set_autoload_paths" do |app|
         options = app.config.view_component_storybook
 
-        if options.show_stories && options.stories_path && !ActiveSupport::Dependencies.autoload_paths.include?(options.stories_path)
+        if options.show_stories &&
+           options.stories_path &&
+           ActiveSupport::Dependencies.autoload_paths.exclude?(options.stories_path)
           ActiveSupport::Dependencies.autoload_paths << options.stories_path
         end
       end
