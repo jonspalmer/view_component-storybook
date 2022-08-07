@@ -26,6 +26,11 @@ class SlotableV2Stories < ViewComponent::Storybook::Stories
 
     item.content(text("Item C"))
 
+    item do |i|
+      i.subslot { tag.h3("Subslot") }
+      tag.p "Item D"
+    end
+
     footer(classes: text("text-blue")) do
       "This is the footer"
     end
