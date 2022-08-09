@@ -10,7 +10,7 @@ nav_order: 2
 Stories are Ruby classes that inherit from `ViewComponent::Storybook::Stories`. Stories can have one or more stories defined with `story(story_name)`:
 
 ```ruby
-# test/components/stories/header_componeont_stories.rb
+# test/components/stories/header_component_stories.rb
 class HeaderComponentStories < ViewComponent::Storybook::Stories
   story :h1 do
     constructor("h1")
@@ -19,7 +19,7 @@ class HeaderComponentStories < ViewComponent::Storybook::Stories
   story :h2 do
     constructor("h2")
   end
-end
+end.
 ```
 
 ## Stories Title
@@ -27,7 +27,7 @@ end
 By default the stories title derives from the stories class name. The class `HeaderComponentStories` above will have a title of "Header Component". Configure a custom title with `title`:
 
 ```ruby
-# test/components/stories/header_componeont_stories.rb
+# test/components/stories/header_component_stories.rb
 class HeaderComponentStories < ViewComponent::Storybook::Stories
   title "H1 Headers Stories" 
 
@@ -44,7 +44,7 @@ default to `HeaderComponent`. This supports a common convention of grouping all 
 together. The second argument to the `story` method configures the component class: 
 
 ```ruby
-# test/components/stories/header_componeont_stories.rb
+# test/components/stories/header_component_stories.rb
 class HeaderComponentStories < ViewComponent::Storybook::Stories
   story :h1 do
     constructor("h1")
@@ -61,7 +61,7 @@ end
 Components are rendered in the default application layout. The layout for a set of stories is configured with `layout`:
 
 ```ruby
-# test/components/stories/header_componeont_stories.rb
+# test/components/stories/header_component_stories.rb
 class HeaderComponentStories < ViewComponent::Storybook::Stories
   layout :desktop
   
@@ -76,7 +76,7 @@ end
 Individual stories can define their own layout that overrides the stories setting:
 
 ```ruby
-# test/components/stories/header_componeont_stories.rb
+# test/components/stories/header_component_stories.rb
 class HeaderComponentStories < ViewComponent::Storybook::Stories
   layout :desktop
   
@@ -96,7 +96,7 @@ end
 Setting layout to false renders the component in isolation:
 
 ```ruby
-# test/components/stories/header_componeont_stories.rb
+# test/components/stories/header_component_stories.rb
 class HeaderComponentStories < ViewComponent::Storybook::Stories
   story :no_layout_h1 do
     layout false
@@ -115,7 +115,7 @@ stories layout:
 class ApplicationStories < ViewComponent::Storybook::Stories
   layout :stories
 
-# test/components/stories/header_componeont_stories.rb
+# test/components/stories/header_component_stories.rb
 class HeaderComponentStories < ApplicationStories
   story :h1 do
     constructor("h1")
