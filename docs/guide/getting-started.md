@@ -157,7 +157,7 @@ Returning the rendered html to Storybook:
 Storybook isn't just for rendering static stories. Storybook [controls](https://storybook.js.org/docs/react/essentials/controls) enable dynamic stories with variable inputs. ViewComponent Storybook exposes a similar api to describe dynamic inputs to component stories. For example add the `text` control to make `title` and `content` dynamic:
 
 ```ruby
-# test/components/stories/example_componeont_stories.rb
+# test/components/stories/example_component_stories.rb
 class ExampleComponentStories < ViewComponent::Storybook::Stories
   story :hello_world  do
     constructor(title: text("my title"))

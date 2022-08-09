@@ -203,7 +203,7 @@ By default the name of the control in Storybook is derived from the name of the 
 For example this story results in two controls with names "First Name" and "Last Name"
 
 ```ruby
-# test/components/stories/person_componeont_stories.rb
+# test/components/stories/person_component_stories.rb
 class PersonComponentStories < ViewComponent::Storybook::Stories
   story :person do
     constructor(
@@ -217,7 +217,7 @@ end
 The control name is configured using `name`:
 
 ```ruby
-# test/components/stories/person_componeont_stories.rb
+# test/components/stories/person_component_stories.rb
 class PersonComponentStories < ViewComponent::Storybook::Stories
   story :person do
     constructor(

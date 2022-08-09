@@ -27,10 +27,10 @@ module ViewComponent
           )
         end
 
-        def slot(componeont, params)
+        def slot(component, params)
           resolved_method_args = slot_method_args.resolve_method_args(params)
           story_content_block = resolve_content_block(params)
-          Slot.new(componeont, slot_name, resolved_method_args, story_content_block)
+          Slot.new(component, slot_name, resolved_method_args, story_content_block)
         end
 
         def controls
