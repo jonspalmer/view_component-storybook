@@ -14,7 +14,7 @@ module ViewComponent
         options.stories_route ||= "/rails/stories"
 
         if options.show_stories
-          options.stories_path ||= defined?(Rails.root) ? Rails.root.join("test/components/stories") : nil
+          options.stories_path ||= defined?(Rails.root) ? Rails.root.join("test/components/stories").to_s : nil
         end
 
         options.stories_title_generator ||= ViewComponent::Storybook.stories_title_generator
@@ -27,7 +27,11 @@ module ViewComponent
       initializer "view_component.set_autoload_paths" do |app|
         options = app.config.view_component_storybook
 
-        ActiveSupport::Dependencies.autoload_paths << options.stories_path if options.show_stories && options.stories_path
+        if options.show_stories &&
+           options.stories_path &&
+           ActiveSupport::Dependencies.autoload_paths.exclude?(options.stories_path)
+          ActiveSupport::Dependencies.autoload_paths << options.stories_path
+        end
       end
 
       config.after_initialize do |app|
