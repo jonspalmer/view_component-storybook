@@ -379,16 +379,16 @@ RSpec.describe ViewComponent::Storybook::StoriesV2 do
 
     it "converts Stories with combined controls" do
       expect(CombinedControlStories.to_csf_params).to eq(
-        title: "Custom Control",
+        title: "Combined Control",
         stories: [
           {
-            name: :custom_text,
+            name: :combined_text,
             parameters: {
-              server: { id: "custom_control/custom_text" }
+              server: { id: "combined_control/combined_text" }
             },
             args: {
               greeting: "Hi",
-             name: "Sarah"
+              name: "Sarah"
             },
             argTypes: {
               greeting: { control: { type: :text }, name: "Greeting" },
@@ -396,9 +396,9 @@ RSpec.describe ViewComponent::Storybook::StoriesV2 do
             }
           },
           {
-            name: :custom_rest_args,
+            name: :combined_rest_args,
             parameters: {
-              server: { id: "custom_control/custom_rest_args" }
+              server: { id: "combined_control/combined_rest_args" }
             },
             args: {
               verb_one: "Big",
@@ -430,29 +430,31 @@ RSpec.describe ViewComponent::Storybook::StoriesV2 do
     end
 
     it "converts Stories with slots" do
-      expect(SlotableV2Stories.to_csf_params).to eq(
-        title: "Slotable V2",
+      expect(SlotsStories.to_csf_params).to eq(
+        title: "Slots",
         stories: [
           {
             name: :default,
             parameters: {
-              server: { id: "slotable_v2/default" }
+              server: { id: "slots/default" }
             },
             args: {
               classes: "mt-4",
-              subtitle__content: "This is my subtitle!",
-              tab2__content: "Tab B",
-              item2__highlighted: true,
-              item3__content: "Item C",
-              footer__classes: "text-blue"
+              title: "This is my title!",
+              subtitle: "This is my subtitle!",
+              tab2: "Tab B",
+              item2_highlighted: true,
+              item3: "Item C",
+              footer_classes: "text-blue"
             },
             argTypes: {
               classes: { control: { type: :text }, name: "Classes" },
-              subtitle__content: { control: { type: :text }, name: "Subtitle  Content" },
-              tab2__content: { control: { type: :text }, name: "Tab2  Content" },
-              item2__highlighted: { control: { type: :boolean }, name: "Item2  Highlighted" },
-              item3__content: { control: { type: :text }, name: "Item3  Content" },
-              footer__classes: { control: { type: :text }, name: "Footer  Classes" }
+              title: { control: { type: :text }, name: "Title" },
+              subtitle: { control: { type: :text }, name: "Subtitle" },
+              tab2: { control: { type: :text }, name: "Tab2" },
+              item2_highlighted: { control: { type: :boolean }, name: "Item2 Highlighted" },
+              item3: { control: { type: :text }, name: "Item3" },
+              footer_classes: { control: { type: :text }, name: "Footer Classes" }
             }
           }
         ]

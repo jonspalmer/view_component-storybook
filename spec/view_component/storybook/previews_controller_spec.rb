@@ -114,13 +114,13 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
   end
 
   it "renders a compoent with custom controls" do
-    get "/rails/view_components/custom_control/custom_text", params: { greeting: "Hello", name: "Nemo" }
+    get "/rails/view_components/combined_control/combined_text", params: { greeting: "Hello", name: "Nemo" }
 
     expect(response.body).to have_button(text: "Hello Nemo")
   end
 
   it "renders a compoent with custom controls for rest args" do
-    get "/rails/view_components/custom_control/custom_rest_args",
+    get "/rails/view_components/combined_control/combined_rest_args",
         params: {
           verb_one: "Heavy",
           noun_one: "Rock",
@@ -132,8 +132,8 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
     expect(response.body).to have_selector("p", text: "Light Feather")
   end
 
- xit "renders a slotable_v2 component with default values" do
-    get "/rails/view_components/slotable_v2/default",
+ it "renders a slots component with default values" do
+    get "/rails/view_components/slots/default",
         params: {}
 
     expect(response.body).to have_selector(".card.mt-4")
@@ -152,14 +152,14 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
     expect(response.body).to have_selector(".footer.text-blue")
   end
 
-  xit "renders a slotable_v2 component with params values" do
-    get "/rails/view_components/slotable_v2/default",
+  it "renders a slots component with params values" do
+    get "/rails/view_components/slots/default",
         params: {
           classes: "mb-6",
-          subtitle__content: "Subtitle Override!",
-          tab2__content: "Tab 2",
-          item2__highlighted: "false",
-          footer__classes: "text-green"
+          subtitle: "Subtitle Override!",
+          tab2: "Tab 2",
+          item2_highlighted: "false",
+          footer_classes: "text-green"
         }
 
     expect(response.body).to have_selector(".card.mb-6")
@@ -237,17 +237,17 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
       expect(response.body).to have_title( "Stories Dummy App - Admin")
     end
 
-    # it "allows story to override the stories layout" do
-    #   get "/rails/view_components/layout_stories_v2/mobile_layout"
+    xit "allows story to override the stories layout" do
+      get "/rails/view_components/layout_stories_v2/mobile_layout"
 
-    #   expect(response.body).to have_title("Stories Dummy App - Mobile")
-    # end
+      expect(response.body).to have_title("Stories Dummy App - Mobile")
+    end
 
-    # it "allows story to override with no layout" do
-    #   get "/rails/view_components/layout_stories_v2/no_layout"
+    xit "allows story to override with no layout" do
+      get "/rails/view_components/layout_stories_v2/no_layout"
 
-    #   expect(response.body).to eq("<button>OK</button>")
-    # end
+      expect(response.body).to eq("<button>OK</button>")
+    end
 
     it "allows stories to set no layout" do
       get "/rails/view_components/no_layout/default"
@@ -255,10 +255,10 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
       expect(response.body.strip).to eq("<button>OK</button>")
     end
 
-    # it "allows story to override no layout with a layout" do
-    #   get "/rails/view_components/no_layout_stories_v2/mobile_layout"
+    xit "allows story to override no layout with a layout" do
+      get "/rails/view_components/no_layout_stories_v2/mobile_layout"
 
-    #   expect(response.body).to have_title("Stories Dummy App - Mobile")
-    # end
+      expect(response.body).to have_title("Stories Dummy App - Mobile")
+    end
   end
 end

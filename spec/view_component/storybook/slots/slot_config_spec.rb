@@ -2,13 +2,13 @@
 
 RSpec.describe ViewComponent::Storybook::Slots::SlotConfig do
   subject do
-    described_class.from_component(SlotsV2Component, :item, :item1, )
+    described_class.from_component(SlotsComponent, :item, :item1, )
   end
 
   describe "#valid?" do
     context "with no args" do
       subject do
-        described_class.from_component(SlotsV2Component, :tab, :tab1)
+        described_class.from_component(SlotsComponent, :tab, :tab1)
       end
 
       it "validates method_args args" do
@@ -18,7 +18,7 @@ RSpec.describe ViewComponent::Storybook::Slots::SlotConfig do
 
     context "with too many args" do
       subject do
-        described_class.from_component(SlotsV2Component, :tab, :tab1, "OK!")
+        described_class.from_component(SlotsComponent, :tab, :tab1, "OK!")
       end
 
       it "validates method_args args" do
@@ -29,7 +29,7 @@ RSpec.describe ViewComponent::Storybook::Slots::SlotConfig do
 
     context "with default kwargs" do
       subject do
-        described_class.from_component(SlotsV2Component, :item, :item1)
+        described_class.from_component(SlotsComponent, :item, :item1)
       end
 
       it "validates method_args args" do
@@ -39,7 +39,7 @@ RSpec.describe ViewComponent::Storybook::Slots::SlotConfig do
 
     context "with optional kwargs" do
       subject do
-        described_class.from_component(SlotsV2Component, :item, :item1, highlighted: true)
+        described_class.from_component(SlotsComponent, :item, :item1, highlighted: true)
       end
 
       it "validates method_args args" do
@@ -49,7 +49,7 @@ RSpec.describe ViewComponent::Storybook::Slots::SlotConfig do
 
     context "with too many kwargs" do
       subject do
-        described_class.from_component(SlotsV2Component, :item, :item1, highlighted: true, message: "Hello World!")
+        described_class.from_component(SlotsComponent, :item, :item1, highlighted: true, message: "Hello World!")
       end
 
       it "validates method_args args" do
@@ -60,7 +60,7 @@ RSpec.describe ViewComponent::Storybook::Slots::SlotConfig do
 
     context "with too few kwargs" do
       subject do
-        described_class.from_component(SlotsV2Component, :item, :item1, message: "Hello World!")
+        described_class.from_component(SlotsComponent, :item, :item1, message: "Hello World!")
       end
 
       it "validates method_args args" do
@@ -71,7 +71,7 @@ RSpec.describe ViewComponent::Storybook::Slots::SlotConfig do
 
     context "with invalid controls" do
       subject do
-        described_class.from_component(SlotsV2Component, :item, :item1, message: ViewComponent::Storybook::Controls::TextConfig.new(true))
+        described_class.from_component(SlotsComponent, :item, :item1, message: ViewComponent::Storybook::Controls::TextConfig.new(true))
       end
 
       it "validates method_args args" do
@@ -84,7 +84,7 @@ RSpec.describe ViewComponent::Storybook::Slots::SlotConfig do
     context "with component slot" do
       context "with string component and correct args" do
         subject do
-          described_class.from_component(SlotsV2Component, :extra, :extra, message: "Hello World!")
+          described_class.from_component(SlotsComponent, :extra, :extra, message: "Hello World!")
         end
 
         it "validates method_args args" do
@@ -94,7 +94,7 @@ RSpec.describe ViewComponent::Storybook::Slots::SlotConfig do
 
       context "with class component and correct args" do
         subject do
-          described_class.from_component(SlotsV2Component, :example, :example, title: "Hello World!")
+          described_class.from_component(SlotsComponent, :example, :example, title: "Hello World!")
         end
 
         it "validates method_args args" do
@@ -104,7 +104,7 @@ RSpec.describe ViewComponent::Storybook::Slots::SlotConfig do
 
       context "with too many args" do
         subject do
-          described_class.from_component(SlotsV2Component, :extra, :extra, "Hi", message: "Hello World!")
+          described_class.from_component(SlotsComponent, :extra, :extra, "Hi", message: "Hello World!")
         end
 
         it "validates method_args args" do
@@ -116,7 +116,7 @@ RSpec.describe ViewComponent::Storybook::Slots::SlotConfig do
 
       context "with too few kwargs" do
         subject do
-          described_class.from_component(SlotsV2Component, :extra, :extra)
+          described_class.from_component(SlotsComponent, :extra, :extra)
         end
 
         it "validates method_args args" do
@@ -128,7 +128,7 @@ RSpec.describe ViewComponent::Storybook::Slots::SlotConfig do
 
       context "with too many kwargs" do
         subject do
-          described_class.from_component(SlotsV2Component, :extra, :extra, message: "Hello World!", title: "Hi")
+          described_class.from_component(SlotsComponent, :extra, :extra, message: "Hello World!", title: "Hi")
         end
 
         it "validates method_args args" do

@@ -48,6 +48,35 @@ module ViewComponent
           end
         end
 
+        # find the story by name
+        def find_story_config(name)
+          story_configs.find { |config| config.name == name.to_sym }
+        end
+
+        # Returns the arguments for rendering of the component in its layout
+        def render_args(story_name, params: {})
+          story_params_names = instance_method(story_name).parameters.map(&:last)
+          provided_params = params.slice(*story_params_names).to_h.symbolize_keys
+
+
+          story_config = find_story_config(story_name)
+
+          control_parsed_params = provided_params.map do |param, value|
+            control = story_config.controls.find { |control| control.param == param }
+            if control
+              [param, control.value_from_params(params)]
+            else
+              [param, value]
+            end
+          end.to_h
+
+          result = control_parsed_params.empty? ? new.public_send(story_name) : new.public_send(story_name, **control_parsed_params)
+          result ||= {}
+          result[:template] = preview_example_template_path(story_name) if result[:template].nil?
+          @layout = nil unless defined?(@layout)
+          result.merge(layout: @layout)
+        end
+
         private
 
         def inherited(other)
