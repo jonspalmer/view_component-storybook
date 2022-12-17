@@ -1,26 +1,25 @@
 # frozen_string_literal: true
 
-class KwargsComponentStories < ViewComponent::Storybook::Stories
-  story :default do
-    constructor(
-      message: text("Hello World!"),
-      param: number(1),
-      other_param: boolean(true)
-    )
+class KwargsComponentStories < ViewComponent::Storybook::StoriesV2
+
+  control :message, as: :text, default: "Hello World!", only: :default
+  control :param, as: :number, default: 1, only: :default
+  control :other_param, as: :boolean, default: true, only: :default
+
+  def default(message: "Hello World!", param: 1, other_param: true)
+    render KwargsComponent.new(message: message, param: param, other_param: other_param)
   end
 
-  story :fixed_args do
-    constructor(
-      message: text("Hello World!"),
-      param: 1,
-      other_param: true
-    )
+
+  control :message, as: :text, default: "Hello World!", only: :fixed_args
+  def fixed_args(message: "Hello World!")
+    render KwargsComponent.new(message: message, param: 1, other_param: true)
   end
 
-  story :custom_param do
-    constructor(
-      message: text("Hello World!").param(:my_message),
-      param: number(1)
-    )
+  control :my_message, as: :text, default: "Hello World!", only: :custom_param
+  control :param, as: :number, default: 1, only: :custom_param
+
+  def custom_param(my_message: "Hello World!", param: 1)
+    render KwargsComponent.new(message: my_message, param: param)
   end
 end

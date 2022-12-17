@@ -1,24 +1,25 @@
 # frozen_string_literal: true
 
-class ArgsComponentStories < ViewComponent::Storybook::Stories
-  story :default do
-    constructor(
-      text("Hello World!"),
-      text("How you doing?")
-    )
+class ArgsComponentStories < ViewComponent::Storybook::StoriesV2
+
+  control :items0, as: :text, default: "Hello World!", only: :default
+  control :items1, as: :text, default: "How you doing?", only: :default
+
+  def default(items0: "Hello World!", items1: "How you doing?")
+    render ArgsComponent.new(items0, items1)
   end
 
-  story :fixed_args do
-    constructor(
-      text("Hello World!"),
-      "How you doing?"
-    )
+
+  control :items0, as: :text, default: "Hello World!", only: :fixed_args
+
+  def fixed_args(items0: "Hello World!")
+    render ArgsComponent.new(items0, "How you doing?")
   end
 
-  story :custom_param do
-    constructor(
-      text("Hello World!").param(:message),
-      text("How you doing?")
-    )
+  control :message, as: :text, default: "Hello World!", only: :custom_param
+  control :items1, as: :text, default: "How you doing?", only: :custom_param
+
+  def custom_param(message: "Hello World!", items1: "How you doing?")
+    render ArgsComponent.new(message, items1)
   end
 end

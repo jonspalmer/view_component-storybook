@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
-class MixedArgsComponentStories < ViewComponent::Storybook::Stories
-  story :default do
-    constructor(text("Hello World!"), message: text("How you doing?"))
+class MixedArgsComponentStories < ViewComponent::Storybook::StoriesV2
+  control :title, as: :text, default: "Hello World!", only: :default
+  control :message, as: :text, default: "How you doing?", only: :default
+
+  def default(title: "Hello World!", message: "How you doing?")
+    render MixedArgsComponent.new(title, message: message)
   end
 
-  story :fixed_args do
-    constructor("Hello World!", message: "How you doing?")
+  def fixed_args()
+    render MixedArgsComponent.new("Hello World!", message: "How you doing?")
   end
 end

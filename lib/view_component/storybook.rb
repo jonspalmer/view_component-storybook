@@ -9,8 +9,13 @@ module ViewComponent
 
     autoload :Controls
     autoload :Stories
+    autoload :StoriesV2
+    autoload :StoriesParser
+    autoload :StoriesCollection
+    autoload :StoriesConfig
     autoload :StoryConfig
     autoload :Story
+    autoload :StoryV2
     autoload :Slots
     autoload :ContentConcern
     autoload :MethodArgs
@@ -21,7 +26,7 @@ module ViewComponent
     #
     #     config.view_component_storybook.stories_path = Rails.root.join("lib/component_stories")
     #
-    mattr_accessor :stories_path, instance_writer: false
+    mattr_accessor :stories_paths, instance_writer: false
 
     # Enable or disable component previews through app configuration:
     #
