@@ -11,8 +11,8 @@ module ViewComponent
         validates :type, presence: true
         validates :type, inclusion: { in: TYPES }, unless: -> { type.nil? }
 
-        def initialize(type, default_value, min: nil, max: nil, step: nil, param: nil, name: nil, description: nil, **opts)
-          super(default_value, param: param, name: name, description: description, **opts)
+        def initialize(param, type, default: , min: nil, max: nil, step: nil, name: nil, description: nil, **opts)
+          super(param, default: default, name: name, description: description, **opts)
           @type = type
           @min = min
           @max = max

@@ -3,6 +3,8 @@
 RSpec.describe ViewComponent::Storybook::Controls::ControlsHelpers do
   include described_class
 
+  subject { controls.first }
+
   shared_examples "has controls attributes" do |control_attributes|
     it "has expected attributes" do
       expect(subject).to have_attributes(control_attributes)
@@ -10,34 +12,37 @@ RSpec.describe ViewComponent::Storybook::Controls::ControlsHelpers do
   end
 
   describe "#text" do
-    subject { text("Jane Doe") }
+    control :name, as: :text, default: "Jane Doe"
 
     include_examples "has controls attributes",
                      {
                        class: ViewComponent::Storybook::Controls::TextConfig,
-                       default_value: "Jane Doe"
+                       param: :name,
+                       default: "Jane Doe"
                      }
   end
 
   describe "#boolean" do
-    subject { boolean(true) }
+    control :active, as: :boolean, default: true
 
     include_examples "has controls attributes",
                      {
                        class: ViewComponent::Storybook::Controls::BooleanConfig,
-                       default_value: true
+                       param: :active,
+                       default: true
                      }
   end
 
   describe "#number" do
     context "with minimal args" do
-      subject { number(2) }
+      control :count, as: :number, default: 2
 
       include_examples "has controls attributes",
                        {
                          class: ViewComponent::Storybook::Controls::NumberConfig,
+                         param: :count,
                          type: :number,
-                         default_value: 2,
+                         default: 2,
                          min: nil,
                          max: nil,
                          step: nil
@@ -45,13 +50,14 @@ RSpec.describe ViewComponent::Storybook::Controls::ControlsHelpers do
     end
 
     context "with all args" do
-      subject { number(2, min: 0, max: 10, step: 1) }
+      control :count, as: :number, default: 2, min: 0, max: 10, step: 1
 
       include_examples "has controls attributes",
                        {
                          class: ViewComponent::Storybook::Controls::NumberConfig,
+                         param: :count,
                          type: :number,
-                         default_value: 2,
+                         default: 2,
                          min: 0,
                          max: 10,
                          step: 1
@@ -61,13 +67,14 @@ RSpec.describe ViewComponent::Storybook::Controls::ControlsHelpers do
 
   describe "#range" do
     context "with minimal args" do
-      subject { range(2) }
+      control :count, as: :range, default: 2 
 
       include_examples "has controls attributes",
                        {
                          class: ViewComponent::Storybook::Controls::NumberConfig,
+                         param: :count,
                          type: :range,
-                         default_value: 2,
+                         default: 2,
                          min: nil,
                          max: nil,
                          step: nil
@@ -75,13 +82,14 @@ RSpec.describe ViewComponent::Storybook::Controls::ControlsHelpers do
     end
 
     context "with all args" do
-      subject { range(2, min: 0, max: 10, step: 1) }
+      control :count, as: :range, default: 2, min: 0, max: 10, step: 1
 
       include_examples "has controls attributes",
                        {
                          class: ViewComponent::Storybook::Controls::NumberConfig,
+                         param: :count,
                          type: :range,
-                         default_value: 2,
+                         default: 2,
                          min: 0,
                          max: 10,
                          step: 1
@@ -90,52 +98,56 @@ RSpec.describe ViewComponent::Storybook::Controls::ControlsHelpers do
   end
 
   describe "#color" do
-    subject { color("red") }
+    control :favorite, as: :color, default: "red"
 
     include_examples "has controls attributes",
                      {
                        class: ViewComponent::Storybook::Controls::ColorConfig,
-                       default_value: "red"
+                       param: :favorite,
+                       default: "red"
                      }
   end
 
   describe "#object" do
-    subject { object({ hair: "Brown", eyes: "Blue" }) }
+    control :description, as: :object, default: { hair: "Brown", eyes: "Blue" }
 
     include_examples "has controls attributes",
                      {
                        class: ViewComponent::Storybook::Controls::ObjectConfig,
-                       default_value: { hair: "Brown", eyes: "Blue" }
+                       param: :description,
+                       default: { hair: "Brown", eyes: "Blue" }
                      }
   end
 
   %w[select radio inline-radio].each do |type|
-    dsl_method = type.underscore
+    control_type = type.underscore
 
-    describe "##{dsl_method}" do
-      subject { send(dsl_method, [:hot_dog, :pizza], :pizza) }
+    describe "##{control_type}" do
+      control :food, as: control_type.to_sym, options: [:hot_dog, :pizza], default: :pizza
 
       include_examples "has controls attributes",
                        {
                          class: ViewComponent::Storybook::Controls::OptionsConfig,
+                         param: :food,
                          type: type.to_sym,
-                         default_value: :pizza,
+                         default: :pizza,
                          options: [:hot_dog, :pizza]
                        }
     end
   end
 
   %w[multi-select check inline-check].each do |type|
-    dsl_method = type.underscore
+    control_type = type.underscore
 
-    describe "##{dsl_method}" do
-      subject { send(dsl_method, [:hot_dog, :pizza], [:pizza]) }
+    describe "##{control_type}" do
+      control :food, as: control_type.to_sym, options: [:hot_dog, :pizza], default: :pizza
 
       include_examples "has controls attributes",
                        {
                          class: ViewComponent::Storybook::Controls::MultiOptionsConfig,
+                         param: :food,
                          type: type.to_sym,
-                         default_value: [:pizza],
+                         default: [:pizza],
                          options: [:hot_dog, :pizza]
                        }
     end

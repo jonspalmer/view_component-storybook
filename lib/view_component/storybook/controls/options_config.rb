@@ -7,7 +7,7 @@ module ViewComponent
         TYPES = %i[select radio inline-radio].freeze
 
         validates :type, inclusion: { in: TYPES }, unless: -> { type.nil? }
-        validates :default_value, inclusion: { in: ->(config) { config.options } }, unless: -> { options.nil? || default_value.nil? }
+        validates :default, inclusion: { in: ->(config) { config.options } }, unless: -> { options.nil? || default.nil? }
 
         def value_from_params(params)
           params_value = super(params)
@@ -29,7 +29,7 @@ module ViewComponent
         end
 
         def symbol_value
-          @symbol_value ||= default_value.is_a?(Symbol)
+          @symbol_value ||= default.is_a?(Symbol)
         end
       end
     end

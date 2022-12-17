@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
 RSpec.describe ViewComponent::Storybook::Controls::DateConfig do
-  subject { described_class.new(default_value, param: param, name: name, description: description) }
+  subject { described_class.new(param, default: default_value, name: name, description: description) }
 
   shared_examples "valid with object value" do
     it "has a value" do
-      expect(subject.default_value).to eq(default_value)
+      expect(subject.default).to eq(default_value)
     end
 
     it "to_csf_params should leave value alone" do
       subject.to_csf_params
-      expect(subject.default_value).to eq(default_value)
+      expect(subject.default).to eq(default_value)
     end
 
     it "is valid" do

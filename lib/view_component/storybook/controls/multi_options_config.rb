@@ -7,10 +7,10 @@ module ViewComponent
         TYPES = %i[multi-select check inline-check].freeze
 
         validates :type, inclusion: { in: TYPES }, unless: -> { type.nil? }
-        validate :validate_default_value, unless: -> { options.nil? || default_value.nil? }
+        validate :validate_default_value, unless: -> { options.nil? || default.nil? }
 
-        def initialize(type, options, default_value, labels: nil, param: nil, name: nil, description: nil, **opts)
-          super(type, options, Array.wrap(default_value), labels: labels, param: param, name: name, description: description, **opts)
+        def initialize(param, type, options, default:, labels: nil, name: nil, description: nil, **opts)
+          super(param, type, options, default: Array.wrap(default), labels: labels, param: param, name: name, description: description, **opts)
         end
 
         def value_from_params(params)
@@ -34,11 +34,11 @@ module ViewComponent
         end
 
         def symbol_values
-          @symbol_values ||= default_value.first.is_a?(Symbol)
+          @symbol_values ||= default.first.is_a?(Symbol)
         end
 
         def validate_default_value
-          errors.add(:default_value, :inclusion) unless default_value.to_set <= options.to_set
+          errors.add(:default, :inclusion) unless default.to_set <= options.to_set
         end
       end
     end
