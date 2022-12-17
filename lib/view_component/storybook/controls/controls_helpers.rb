@@ -35,7 +35,7 @@ module ViewComponent
                           Controls::NumberConfig.new(:range, default, param: param, name: name, description: description, **opts)
                         when :color
                           Controls::ColorConfig.new(default, param: param, name: name, description: description, **opts)
-                        when :object
+                        when :object, :array
                           Controls::ObjectConfig.new(default, param: param, name: name, description: description, **opts)
                         when :select
                           options = opts.delete(:options)
@@ -57,8 +57,6 @@ module ViewComponent
                           Controls::MultiOptionsConfig.new(:'inline-check', options, default, param: param, name: name, description: description, **opts)
                         when :date
                           Controls::DateConfig.new(default, param: param, name: name, description: description, **opts)
-                        when :array
-                          Controls::ObjectConfig.new(default, param: param, name: name, description: description, **opts)
                         else
                           raise "Unknonwn control type '#{as}'"
                         end

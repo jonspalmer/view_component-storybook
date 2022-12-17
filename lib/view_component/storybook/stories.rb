@@ -60,7 +60,7 @@ module ViewComponent
           story_config = find_story_config(story_name)
 
           control_parsed_params = provided_params.to_h do |param, value|
-            control = story_config.controls.find { |control| control.param == param }
+            control = story_config.controls.find { |c| c.param == param }
             if control
               [param, control.value_from_params(params)]
             else

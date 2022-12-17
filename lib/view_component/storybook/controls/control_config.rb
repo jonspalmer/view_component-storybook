@@ -40,10 +40,6 @@ module ViewComponent
           self
         end
 
-        def prefix_param(prefix)
-          param("#{prefix}__#{@param}".to_sym)
-        end
-
         def to_csf_params
           # :nocov:
           raise NotImplementedError

@@ -20,7 +20,6 @@ module ViewComponent
       autoload :ObjectConfig
       autoload :CustomConfig
       autoload :ControlsHelpers
-      autoload :ControlsCollection
     end
   end
 end
