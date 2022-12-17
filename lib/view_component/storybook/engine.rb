@@ -14,9 +14,7 @@ module ViewComponent
         options.show_stories = Rails.env.development? if options.show_stories.nil?
         options.stories_route ||= "/rails/stories"
 
-        if options.show_stories && (defined?(Rails.root) && Dir.exist?(
-          "#{Rails.root}/test/components/stories"
-        ))
+        if options.show_stories && (defined?(Rails.root) && Rails.root.join("test/components/stories").exist?)
           options.stories_paths << Rails.root.join("test/components/stories").to_s
 
         end
@@ -62,7 +60,7 @@ module ViewComponent
       end
 
       def parser
-        @_parser ||= StoriesParser.new(ViewComponent::Storybook.stories_paths) # , Engine.tags)
+        @parser ||= StoriesParser.new(ViewComponent::Storybook.stories_paths) # , Engine.tags)
       end
 
       class << self

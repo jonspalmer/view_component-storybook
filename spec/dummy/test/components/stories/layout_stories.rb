@@ -4,7 +4,7 @@ class LayoutStories < ViewComponent::Storybook::Stories
   layout "admin"
 
   control :button_text, as: :text, default: "OK"
-  
+
   def default(button_text: "OK")
     render Demo::ButtonComponent.new(button_text: button_text)
   end

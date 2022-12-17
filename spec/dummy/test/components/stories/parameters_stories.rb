@@ -10,7 +10,7 @@ class ParametersStories < ViewComponent::Storybook::Stories
   end
 
   # @parameters {size: :large, color: :red}
-  def stories_parameters(button_text: "OK")
+  def stories_parameter_override(button_text: "OK")
     render Demo::ButtonComponent.new(button_text: button_text)
   end
 
