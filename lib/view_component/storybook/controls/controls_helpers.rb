@@ -5,7 +5,7 @@ module ViewComponent
     module Controls
       module ControlsHelpers
         extend ActiveSupport::Concern
-        
+
         included do
           class_attribute :controls
         end
@@ -24,44 +24,44 @@ module ViewComponent
           end
 
           def control(param, as:, default:, name: nil, description: nil, **opts)
-            self.controls << case as
-              when :text
-                Controls::TextConfig.new(default, param: param, name: name, description: description, **opts)
-              when :boolean
-                Controls::BooleanConfig.new(default, param: param, name: name, description: description, **opts)
-              when :number
-                Controls::NumberConfig.new(:number, default, param: param, name: name, description: description, **opts)
-              when :range
-                Controls::NumberConfig.new(:range, default, param: param, name: name, description: description, **opts)
-              when :color
-                Controls::ColorConfig.new(default, param: param, name: name, description: description, **opts)
-              when :object
-                Controls::ObjectConfig.new(default, param: param, name: name, description: description, **opts)
-              when :select
-                options = opts.delete(:options)
-                Controls::OptionsConfig.new(:select, options, default, param: param, name: name, description: description, **opts)
-              when :multi_select
-                options = opts.delete(:options)
-                Controls::MultiOptionsConfig.new(:'multi-select', options, default, param: param, name: name, description: description, **opts)
-              when :radio
-                options = opts.delete(:options)
-                Controls::OptionsConfig.new(:radio, options, default, param: param, name: name, description: description, **opts)
-              when :inline_radio
-                options = opts.delete(:options)
-                Controls::MultiOptionsConfigptionsConfig.new(:'inline-radio', options, default, param: param, name: name, description: description, **opts)
-              when :check
-                options = opts.delete(:options)
-                Controls::MultiOptionsConfig.new(:check, options, default, param: param, name: name, description: description, **opts)
-              when :inline_check
-                options = opts.delete(:options)
-                Controls::MultiOptionsConfig.new(:'inline-check', options, default, param: param, name: name, description: description, **opts)
-              when :date
-                Controls::DateConfig.new(default, param: param, name: name, description: description, **opts)
-              when :array
-                Controls::ObjectConfig.new(default, param: param, name: name, description: description, **opts)
-              else
-                raise "Unknonwn control type '#{as}'"
-            end
+            controls << case as
+                        when :text
+                          Controls::TextConfig.new(default, param: param, name: name, description: description, **opts)
+                        when :boolean
+                          Controls::BooleanConfig.new(default, param: param, name: name, description: description, **opts)
+                        when :number
+                          Controls::NumberConfig.new(:number, default, param: param, name: name, description: description, **opts)
+                        when :range
+                          Controls::NumberConfig.new(:range, default, param: param, name: name, description: description, **opts)
+                        when :color
+                          Controls::ColorConfig.new(default, param: param, name: name, description: description, **opts)
+                        when :object
+                          Controls::ObjectConfig.new(default, param: param, name: name, description: description, **opts)
+                        when :select
+                          options = opts.delete(:options)
+                          Controls::OptionsConfig.new(:select, options, default, param: param, name: name, description: description, **opts)
+                        when :multi_select
+                          options = opts.delete(:options)
+                          Controls::MultiOptionsConfig.new(:'multi-select', options, default, param: param, name: name, description: description, **opts)
+                        when :radio
+                          options = opts.delete(:options)
+                          Controls::OptionsConfig.new(:radio, options, default, param: param, name: name, description: description, **opts)
+                        when :inline_radio
+                          options = opts.delete(:options)
+                          Controls::MultiOptionsConfigptionsConfig.new(:'inline-radio', options, default, param: param, name: name, description: description, **opts)
+                        when :check
+                          options = opts.delete(:options)
+                          Controls::MultiOptionsConfig.new(:check, options, default, param: param, name: name, description: description, **opts)
+                        when :inline_check
+                          options = opts.delete(:options)
+                          Controls::MultiOptionsConfig.new(:'inline-check', options, default, param: param, name: name, description: description, **opts)
+                        when :date
+                          Controls::DateConfig.new(default, param: param, name: name, description: description, **opts)
+                        when :array
+                          Controls::ObjectConfig.new(default, param: param, name: name, description: description, **opts)
+                        else
+                          raise "Unknonwn control type '#{as}'"
+                        end
           end
         end
 

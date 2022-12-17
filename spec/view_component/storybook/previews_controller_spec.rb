@@ -132,7 +132,7 @@ RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
     expect(response.body).to have_selector("p", text: "Light Feather")
   end
 
- it "renders a slots component with default values" do
+  it "renders a slots component with default values" do
     get "/rails/view_components/slots/default",
         params: {}
 

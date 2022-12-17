@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "yard"
 
 module ViewComponent
@@ -8,7 +10,6 @@ module ViewComponent
       class_attribute :stories_parameters, :stories_title, :stories_config
 
       class << self
-
         def title(title = nil)
           # if no argument is passed act like a getter
           self.stories_title = title unless title.nil?
@@ -35,17 +36,15 @@ module ViewComponent
           csf_params[:stories] = story_configs.map(&:to_csf_params)
           csf_params
         end
-  
+
         def write_csf_json
           # json_path = File.join(stories_path, "#{stories_name}.stories.json")
           File.write(stories_json_path, JSON.pretty_generate(to_csf_params))
           stories_json_path
         end
-  
+
         def story_configs
-          @story_configs ||= begin
-            story_names.map { |method| Story.new(story_id(method), method, {}, controls_for_story(method)) }
-          end
+          @story_configs ||= story_names.map { |method| Story.new(story_id(method), method, {}, controls_for_story(method)) }
         end
 
         # find the story by name
@@ -58,17 +57,16 @@ module ViewComponent
           story_params_names = instance_method(story_name).parameters.map(&:last)
           provided_params = params.slice(*story_params_names).to_h.symbolize_keys
 
-
           story_config = find_story_config(story_name)
 
-          control_parsed_params = provided_params.map do |param, value|
+          control_parsed_params = provided_params.to_h do |param, value|
             control = story_config.controls.find { |control| control.param == param }
             if control
               [param, control.value_from_params(params)]
             else
               [param, value]
             end
-          end.to_h
+          end
 
           result = control_parsed_params.empty? ? new.public_send(story_name) : new.public_send(story_name, **control_parsed_params)
           result ||= {}
@@ -86,7 +84,7 @@ module ViewComponent
         end
 
         def stories_json_path
-          @stories_json_path ||= File.join(File.dirname(__FILE__), "#{File.basename(__FILE__, ".rb")}.stories.json")
+          @stories_json_path ||= File.join(File.dirname(__FILE__), "#{File.basename(__FILE__, '.rb')}.stories.json")
         end
 
         def story_id(name)
