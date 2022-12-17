@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class KwargsComponentStories < ViewComponent::Storybook::StoriesV2
+class KwargsComponentStories < ViewComponent::Storybook::Stories
 
   control :message, as: :text, default: "Hello World!", only: :default
   control :param, as: :number, default: 1, only: :default

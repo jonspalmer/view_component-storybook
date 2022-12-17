@@ -3,23 +3,20 @@
 class LayoutStories < ViewComponent::Storybook::Stories
   layout "admin"
 
-  story :default, Demo::ButtonComponent do
-    constructor(
-      button_text: text("OK")
-    )
+  # @control button_text text
+  def default(button_text: "OK")
+    render Demo::ButtonComponent.new(button_text: button_text)
   end
 
-  story :mobile_layout, Demo::ButtonComponent do
-    constructor(
-      button_text: text("OK")
-    )
-    layout "mobile"
-  end
+  # # @control button_text text
+  # # @layout mobile
+  # def mobile_layout(button_text: "OK")
+  #   render Demo::ButtonComponent.new(button_text: button_text)
+  # end
 
-  story :no_layout, Demo::ButtonComponent do
-    constructor(
-      button_text: text("OK")
-    )
-    layout false
-  end
+  # # @control button_text text
+  # # @layout false
+  # def no_layout(button_text: "OK")
+  #   render Demo::ButtonComponent.new(button_text: button_text)
+  # end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class MixedArgsComponentStories < ViewComponent::Storybook::StoriesV2
+class MixedArgsComponentStories < ViewComponent::Storybook::Stories
   control :title, as: :text, default: "Hello World!", only: :default
   control :message, as: :text, default: "How you doing?", only: :default
 
