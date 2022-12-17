@@ -7,11 +7,8 @@ module ViewComponent
       # A simple Control Config maps to one Storybook Control
       # It has a value and pulls its value from params by key
       class SimpleControlConfig < ControlConfig
-        attr_accessor :default_value
-
-        def initialize(default_value, param: nil, name: nil, description: nil, **opts)
-          super(param: param, name: name, description: description, **opts)
-          @default_value = default_value
+        def initialize(param, default: , name: nil, description: nil, **opts)
+          super(param, default: default, name: name, description: description, **opts)
         end
 
         def to_csf_params
@@ -25,7 +22,7 @@ module ViewComponent
         end
 
         def value_from_params(params)
-          params.key?(param) ? params[param] : default_value
+          params.key?(param) ? params[param] : default
         end
 
         private
@@ -38,7 +35,7 @@ module ViewComponent
         end
 
         def csf_value
-          default_value
+          default
         end
 
         def csf_control_params

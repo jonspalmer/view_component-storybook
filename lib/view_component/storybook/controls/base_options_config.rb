@@ -8,12 +8,11 @@ module ViewComponent
 
         validates :type, :options, presence: true
 
-        def initialize(type, options, default_value, labels: nil, param: nil, name: nil, description: nil, **opts)
-          super(default_value, param: param, name: name, description: description, **opts)
+        def initialize(param, type, options, default: , labels: nil, name: nil, description: nil, **opts)
+          super(param, default: default, name: name, description: description, **opts)
           @type = type
           @options = options
           @labels = labels
-          normalize_options
         end
 
         def to_csf_params
@@ -24,16 +23,6 @@ module ViewComponent
 
         def csf_control_params
           labels.nil? ? super : super.merge(labels: labels)
-        end
-
-        def normalize_options
-          return unless options.is_a?(Hash)
-
-          warning = "Hash options is deprecated and will be removed in v1.0.0. Use array options and `labels` instead."
-          ActiveSupport::Deprecation.warn(warning)
-
-          @labels = options.invert
-          @options = options.values
         end
       end
     end

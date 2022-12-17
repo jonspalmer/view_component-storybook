@@ -5,17 +5,17 @@ shared_examples "a controls config" do
   let(:name) { nil }
   let(:description) { nil }
 
-  describe "#param" do
-    it "can be set" do
-      subject.param(:name)
+  # describe "#param" do
+  #   it "can be set" do
+  #     subject.param(:name)
 
-      expect(subject.param).to eq(:name)
-    end
+  #     expect(subject.param).to eq(:name)
+  #   end
 
-    it "set returns the control" do
-      expect(subject.param(:name)).to eq(subject)
-    end
-  end
+  #   it "set returns the control" do
+  #     expect(subject.param(:name)).to eq(subject)
+  #   end
+  # end
 
   describe "#name" do
     it "by default is derived from the param" do
@@ -28,16 +28,6 @@ shared_examples "a controls config" do
       it "can be passed in the construcor" do
         expect(subject.name).to eq("Button")
       end
-    end
-
-    it "can be set" do
-      subject.name("Button")
-
-      expect(subject.name).to eq("Button")
-    end
-
-    it "set returns the control" do
-      expect(subject.name("Button")).to eq(subject)
     end
   end
 
@@ -52,16 +42,6 @@ shared_examples "a controls config" do
       it "can be passed in the constructor" do
         expect(subject.description).to eq("Text for the button")
       end
-    end
-
-    it "can be set" do
-      subject.description("Text for the button")
-
-      expect(subject.description).to eq("Text for the button")
-    end
-
-    it "set returns the control" do
-      expect(subject.description("Text for the button")).to eq(subject)
     end
   end
 
@@ -178,18 +158,6 @@ shared_examples "an options config" do |default_value|
           button_text: { control: { type: type, **control_labels }, name: "Button Text", options: options },
         },
       }
-    end
-  end
-
-  context "with hash options" do
-    subject { described_class.new(type, options, default_value) }
-
-    let(:default_value) { default_value }
-    let(:options) { { "Hot Dog" => :hot_dog, "Pizza" => :pizza } }
-
-    it "converts options to labels" do
-      expect(subject.options).to eq([:hot_dog, :pizza])
-      expect(subject.labels).to eq(hot_dog: "Hot Dog", pizza: "Pizza")
     end
   end
 end

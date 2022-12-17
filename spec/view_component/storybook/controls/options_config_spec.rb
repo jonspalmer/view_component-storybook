@@ -3,7 +3,7 @@
 RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
   described_class::TYPES.each do |type|
     context "type: #{type}" do
-      subject { described_class.new(type, options, default_value, labels: labels, param: param, name: name, description: description) }
+      subject { described_class.new(param, type, options, default: default_value, labels: labels, name: name, description: description) }
 
       let(:type) { type }
       let(:labels) { {} }
@@ -33,13 +33,13 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
     let(:options) { %w[red blue yellow] }
 
     it "valid with value" do
-      subject = described_class.new(:radio, options, "blue", param: :button_text)
+      subject = described_class.new(:button_text, :radio, options, default: "blue")
 
       expect(subject.valid?).to be(true)
     end
 
     it "invalid without type" do
-      subject = described_class.new(nil, options, "blue", param: :button_text)
+      subject = described_class.new(:button_text, nil, options, default: "blue")
 
       expect(subject.valid?).to be(false)
       expect(subject.errors.size).to eq(1)
@@ -47,7 +47,7 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
     end
 
     it "invalid with unsupported type" do
-      subject = described_class.new(:foo, options, "blue", param: :button_text)
+      subject = described_class.new(:button_text, :foo, options, default: "blue")
 
       expect(subject.valid?).to be(false)
       expect(subject.errors.size).to eq(1)
@@ -55,16 +55,16 @@ RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
     end
 
     it "invalid with value not in the options list" do
-      subject = described_class.new(:radio, options, "green", param: :button_text)
+      subject = described_class.new(:button_text, :radio, options, default: "green")
 
       expect(subject.valid?).to be(false)
       expect(subject.errors.size).to eq(1)
-      expect(subject.errors[:default_value]).to eq(["is not included in the list"])
+      expect(subject.errors[:default]).to eq(["is not included in the list"])
     end
 
-    it "valid with nil default_value provided its in the options list" do
+    it "valid with nil default provided its in the options list" do
       options << nil
-      subject = described_class.new(:radio, options, nil, param: :button_text)
+      subject = described_class.new(:button_text, :radio, options, default: nil)
 
       expect(subject.valid?).to be(true)
     end

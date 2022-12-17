@@ -6,7 +6,7 @@ module ViewComponent
       class BooleanConfig < SimpleControlConfig
         BOOLEAN_VALUES = [true, false].freeze
 
-        validates :default_value, inclusion: { in: BOOLEAN_VALUES }, unless: -> { default_value.nil? }
+        validates :default, inclusion: { in: BOOLEAN_VALUES }, unless: -> { default.nil? }
 
         def type
           :boolean

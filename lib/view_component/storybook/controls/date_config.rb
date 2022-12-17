@@ -4,8 +4,8 @@ module ViewComponent
   module Storybook
     module Controls
       class DateConfig < SimpleControlConfig
-        def initialize(default_value, param: nil, name: nil, description: nil, **opts)
-          super(default_value, param: param, name: name, description: description, **opts)
+        def initialize(param, default: , name: nil, description: nil, **opts)
+          super(param, default: default, name: name, description: description, **opts)
         end
 
         def type
@@ -24,11 +24,11 @@ module ViewComponent
         private
 
         def csf_value
-          case default_value
+          case default
           when Date
-            default_value.in_time_zone
+            default.in_time_zone
           when Time
-            default_value.iso8601
+            default.iso8601
           end
         end
       end
