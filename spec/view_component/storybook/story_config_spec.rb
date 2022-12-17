@@ -72,7 +72,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
 
     context "with slots" do
       subject do
-        described_class.new("slots_story_config", "Slots Story Config", SlotsV2Component, false)
+        described_class.new("slots_story_config", "Slots Story Config", SlotsComponent, false)
       end
 
       context "with content only slot" do
@@ -422,7 +422,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
 
     context "with slots" do
       subject do
-        described_class.new("slots_story_config", "Slots Story Config", SlotsV2Component, false)
+        described_class.new("slots_story_config", "Slots Story Config", SlotsComponent, false)
       end
 
       context "without controls" do
@@ -502,7 +502,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
 
   describe "slot methods" do
     subject do
-      described_class.new("slots_story_config", "Slots Story Config", SlotsV2Component, false)
+      described_class.new("slots_story_config", "Slots Story Config", SlotsComponent, false)
     end
 
     it "adds single slot method" do
@@ -524,7 +524,7 @@ RSpec.describe ViewComponent::Storybook::StoryConfig do
 
   describe "respond_to_missing?" do
     subject do
-      described_class.new("slots_story_config", "Slots Story Config", SlotsV2Component, false)
+      described_class.new("slots_story_config", "Slots Story Config", SlotsComponent, false)
     end
 
     it "responds to single slot method" do
