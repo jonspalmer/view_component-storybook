@@ -3,10 +3,8 @@
 module ViewComponent
   module Storybook
     class StoriesConfig
-      
       delegate :title, :parameters, :stories_name, to: :stories_class
       attr_reader :story_configs, :stories_class, :stories_json_path
-
 
       def initialize(code_object)
         @code_object = code_object
@@ -20,11 +18,9 @@ module ViewComponent
         @stories_class.stories_config = self
       end
 
-
       # def story_configs
-      #   @story_configs = 
+      #   @story_configs =
       # end
-
 
       def to_csf_params
         csf_params = { title: title }

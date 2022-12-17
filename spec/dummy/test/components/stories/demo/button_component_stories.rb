@@ -2,13 +2,11 @@
 
 module Demo
   class ButtonComponentStories < ViewComponent::Storybook::Stories
-
     control :button_text, as: :text, default: "OK", only: :short_button
 
     def short_button(button_text: "OK")
       render ButtonComponent.new(button_text: button_text)
     end
-
 
     control :button_text, as: :text, default: "Push Me!", only: :medium_button
 

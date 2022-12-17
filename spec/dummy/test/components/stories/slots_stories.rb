@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class SlotsStories < ViewComponent::Storybook::Stories
-
   control :classes, as: :text, default: "mt-4"
   control :title, as: :text, default: "This is my title!"
   control :subtitle, as: :text, default: "This is my subtitle!"
@@ -14,7 +13,7 @@ class SlotsStories < ViewComponent::Storybook::Stories
     render SlotsComponent.new(classes: classes) do |c|
       c.with_title { title }
       c.with_subtitle { subtitle }
-      
+
       c.with_tab { "Tab A" }
       c.with_tab { tab2 }
 

@@ -3,7 +3,6 @@
 module ViewComponent
   module Storybook
     class Story
-
       attr_reader :id, :name, :parameters, :controls
 
       def initialize(id, name, parameters, controls)
@@ -26,7 +25,7 @@ module ViewComponent
         name = code_object.name
         id = "#{stories_config.stories_name}/#{name.to_s.parameterize}".underscore
 
-        self.new(id, name, {}, [])
+        new(id, name, {}, [])
       end
     end
   end

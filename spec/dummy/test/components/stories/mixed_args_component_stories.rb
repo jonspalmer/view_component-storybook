@@ -8,7 +8,7 @@ class MixedArgsComponentStories < ViewComponent::Storybook::Stories
     render MixedArgsComponent.new(title, message: message)
   end
 
-  def fixed_args()
+  def fixed_args
     render MixedArgsComponent.new("Hello World!", message: "How you doing?")
   end
 end

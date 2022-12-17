@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ContentComponentStories < ViewComponent::Storybook::Stories
-
   def with_string_content
     render(ContentComponent.new) do
       "Hello World!"

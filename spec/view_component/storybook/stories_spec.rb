@@ -173,7 +173,6 @@ RSpec.describe ViewComponent::Storybook::Stories do
       )
     end
 
-
     it "converts kitchen sink" do
       expect(KitchenSinkComponentStories.to_csf_params).to eq(
         title: "Kitchen Sink Component",
@@ -537,5 +536,4 @@ RSpec.describe ViewComponent::Storybook::Stories do
       )
     end
   end
-
 end

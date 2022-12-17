@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 module ViewComponent
   module Storybook
     class StoriesCollection
-
       attr_reader :stories
 
       def load(code_objects)
@@ -12,16 +13,16 @@ module ViewComponent
         klass = code_object.path.constantize
 
         ViewComponent::Storybook::StoriesConfig.new(code_object) if stories_class?(klass)
-      # rescue => exception
-      #   puts exception.to_s
-      #   # Lookbook.logger.error exception.to_s
-      #   nil
+        # rescue => exception
+        #   puts exception.to_s
+        #   # Lookbook.logger.error exception.to_s
+        #   nil
       end
-  
+
       def self.stories_class?(klass)
-        if klass.ancestors.include?(ViewComponent::Storybook::Stories)
-          !klass.respond_to?(:abstract_class) || klass.abstract_class != true
-        end
+        return unless klass.ancestors.include?(ViewComponent::Storybook::Stories)
+
+        !klass.respond_to?(:abstract_class) || klass.abstract_class != true
       end
     end
   end

@@ -14,12 +14,11 @@ module ViewComponent
         options.show_stories = Rails.env.development? if options.show_stories.nil?
         options.stories_route ||= "/rails/stories"
 
-        if options.show_stories
-          options.stories_paths << Rails.root.join("test/components/stories").to_s if defined?(Rails.root) && Dir.exist?(
-            "#{Rails.root}/test/components/stories"
-          )
+        if options.show_stories && (defined?(Rails.root) && Dir.exist?(
+          "#{Rails.root}/test/components/stories"
+        ))
+          options.stories_paths << Rails.root.join("test/components/stories").to_s
 
-          
         end
 
         options.stories_title_generator ||= ViewComponent::Storybook.stories_title_generator
@@ -33,13 +32,12 @@ module ViewComponent
         options = app.config.view_component_storybook
 
         if options.show_stories && !options.stories_paths.empty?
-           paths_to_add = options.stories_paths  - ActiveSupport::Dependencies.autoload_paths
-           ActiveSupport::Dependencies.autoload_paths.concat(paths_to_add) if paths_to_add.any?
+          paths_to_add = options.stories_paths - ActiveSupport::Dependencies.autoload_paths
+          ActiveSupport::Dependencies.autoload_paths.concat(paths_to_add) if paths_to_add.any?
         end
       end
 
       initializer "view_component_storybook.parser.stories_load_callback" do
-
         parser.after_parse do |code_objects|
           Engine.stories.load(code_objects.all(:class))
         end
@@ -64,7 +62,7 @@ module ViewComponent
       end
 
       def parser
-        @_parser ||= StoriesParser.new(ViewComponent::Storybook.stories_paths) #, Engine.tags)
+        @_parser ||= StoriesParser.new(ViewComponent::Storybook.stories_paths) # , Engine.tags)
       end
 
       class << self

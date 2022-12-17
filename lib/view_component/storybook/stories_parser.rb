@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "yard"
 
 module ViewComponent
@@ -14,22 +16,19 @@ module ViewComponent
       end
 
       def parse(&block)
-        unless @parsing
-          @parsing = true
-          @after_parse_once_callbacks << block if block
-          YARD::Registry.clear
-          YARD.parse(paths)
-        end
+        return if @parsing
+
+        @parsing = true
+        @after_parse_once_callbacks << block if block
+        YARD::Registry.clear
+        YARD.parse(paths)
       end
 
       def after_parse(&block)
         @after_parse_callbacks << block
       end
 
-      def paths
-        @paths
-        # PathUtils.normalize_paths(@paths).map { |path| "#{path}/**/*preview.rb" }
-      end
+      attr_reader :paths
 
       protected
 
