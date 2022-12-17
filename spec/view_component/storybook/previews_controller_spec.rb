@@ -1,66 +1,60 @@
 # frozen_string_literal: true
 
-RSpec.xdescribe ViewComponent::Storybook::StoriesController, type: :request do
+RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
   it "returns ok" do
-    get "/rails/stories/content_component/with_string_content"
+    get "/rails/view_components/content_component/with_string_content"
 
     expect(response).to have_http_status(:ok)
   end
 
   it "returns ok for stories with namespaces" do
-    get "/rails/stories/demo/button_component/short_button"
+    get "/rails/view_components/demo/button_component/short_button"
 
     expect(response).to have_http_status(:ok)
   end
 
   it "renders the compoent" do
-    get "/rails/stories/demo/button_component/short_button"
+    get "/rails/view_components/demo/button_component/short_button"
 
     expect(response.body).to have_button(text: "OK")
   end
 
   it "renders a compoent with positional args" do
-    get "/rails/stories/args_component/default"
+    get "/rails/view_components/args_component/default"
 
     expect(response.body).to have_selector("p", text: "Hello World!")
     expect(response.body).to have_selector("p", text: "How you doing?")
   end
 
   it "renders a compoent with fixed positional args" do
-    get "/rails/stories/args_component/fixed_args"
+    get "/rails/view_components/args_component/fixed_args"
 
     expect(response.body).to have_selector("p", text: "Hello World!")
     expect(response.body).to have_selector("p", text: "How you doing?")
   end
 
   it "renders a compoent with keyword args" do
-    get "/rails/stories/kwargs_component/default"
+    get "/rails/view_components/kwargs_component/default"
 
     expect(response.body).to have_selector("h1", text: "Hello World!")
   end
 
   it "renders a compoent with positional and keyword args" do
-    get "/rails/stories/mixed_args_component/default"
+    get "/rails/view_components/mixed_args_component/default"
 
     expect(response.body).to have_selector("h1", text: "Hello World!")
     expect(response.body).to have_selector("p", text: "How you doing?")
   end
 
   it "renders a compoent with fixed positional and keyword args" do
-    get "/rails/stories/mixed_args_component/fixed_args"
+    get "/rails/view_components/mixed_args_component/fixed_args"
 
     expect(response.body).to have_selector("h1", text: "Hello World!")
     expect(response.body).to have_selector("p", text: "How you doing?")
   end
 
-  it "renders a compoent with legacy cotrols dsl" do
-    get "/rails/stories/legacy_controls_dsl/short_button"
-
-    expect(response.body).to have_button(text: "OK")
-  end
-
   it "renders the kitchen sink" do
-    get "/rails/stories/kitchen_sink_component/jane_doe"
+    get "/rails/view_components/kitchen_sink_component/jane_doe"
     body = Nokogiri::HTML(response.body).css("body div").to_html
 
     expected_html =
@@ -82,7 +76,7 @@ RSpec.xdescribe ViewComponent::Storybook::StoriesController, type: :request do
   end
 
   it "renders the kitchen sink with params" do
-    get "/rails/stories/kitchen_sink_component/jane_doe", params: {
+    get "/rails/view_components/kitchen_sink_component/jane_doe", params: {
       name: "John Doe",
       birthday: Date.new(1963, 7, 13).iso8601,
       favorite_color: "green",
@@ -114,32 +108,32 @@ RSpec.xdescribe ViewComponent::Storybook::StoriesController, type: :request do
   end
 
   it "renders the compoent with supplied parameters" do
-    get "/rails/stories/demo/button_component/short_button", params: { button_text: "My Button" }
+    get "/rails/view_components/demo/button_component/short_button", params: { button_text: "My Button" }
 
     expect(response.body).to have_button(text: "My Button")
   end
 
   it "renders a compoent with custom controls" do
-    get "/rails/stories/custom_control/custom_text", params: { button_text__greeting: "Hello", button_text__name: "Nemo" }
+    get "/rails/view_components/custom_control/custom_text", params: { greeting: "Hello", name: "Nemo" }
 
     expect(response.body).to have_button(text: "Hello Nemo")
   end
 
   it "renders a compoent with custom controls for rest args" do
-    get "/rails/stories/custom_control/custom_rest_args",
+    get "/rails/view_components/custom_control/custom_rest_args",
         params: {
-          items0__verb: "Heavy",
-          items0__noun: "Rock",
-          items1__verb: "Light",
-          items1__noun: "Feather",
+          verb_one: "Heavy",
+          noun_one: "Rock",
+          verb_two: "Light",
+          noun_two: "Feather",
         }
 
     expect(response.body).to have_selector("p", text: "Heavy Rock")
     expect(response.body).to have_selector("p", text: "Light Feather")
   end
 
-  it "renders a slotable_v2 component with default values" do
-    get "/rails/stories/slotable_v2/default",
+ xit "renders a slotable_v2 component with default values" do
+    get "/rails/view_components/slotable_v2/default",
         params: {}
 
     expect(response.body).to have_selector(".card.mt-4")
@@ -158,8 +152,8 @@ RSpec.xdescribe ViewComponent::Storybook::StoriesController, type: :request do
     expect(response.body).to have_selector(".footer.text-blue")
   end
 
-  it "renders a slotable_v2 component with params values" do
-    get "/rails/stories/slotable_v2/default",
+  xit "renders a slotable_v2 component with params values" do
+    get "/rails/view_components/slotable_v2/default",
         params: {
           classes: "mb-6",
           subtitle__content: "Subtitle Override!",
@@ -185,96 +179,86 @@ RSpec.xdescribe ViewComponent::Storybook::StoriesController, type: :request do
   end
 
   it "ignores query params that don't match the the compoents args" do
-    get "/rails/stories/demo/button_component/short_button", params: { button_text: "My Button", junk: true }
+    get "/rails/view_components/demo/button_component/short_button", params: { button_text: "My Button", junk: true }
 
     expect(response.body).to have_button(text: "My Button")
   end
 
-  it "returns 404 for a stories that don't exist" do
-    get "/rails/stories/missing_component/short_button"
-
-    expect(response).to have_http_status(:not_found)
+  it "raises ActionNotFound error for stories that don't exist" do
+    expect { get "/rails/view_components/missing_component/short_button" }.to raise_exception(AbstractController::ActionNotFound)
   end
 
-  it "returns 404 for a story that doesn't exist" do
-    get "/rails/stories/demo/button_component/junk"
-
-    expect(response).to have_http_status(:not_found)
+  it "raises ActionNotFound error story that doesn't exist" do
+    expect { get "/rails/view_components/demo/button_component/junk" }.to raise_exception(NameError)
   end
 
-  it "returns 404 for a missing story param" do
-    get "/rails/stories/demo/button_component"
+  it "returns 200 for a stories index" do
+    get "/rails/view_components/demo/button_component"
 
-    expect(response).to have_http_status(:not_found)
+    expect(response).to have_http_status(:ok)
   end
 
   describe "component content" do
     it "renders the component string content" do
-      get "/rails/stories/content_component/with_string_content"
+      get "/rails/view_components/content_component/with_string_content"
 
       expect(response.body).to have_selector("h1", text: "Hello World!")
     end
 
     it "renders the component control content" do
-      get "/rails/stories/content_component/with_control_content"
+      get "/rails/view_components/content_component/with_control_content"
 
       expect(response.body).to include("<h1>Hello World!</h1>")
     end
 
-    it "renders the component block content" do
-      get "/rails/stories/content_component/with_block_content"
+    it "renders the component control content overriden by params" do
+      get "/rails/view_components/content_component/with_control_content", params: { content: "Hi!" }
 
-      expect(response.body).to have_selector("h1", text: "Hello World!")
+      expect(response.body).to include("<h1>Hi!</h1>")
     end
 
     it "renders the component block content with helper" do
-      get "/rails/stories/content_component/with_helper_content"
+      get "/rails/view_components/content_component/with_helper_content"
 
-      expect(response.body).to have_css("h1 a[href='#']", text: "Hello World!")
-    end
-
-    it "renders the component content with constructor" do
-      get "/rails/stories/content_component/with_constructor_content"
-
-      expect(response.body).to have_selector("h1", text: "Hello World!")
+      expect(response.body).to have_css("h1 span", text: "Hello World!")
     end
   end
 
   describe "layout" do
     it "defaults to the application layout" do
-      get "/rails/stories/demo/button_component/short_button"
+      get "/rails/view_components/demo/button_component/short_button"
 
       expect(response.body).to have_title("Stories Dummy App")
     end
 
     it "allows stories to set the layout" do
-      get "/rails/stories/layout/default"
+      get "/rails/view_components/layout/default"
 
       expect(response.body).to have_title( "Stories Dummy App - Admin")
     end
 
-    it "allows story to override the stories layout" do
-      get "/rails/stories/layout/mobile_layout"
+    # it "allows story to override the stories layout" do
+    #   get "/rails/view_components/layout_stories_v2/mobile_layout"
 
-      expect(response.body).to have_title("Stories Dummy App - Mobile")
-    end
+    #   expect(response.body).to have_title("Stories Dummy App - Mobile")
+    # end
 
-    it "allows story to override with no layout" do
-      get "/rails/stories/layout/no_layout"
+    # it "allows story to override with no layout" do
+    #   get "/rails/view_components/layout_stories_v2/no_layout"
 
-      expect(response.body).to eq("<button>OK</button>")
-    end
+    #   expect(response.body).to eq("<button>OK</button>")
+    # end
 
     it "allows stories to set no layout" do
-      get "/rails/stories/no_layout/default"
+      get "/rails/view_components/no_layout/default"
 
-      expect(response.body).to eq("<button>OK</button>")
+      expect(response.body.strip).to eq("<button>OK</button>")
     end
 
-    it "allows story to override no layout with a layout" do
-      get "/rails/stories/no_layout/mobile_layout"
+    # it "allows story to override no layout with a layout" do
+    #   get "/rails/view_components/no_layout_stories_v2/mobile_layout"
 
-      expect(response.body).to have_title("Stories Dummy App - Mobile")
-    end
+    #   expect(response.body).to have_title("Stories Dummy App - Mobile")
+    # end
   end
 end

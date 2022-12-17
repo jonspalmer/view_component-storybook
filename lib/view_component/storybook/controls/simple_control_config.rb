@@ -7,10 +7,10 @@ module ViewComponent
       # A simple Control Config maps to one Storybook Control
       # It has a value and pulls its value from params by key
       class SimpleControlConfig < ControlConfig
-        attr_reader :default_value
+        attr_accessor :default_value
 
-        def initialize(default_value, param: nil, name: nil, description: nil)
-          super(param: param, name: name, description: description)
+        def initialize(default_value, param: nil, name: nil, description: nil, **opts)
+          super(param: param, name: name, description: description, **opts)
           @default_value = default_value
         end
 

@@ -8,8 +8,8 @@ module ViewComponent
 
         validates :type, :options, presence: true
 
-        def initialize(type, options, default_value, labels: nil, param: nil, name: nil, description: nil)
-          super(default_value, param: param, name: name, description: description)
+        def initialize(type, options, default_value, labels: nil, param: nil, name: nil, description: nil, **opts)
+          super(default_value, param: param, name: name, description: description, **opts)
           @type = type
           @options = options
           @labels = labels

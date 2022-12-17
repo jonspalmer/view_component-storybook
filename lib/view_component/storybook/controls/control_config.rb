@@ -8,10 +8,13 @@ module ViewComponent
 
         validates :param, presence: true
 
-        def initialize(param: nil, name: nil, description: nil)
+        attr_reader :opts
+
+        def initialize(param: nil, name: nil, description: nil, **opts)
           @param = param
           @name = name
           @description = description
+          @opts = opts
         end
 
         def name(new_name = nil)
@@ -51,6 +54,12 @@ module ViewComponent
           # :nocov:
           raise NotImplementedError
           # :nocov:
+        end
+
+        def valid_for_story?(story_name)
+          # expand to include arrays of names 
+          # expand to include except
+          opts[:only].nil? || opts[:only] == story_name
         end
       end
     end

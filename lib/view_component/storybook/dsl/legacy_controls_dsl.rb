@@ -32,28 +32,28 @@ module ViewComponent
           controls << Controls::ObjectConfig.new(value, param: param, name: name)
         end
 
-        def select(param, options, value, name: nil)
-          controls << Controls::OptionsConfig.new(:select, options, value, param: param, name: name)
+        def select(param, options, value, labels: nil, name: nil)
+          controls << Controls::OptionsConfig.new(:select, options, value, param: param, name: name, labels: labels)
         end
 
-        def multi_select(param, options, value, name: nil)
-          controls << Controls::OptionsConfig.new(:'multi-select', options, value, param: param, name: name)
+        def multi_select(param, options, value, labels: nil, name: nil)
+          controls << Controls::OptionsConfig.new(:'multi-select', options, value, param: param, name: name, labels: labels)
         end
 
-        def radio(param, options, value, name: nil)
-          controls << Controls::OptionsConfig.new(:radio, options, value, param: param, name: name)
+        def radio(param, options, value, labels: nil, name: nil)
+          controls << Controls::OptionsConfig.new(:radio, options, value, param: param, name: name, labels: labels)
         end
 
-        def inline_radio(param, options, value, name: nil)
-          controls << Controls::OptionsConfig.new(:'inline-radio', options, value, param: param, name: name)
+        def inline_radio(param, options, value, labels: nil, name: nil)
+          controls << Controls::OptionsConfig.new(:'inline-radio', options, value, param: param, name: name, labels: labels)
         end
 
-        def check(param, options, value, name: nil)
-          controls << Controls::OptionsConfig.new(:check, options, value, param: param, name: name)
+        def check(param, options, value, labels: nil, name: nil)
+          controls << Controls::OptionsConfig.new(:check, options, value, param: param, name: name, labels: labels)
         end
 
-        def inline_check(param, options, value, name: nil)
-          controls << Controls::OptionsConfig.new(:'inline-check', options, value, param: param, name: name)
+        def inline_check(param, options, value, labels: nil, name: nil)
+          controls << Controls::OptionsConfig.new(:'inline-check', options, value, param: param, name: name, labels: labels)
         end
 
         def array(param, value, _separator = nil, name: nil)
