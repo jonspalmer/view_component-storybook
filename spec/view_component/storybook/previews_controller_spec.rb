@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe ViewComponent::Storybook::StoriesController, type: :request do
+RSpec.describe ViewComponentsController, type: :request do
   it "returns ok" do
     get "/rails/view_components/content_component/with_string_content"
 

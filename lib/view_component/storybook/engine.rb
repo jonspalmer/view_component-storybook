@@ -43,15 +43,15 @@ module ViewComponent
         end
       end
 
-      config.after_initialize do |app|
-        options = app.config.view_component_storybook
+      # config.after_initialize do |app|
+      #   options = app.config.view_component_storybook
 
-        if options.show_stories
-          app.routes.prepend do
-            get "#{options.stories_route}/*stories/:story" => "view_component/storybook/stories#show", :internal => true
-          end
-        end
-      end
+      #   if options.show_stories
+      #     app.routes.prepend do
+      #       get "#{options.stories_route}/*stories/:story" => "view_component/storybook/stories#show", :internal => true
+      #     end
+      #   end
+      # end
 
       config.after_initialize do
         parser.parse
