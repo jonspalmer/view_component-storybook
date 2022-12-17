@@ -7,10 +7,6 @@ class ContentComponentStories < ViewComponent::Storybook::Stories
     end
   end
 
-  # controls(only: :with_described_control) do
-  #   text(:content, "Hello World")
-  # end
-
   control :content, as: :text, default: "Hello World!", only: :with_control_content
 
   def with_control_content(content: "Hello World!")
@@ -18,10 +14,6 @@ class ContentComponentStories < ViewComponent::Storybook::Stories
       content
     end
   end
-
-  # controls(only: :with_described_control) do
-  #   text(:content, "Hello World", description: "My first computer program.")
-  # end
 
   control :content, as: :text, default: "Hello World!", description: "My first computer program.", only: :with_described_control
 
