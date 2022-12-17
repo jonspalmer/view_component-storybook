@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CombinedControlStories < ViewComponent::Storybook::StoriesV2
+class CombinedControlStories < ViewComponent::Storybook::Stories
 
   control :greeting, as: :text, default: "Hi", only: :combined_text
   control :name, as: :text, default: "Sarah", only: :combined_text

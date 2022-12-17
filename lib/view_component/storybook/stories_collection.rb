@@ -19,7 +19,7 @@ module ViewComponent
       end
   
       def self.stories_class?(klass)
-        if klass.ancestors.include?(ViewComponent::Storybook::StoriesV2)
+        if klass.ancestors.include?(ViewComponent::Storybook::Stories)
           !klass.respond_to?(:abstract_class) || klass.abstract_class != true
         end
       end

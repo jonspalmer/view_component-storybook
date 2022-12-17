@@ -2,22 +2,24 @@
 
 module Demo
   class ButtonComponentStories < ViewComponent::Storybook::Stories
-    story :short_button do
-      constructor(
-        button_text: text("OK")
-      )
+
+    control :button_text, as: :text, default: "OK", only: :short_button
+
+    def short_button(button_text: "OK")
+      render ButtonComponent.new(button_text: button_text)
     end
 
-    story :medium_button do
-      constructor(
-        button_text: text("Push Me!")
-      )
+
+    control :button_text, as: :text, default: "Push Me!", only: :medium_button
+
+    def medium_button(button_text: "Push Me!")
+      render ButtonComponent.new(button_text: button_text)
     end
 
-    story :long_button do
-      constructor(
-        button_text: text("Really Really Long Button Text")
-      )
+    control :button_text, as: :text, default: "Really Really Long Button Text", only: :long_button
+
+    def long_button(button_text: "Really Really Long Button Text")
+      render ButtonComponent.new(button_text: button_text)
     end
   end
 end

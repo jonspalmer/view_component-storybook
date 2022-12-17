@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ArgsComponentStories < ViewComponent::Storybook::StoriesV2
+class ArgsComponentStories < ViewComponent::Storybook::Stories
 
   control :items0, as: :text, default: "Hello World!", only: :default
   control :items1, as: :text, default: "How you doing?", only: :default

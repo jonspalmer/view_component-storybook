@@ -3,23 +3,20 @@
 class ParametersStories < ViewComponent::Storybook::Stories
   parameters( size: :small )
 
-  story :stories_parameters, Demo::ButtonComponent do
-    constructor(
-      button_text: text("OK")
-    )
+  # @control button_text text
+  def stories_parameters(button_text: "OK")
+    render Demo::ButtonComponent.new(button_text: button_text)
+  end
+  
+  # @control button_text text
+  # @parameters {size: :large, color: :red}
+  def stories_parameters(button_text: "OK")
+    render Demo::ButtonComponent.new(button_text: button_text)
   end
 
-  story :stories_parameter_override, Demo::ButtonComponent do
-    parameters( size: :large, color: :red )
-    constructor(
-      button_text: text("OK")
-    )
-  end
-
-  story :additional_parameters, Demo::ButtonComponent do
-    parameters( color: :red )
-    constructor(
-      button_text: text("OK")
-    )
+  # @control button_text text
+  # @parameters {color: :red}
+  def additional_parameters(button_text: "OK")
+    render Demo::ButtonComponent.new(button_text: button_text)
   end
 end

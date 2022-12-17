@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SlotsStories < ViewComponent::Storybook::StoriesV2
+class SlotsStories < ViewComponent::Storybook::Stories
 
   control :classes, as: :text, default: "mt-4"
   control :title, as: :text, default: "This is my title!"
