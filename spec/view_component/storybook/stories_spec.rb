@@ -173,6 +173,26 @@ RSpec.describe ViewComponent::Storybook::Stories do
       )
     end
 
+    it "converts controls with default " do
+      expect(ControlDefaultStories.to_csf_params).to eq(
+        title: "Control Default",
+        stories: [
+          {
+            name: :example,
+            parameters: {
+              server: { id: "control_default/example" }
+            },
+            args: {
+              content: "Hello World!"
+            },
+            argTypes: {
+              content: { control: { type: :text }, name: "Content" }
+            }
+          },
+        ]
+      )
+    end
+
     it "converts kitchen sink" do
       expect(KitchenSinkComponentStories.to_csf_params).to eq(
         title: "Kitchen Sink Component",
