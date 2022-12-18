@@ -173,7 +173,7 @@ RSpec.describe ViewComponent::Storybook::Stories do
       )
     end
 
-    it "converts controls with default " do
+    it "converts controls with default" do
       expect(ControlDefaultStories.to_csf_params).to eq(
         title: "Control Default",
         stories: [

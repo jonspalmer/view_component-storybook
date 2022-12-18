@@ -117,7 +117,7 @@ module ViewComponent
             control.valid_for_story?(story_name)
           end.map do |control|
             dup_control = control.dup
-            unless dup_control.default.present?
+            if dup_control.default.blank?
               default_value_parts = code_method.parameters.find { |parts| parts[0].chomp(":") == control.param.to_s }
               if default_value_parts
                 dup_control.default = code_method.instance_eval(default_value_parts[1])
