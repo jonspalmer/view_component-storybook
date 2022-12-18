@@ -12,12 +12,11 @@ module ViewComponent
           :date
         end
 
-        def value_from_params(params)
-          params_value = super(params)
-          if params_value.is_a?(String)
-            DateTime.iso8601(params_value)
+        def parse_param_value(value)
+          if value.is_a?(String)
+            DateTime.iso8601(value)
           else
-            params_value
+            value
           end
         end
 

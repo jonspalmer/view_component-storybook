@@ -23,7 +23,7 @@ module ViewComponent
         end
 
         def stories_name
-          name.chomp("V2").chomp("Stories").underscore
+          name.chomp("Stories").underscore
         end
 
         def preview_name
@@ -38,7 +38,6 @@ module ViewComponent
         end
 
         def write_csf_json
-          # json_path = File.join(stories_path, "#{stories_name}.stories.json")
           Rails.logger.debug { "stories_json_path: #{stories_json_path}" }
           File.write(stories_json_path, JSON.pretty_generate(to_csf_params))
           stories_json_path
@@ -55,6 +54,7 @@ module ViewComponent
 
         # Returns the arguments for rendering of the component in its layout
         def render_args(story_name, params: {})
+          # mostly reimplementing the super method but adding logic to parse the params through the controls
           story_params_names = instance_method(story_name).parameters.map(&:last)
           provided_params = params.slice(*story_params_names).to_h.symbolize_keys
 
@@ -62,11 +62,9 @@ module ViewComponent
 
           control_parsed_params = provided_params.to_h do |param, value|
             control = story_config.controls.find { |c| c.param == param }
-            if control
-              [param, control.value_from_params(params)]
-            else
-              [param, value]
-            end
+            value = control.parse_param_value(value) if control
+
+            [param, value]
           end
 
           result = control_parsed_params.empty? ? new.public_send(story_name) : new.public_send(story_name, **control_parsed_params)
@@ -97,16 +95,12 @@ module ViewComponent
           "#{stories_name}/#{name.to_s.parameterize}".underscore
         end
 
-        # def story_methods
-        #   @story_methods ||= public_instance_methods(false).map { |name| instance_method(name) }
-        # end
-
         def story_names
           @story_names ||= begin
             public_methods = public_instance_methods(false)
             if code_object
+              # ordering of public_instance_methods isn't consistent
               # use the code_object to sort the methods to the order that they're declared
-
               code_object.meths.select { |m| public_methods.include?(m.name) }.map(&:name)
             else
               # there is no code_object in some specs, particularly where we create Stories after Yard parsing

@@ -9,12 +9,11 @@ module ViewComponent
         validates :type, inclusion: { in: TYPES }, unless: -> { type.nil? }
         validates :default, inclusion: { in: ->(config) { config.options } }, unless: -> { options.nil? || default.nil? }
 
-        def value_from_params(params)
-          params_value = super(params)
-          if params_value.is_a?(String) && symbol_value
-            params_value.to_sym
+        def parse_param_value(value)
+          if value.is_a?(String) && symbol_value
+            value.to_sym
           else
-            params_value
+            value
           end
         end
 
