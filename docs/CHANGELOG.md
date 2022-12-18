@@ -7,9 +7,16 @@ title: Changelog
 
 ## main
 
+## 0.12.0
+
+* Allow configuration of story titles via new `stories_title_generator` configuration lambda
+* Added control descriptions
+* Fixed bug with autoload paths
+* Fixed Documentation typos
+
 ## 0.11.1
 
-* Fix for stories_route by when using deprecated `require "view_component/storybook/engine\"`
+* Fix for stories_route by when using deprecated `require "view_component/storybook/engine"`
 
 ## 0.11.0
 
