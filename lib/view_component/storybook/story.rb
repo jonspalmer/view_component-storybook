@@ -20,13 +20,6 @@ module ViewComponent
         end
         csf_params
       end
-
-      def self.from_code_object(code_object, stories_config)
-        name = code_object.name
-        id = "#{stories_config.stories_name}/#{name.to_s.parameterize}".underscore
-
-        new(id, name, {}, [])
-      end
     end
   end
 end
