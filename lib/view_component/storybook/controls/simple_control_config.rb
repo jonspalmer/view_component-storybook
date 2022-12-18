@@ -21,8 +21,8 @@ module ViewComponent
           }
         end
 
-        def value_from_params(params)
-          params.key?(param) ? params[param] : default
+        def parse_param_value(value)
+          value
         end
 
         private

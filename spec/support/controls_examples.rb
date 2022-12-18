@@ -127,17 +127,13 @@ shared_examples "a simple controls config" do
   end
 
   let(:param_value) { "OK" }
-  describe "#value_from_params" do
+  describe "#parse_param_value" do
     it "parses param_value" do
-      expect(subject.value_from_params(subject.param => param_value)).to eq(default_value)
+      expect(subject.parse_param_value(param_value)).to eq(default_value)
     end
 
     it "parses nil param_value" do
-      expect(subject.value_from_params(subject.param => nil)).to be_nil
-    end
-
-    it "returns default_value if param is missing" do
-      expect(subject.value_from_params({})).to eq(default_value)
+      expect(subject.parse_param_value(nil)).to be_nil
     end
   end
 end

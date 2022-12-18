@@ -19,12 +19,11 @@ module ViewComponent
           @step = step
         end
 
-        def value_from_params(params)
-          params_value = super(params)
-          if params_value.is_a?(String) && params_value.present?
-            (params_value.to_f % 1) > 0 ? params_value.to_f : params_value.to_i
+        def parse_param_value(value)
+          if value.is_a?(String) && value.present?
+            (value.to_f % 1) > 0 ? value.to_f : value.to_i
           else
-            params_value
+            value
           end
         end
 

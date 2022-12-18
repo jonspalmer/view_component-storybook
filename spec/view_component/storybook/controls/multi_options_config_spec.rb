@@ -28,32 +28,32 @@ RSpec.describe ViewComponent::Storybook::Controls::MultiOptionsConfig do
     end
   end
 
-  describe "#value_from_params" do
-    subject { described_class.new(:opt, type: :check, options: options, default: defualt_value) }
+  describe "#parse_param_value" do
+    subject { described_class.new(:opt, type: :check, options: options) }
 
     context "with array options" do
       let(:options) { %w[red blue yellow] }
-      let(:defualt_value) { ["blue"] }
+      # let(:defualt_value) { ["blue"] }
 
       it "parses single param_value" do
-        expect(subject.value_from_params(opt: "blue")).to eq(["blue"])
+        expect(subject.parse_param_value("blue")).to eq(["blue"])
       end
 
       it "parses multiple param_value" do
-        expect(subject.value_from_params(opt: "blue,red")).to eq(%w[blue red])
+        expect(subject.parse_param_value("blue,red")).to eq(%w[blue red])
       end
     end
 
     context "with symbol options" do
       let(:options) { %i[red blue yellow] }
-      let(:defualt_value) { [:blue] }
+      # let(:defualt_value) { [:blue] }
 
       it "parses single param_value" do
-        expect(subject.value_from_params(opt: "blue")).to eq([:blue])
+        expect(subject.parse_param_value("blue")).to eq([:blue])
       end
 
       it "parses multiple param_value" do
-        expect(subject.value_from_params(opt: "blue,red")).to eq(%i[blue red])
+        expect(subject.parse_param_value("blue,red")).to eq(%i[blue red])
       end
     end
   end

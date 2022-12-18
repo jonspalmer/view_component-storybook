@@ -25,7 +25,7 @@ module ViewComponent
           # :nocov:
         end
 
-        def value_from_params(params)
+        def parse_param_value(value)
           # :nocov:
           raise NotImplementedError
           # :nocov:
