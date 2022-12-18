@@ -134,4 +134,3 @@ module ViewComponent
     end
   end
 end
-
