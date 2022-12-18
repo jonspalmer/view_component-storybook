@@ -3,7 +3,7 @@
 class ParametersStories < ViewComponent::Storybook::Stories
   parameters( size: :small )
 
-  control :button_text, as: :text, default: "OK"
+  control :button_text, as: :text
 
   def stories_parameters(button_text: "OK")
     render Demo::ButtonComponent.new(button_text: button_text)

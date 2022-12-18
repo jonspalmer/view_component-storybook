@@ -3,7 +3,7 @@
 class NoLayoutStories < ViewComponent::Storybook::Stories
   layout false
 
-  control :button_text, as: :text, default: "OK"
+  control :button_text, as: :text
 
   def default(button_text: "OK")
     render Demo::ButtonComponent.new(button_text: button_text)

@@ -33,15 +33,15 @@ class KitchenSinkComponentStories < ViewComponent::Storybook::Stories
   #   object(:other_things, { hair: "Brown", eyes: "Blue" })
   # end
 
-  control :name, as: :text, default: "Jane Doe"
-  control :birthday, as: :date, default: Date.new(1950, 3, 26)
-  control :favorite_color, as: :color, default: "red"
-  control :like_people, as: :boolean, default: true
-  control :number_pets, as: :number, default: 2
-  control :sports, as: :array, default: %w[football baseball]
-  control :favorite_food, as: :select, default: "Ice Cream", options: ["Burgers", "Hot Dog", "Ice Cream", "Pizza"]
-  control :mood, as: :radio, default: :happy, options: [:happy, :sad, :angry, :content], labels: { happy: "Happy", sad: "Sad", angry: "Angry", content: "Content" }
-  control :other_things, as: :object, default: { hair: "Brown", eyes: "Blue" }
+  control :name, as: :text
+  control :birthday, as: :date
+  control :favorite_color, as: :color
+  control :like_people, as: :boolean
+  control :number_pets, as: :number
+  control :sports, as: :array
+  control :favorite_food, as: :select, options: ["Burgers", "Hot Dog", "Ice Cream", "Pizza"]
+  control :mood, as: :radio, options: [:happy, :sad, :angry, :content], labels: { happy: "Happy", sad: "Sad", angry: "Angry", content: "Content" }
+  control :other_things, as: :object
 
   def jane_doe(
     name: "Jane Doe",
