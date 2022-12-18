@@ -3,7 +3,7 @@
 RSpec.describe ViewComponent::Storybook::Controls::NumberConfig do
   described_class::TYPES.each do |number_type|
     context "with '#{number_type}' type" do
-      subject { described_class.new(param, number_type, default: default_value, name: name, description: description) }
+      subject { described_class.new(param, type: number_type, default: default_value, name: name, description: description) }
 
       it_behaves_like "a simple controls config" do
         let(:type) { number_type }
@@ -20,7 +20,7 @@ RSpec.describe ViewComponent::Storybook::Controls::NumberConfig do
       end
 
       context "with options" do
-        subject { described_class.new(param, number_type, default: default_value, **number_options, name: name, description: description) }
+        subject { described_class.new(param, type: number_type, default: default_value, **number_options, name: name, description: description) }
 
         let(:number_options) { { min: 60, max: 90, step: 1 } }
 
@@ -37,7 +37,7 @@ RSpec.describe ViewComponent::Storybook::Controls::NumberConfig do
 
   describe "#valid?" do
     it "invalid without type" do
-      subject = described_class.new(:button_text, nil, default: "blue")
+      subject = described_class.new(:button_text, type: nil, default: "blue")
 
       expect(subject.valid?).to be(false)
       expect(subject.errors.size).to eq(1)
@@ -45,7 +45,7 @@ RSpec.describe ViewComponent::Storybook::Controls::NumberConfig do
     end
 
     it "invalid with unsupported type" do
-      subject = described_class.new(:button_text, :foo, default: "blue")
+      subject = described_class.new(:button_text, type: :foo, default: "blue")
 
       expect(subject.valid?).to be(false)
       expect(subject.errors.size).to eq(1)

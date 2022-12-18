@@ -10,7 +10,7 @@ module ViewComponent
 
         attr_reader :param, :default, :name, :description, :opts
 
-        def initialize(param, default: , name: nil, description: nil, **opts)
+        def initialize(param, default:, name: nil, description: nil, **opts)
           @param = param
           @default = default
           @name = name || param.to_s.humanize.titlecase
