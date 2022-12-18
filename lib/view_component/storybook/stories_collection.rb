@@ -6,17 +6,13 @@ module ViewComponent
       attr_reader :stories
 
       def load(code_objects)
-        @stories = Array(code_objects).map { |obj| StoriesCollection.stories_config_from_code_object(obj) }.compact
+        @stories = Array(code_objects).map { |obj| StoriesCollection.stories_from_code_object(obj) }.compact
       end
 
-      def self.stories_config_from_code_object(code_object)
+      def self.stories_from_code_object(code_object)
         klass = code_object.path.constantize
-
-        ViewComponent::Storybook::StoriesConfig.new(code_object) if stories_class?(klass)
-        # rescue => exception
-        #   puts exception.to_s
-        #   # Lookbook.logger.error exception.to_s
-        #   nil
+        klass.code_object = code_object
+        klass
       end
 
       def self.stories_class?(klass)

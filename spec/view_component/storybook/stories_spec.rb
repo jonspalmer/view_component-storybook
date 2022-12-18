@@ -421,7 +421,7 @@ RSpec.describe ViewComponent::Storybook::Stories do
               button_text: { control: { type: :text }, description: "Make this irresistible.", name: "Button Text" }
             },
             parameters: {
-              server: { id: "custom_control/described_control" }
+              server: { id: "combined_control/described_control" }
             }
           }
         ]
@@ -466,6 +466,11 @@ RSpec.describe ViewComponent::Storybook::Stories do
 
     after do
       File.delete(subject)
+    end
+
+    it "writes file" do
+      expect(subject).to eq(Rails.root.join("test/components/stories/content_component_stories.stories.json").to_s)
+      expect(File.exist?(subject)).to be(true)
     end
 
     it "writes stories to json files" do

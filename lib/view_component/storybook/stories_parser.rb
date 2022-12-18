@@ -5,13 +5,12 @@ require "yard"
 module ViewComponent
   module Storybook
     class StoriesParser
-      def initialize(paths, tags = nil)
+      def initialize(paths)
         @paths = paths
         @after_parse_callbacks = []
         @after_parse_once_callbacks = []
         @parsing = false
 
-        define_tags(tags)
         YARD::Parser::SourceParser.after_parse_list { run_callbacks }
       end
 
@@ -43,12 +42,6 @@ module ViewComponent
         callbacks.each { |cb| cb.call(YARD::Registry) }
         @after_parse_once_callbacks = []
         @parsing = false
-      end
-
-      def define_tags(tags = nil)
-        # tags.to_h.each do |name, tag|
-        #   YARD::Tags::Library.define_tag(tag[:label], name, Lookbook::TagProvider)
-        # end
       end
     end
   end
