@@ -5,7 +5,7 @@ namespace :view_component_storybook do
   task write_stories_json: :environment do
     puts "Writing Stories JSON"
     exceptions = []
-    ViewComponent::Storybook::Stories.all.each do |stories|
+    ViewComponent::Storybook::Engine.stories.each do |stories|
       json_path = stories.write_csf_json
       puts "#{stories.name} => #{json_path}"
     rescue StandardError => e

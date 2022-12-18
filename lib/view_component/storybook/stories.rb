@@ -7,7 +7,7 @@ module ViewComponent
     class Stories < ViewComponent::Preview
       include Controls::ControlsHelpers
 
-      class_attribute :stories_parameters, :stories_title, :stories_config
+      class_attribute :stories_parameters, :stories_title, :code_object
 
       class << self
         def title(title = nil)
@@ -33,23 +33,24 @@ module ViewComponent
         def to_csf_params
           csf_params = { title: title }
           csf_params[:parameters] = parameters if parameters.present?
-          csf_params[:stories] = story_configs.map(&:to_csf_params)
+          csf_params[:stories] = stories.map(&:to_csf_params)
           csf_params
         end
 
         def write_csf_json
           # json_path = File.join(stories_path, "#{stories_name}.stories.json")
+          Rails.logger.debug { "stories_json_path: #{stories_json_path}" }
           File.write(stories_json_path, JSON.pretty_generate(to_csf_params))
           stories_json_path
         end
 
-        def story_configs
-          @story_configs ||= story_names.map { |method| Story.new(story_id(method), method, {}, controls_for_story(method)) }
+        def stories
+          @stories ||= story_names.map { |method| Story.new(story_id(method), method, {}, controls_for_story(method)) }
         end
 
         # find the story by name
         def find_story_config(name)
-          story_configs.find { |config| config.name == name.to_sym }
+          stories.find { |config| config.name == name.to_sym }
         end
 
         # Returns the arguments for rendering of the component in its layout
@@ -84,19 +85,34 @@ module ViewComponent
         end
 
         def stories_json_path
-          @stories_json_path ||= File.join(File.dirname(__FILE__), "#{File.basename(__FILE__, '.rb')}.stories.json")
+          @stories_json_path ||= begin
+            dir = File.dirname(code_object.file)
+            json_filename = code_object.path.demodulize.underscore
+
+            File.join(dir, "#{json_filename}.stories.json")
+          end
         end
 
         def story_id(name)
           "#{stories_name}/#{name.to_s.parameterize}".underscore
         end
 
-        def story_methods
-          @story_methods ||= public_instance_methods(false).map { |name| instance_method(name) }
-        end
+        # def story_methods
+        #   @story_methods ||= public_instance_methods(false).map { |name| instance_method(name) }
+        # end
 
         def story_names
-          @story_names ||= story_methods.map(&:name)
+          @story_names ||= begin
+            public_methods = public_instance_methods(false)
+            if code_object
+              # use the code_object to sort the methods to the order that they're declared
+              code_object.meths.select { |m| public_methods.include?(m.name) }.map(&:name)
+            else
+              # there is no code_object in some specs, particularly where we create Stories after Yard parsing
+              # in these cases just use the names as returned by the public_methods
+              public_methods.map(&:name)
+            end
+          end
         end
 
         def controls_for_story(story_name)

@@ -41,16 +41,6 @@ module ViewComponent
         end
       end
 
-      # config.after_initialize do |app|
-      #   options = app.config.view_component_storybook
-
-      #   if options.show_stories
-      #     app.routes.prepend do
-      #       get "#{options.stories_route}/*stories/:story" => "view_component/storybook/stories#show", :internal => true
-      #     end
-      #   end
-      # end
-
       config.after_initialize do
         parser.parse
       end
@@ -60,7 +50,7 @@ module ViewComponent
       end
 
       def parser
-        @parser ||= StoriesParser.new(ViewComponent::Storybook.stories_paths) # , Engine.tags)
+        @parser ||= StoriesParser.new(ViewComponent::Storybook.stories_paths)
       end
 
       class << self
