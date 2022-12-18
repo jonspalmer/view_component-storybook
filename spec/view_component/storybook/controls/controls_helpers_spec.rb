@@ -67,7 +67,7 @@ RSpec.describe ViewComponent::Storybook::Controls::ControlsHelpers do
 
   describe "#range" do
     context "with minimal args" do
-      control :count, as: :range, default: 2 
+      control :count, as: :range, default: 2
 
       include_examples "has controls attributes",
                        {

@@ -3,7 +3,7 @@
 RSpec.describe ViewComponent::Storybook::Controls::MultiOptionsConfig do
   described_class::TYPES.each do |type|
     context "type: #{type}" do
-      subject { described_class.new(param, type, options, default: default_value, labels: labels, name: name, description: description) }
+      subject { described_class.new(param, type: type, options: options, default: default_value, labels: labels, name: name, description: description) }
 
       let(:type) { type }
       let(:labels) { {} }
@@ -29,7 +29,7 @@ RSpec.describe ViewComponent::Storybook::Controls::MultiOptionsConfig do
   end
 
   describe "#value_from_params" do
-    subject { described_class.new(:opt, :check, options, default: defualt_value) }
+    subject { described_class.new(:opt, type: :check, options: options, default: defualt_value) }
 
     context "with array options" do
       let(:options) { %w[red blue yellow] }
@@ -62,32 +62,32 @@ RSpec.describe ViewComponent::Storybook::Controls::MultiOptionsConfig do
     let(:options) { %w[red blue yellow] }
 
     it "valid with single array value" do
-      subject = described_class.new(:button_text, :check, options, default: ["blue"])
+      subject = described_class.new(:button_text, type: :check, options: options, default: ["blue"])
 
       expect(subject.valid?).to be(true)
     end
 
     it "valid with multi array value" do
-      subject = described_class.new(:button_text, :check, options, default: ["blue", "red"])
+      subject = described_class.new(:button_text, type: :check, options: options, default: ["blue", "red"])
 
       expect(subject.valid?).to be(true)
     end
 
     it "valid with non-array value" do
-      subject = described_class.new(:button_text, :check, options, default: "blue")
+      subject = described_class.new(:button_text, type: :check, options: options, default: "blue")
 
       expect(subject.valid?).to be(true)
     end
 
     it "valid with nil default provided its in the options list" do
       options << nil
-      subject = described_class.new(:button_text, :check, options, default: nil)
+      subject = described_class.new(:button_text, type: :check, options: options, default: nil)
 
       expect(subject.valid?).to be(true)
     end
 
     it "invalid without type" do
-      subject = described_class.new(:button_text, nil, options, default: ["blue"])
+      subject = described_class.new(:button_text, type: nil, options: options, default: ["blue"])
 
       expect(subject.valid?).to be(false)
       expect(subject.errors.size).to eq(1)
@@ -95,7 +95,7 @@ RSpec.describe ViewComponent::Storybook::Controls::MultiOptionsConfig do
     end
 
     it "invalid with unsupported type" do
-      subject = described_class.new(:button_text, :foo, options, default: ["blue"])
+      subject = described_class.new(:button_text, type: :foo, options: options, default: ["blue"])
 
       expect(subject.valid?).to be(false)
       expect(subject.errors.size).to eq(1)
@@ -103,7 +103,7 @@ RSpec.describe ViewComponent::Storybook::Controls::MultiOptionsConfig do
     end
 
     it "invalid with value not in the options list" do
-      subject = described_class.new(:button_text, :check, options, default: ["green"] )
+      subject = described_class.new(:button_text, type: :check, options: options, default: ["green"] )
 
       expect(subject.valid?).to be(false)
       expect(subject.errors.size).to eq(1)
@@ -111,7 +111,7 @@ RSpec.describe ViewComponent::Storybook::Controls::MultiOptionsConfig do
     end
 
     it "invalid with value partially in the options list" do
-      subject = described_class.new(:button_text, :check, options, default: ["green", "red"])
+      subject = described_class.new(:button_text, type: :check, options: options, default: ["green", "red"])
 
       expect(subject.valid?).to be(false)
       expect(subject.errors.size).to eq(1)

@@ -9,8 +9,8 @@ module ViewComponent
         validates :type, inclusion: { in: TYPES }, unless: -> { type.nil? }
         validate :validate_default_value, unless: -> { options.nil? || default.nil? }
 
-        def initialize(param, type, options, default:, labels: nil, name: nil, description: nil, **opts)
-          super(param, type, options, default: Array.wrap(default), labels: labels, param: param, name: name, description: description, **opts)
+        def initialize(param, type:, options:, default:, labels: nil, name: nil, description: nil, **opts)
+          super(param, type: type, options: options, default: Array.wrap(default), labels: labels, param: param, name: name, description: description, **opts)
         end
 
         def value_from_params(params)

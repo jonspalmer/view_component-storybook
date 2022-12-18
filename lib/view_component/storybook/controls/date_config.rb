@@ -4,7 +4,7 @@ module ViewComponent
   module Storybook
     module Controls
       class DateConfig < SimpleControlConfig
-        def initialize(param, default: , name: nil, description: nil, **opts)
+        def initialize(param, default:, name: nil, description: nil, **opts)
           super(param, default: default, name: name, description: description, **opts)
         end
 

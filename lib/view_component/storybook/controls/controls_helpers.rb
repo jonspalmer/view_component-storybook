@@ -23,40 +23,34 @@ module ViewComponent
             other.controls = []
           end
 
-          def control(param, as:, default:, name: nil, description: nil, **opts)
+          def control(param, as:, default:, **opts)
             controls << case as
                         when :text
-                          Controls::TextConfig.new(param, default: default, name: name, description: description, **opts)
+                          Controls::TextConfig.new(param, default: default, **opts)
                         when :boolean
-                          Controls::BooleanConfig.new(param, default: default, name: name, description: description, **opts)
+                          Controls::BooleanConfig.new(param, default: default, **opts)
                         when :number
-                          Controls::NumberConfig.new(param, :number, default: default, name: name, description: description, **opts)
+                          Controls::NumberConfig.new(param, type: :number, default: default, **opts)
                         when :range
-                          Controls::NumberConfig.new(param, :range, default: default, name: name, description: description, **opts)
+                          Controls::NumberConfig.new(param, type: :range, default: default, **opts)
                         when :color
-                          Controls::ColorConfig.new(param, default: default, name: name, description: description, **opts)
+                          Controls::ColorConfig.new(param, default: default, **opts)
                         when :object, :array
-                          Controls::ObjectConfig.new(param, default: default, name: name, description: description, **opts)
+                          Controls::ObjectConfig.new(param, default: default, **opts)
                         when :select
-                          options = opts.delete(:options)
-                          Controls::OptionsConfig.new(param, :select, options, default: default, name: name, description: description, **opts)
+                          Controls::OptionsConfig.new(param, type: :select, default: default, **opts)
                         when :multi_select
-                          options = opts.delete(:options)
-                          Controls::MultiOptionsConfig.new(param, :'multi-select', options, default: default, name: name, description: description, **opts)
+                          Controls::MultiOptionsConfig.new(param, type: :'multi-select', default: default, **opts)
                         when :radio
-                          options = opts.delete(:options)
-                          Controls::OptionsConfig.new(param, :radio, options, default: default, name: name, description: description, **opts)
+                          Controls::OptionsConfig.new(param, type: :radio, default: default, **opts)
                         when :inline_radio
-                          options = opts.delete(:options)
-                          Controls::OptionsConfig.new(param, :'inline-radio', options, default: default,  name: name, description: description, **opts)
+                          Controls::OptionsConfig.new(param, type: :'inline-radio', default: default, **opts)
                         when :check
-                          options = opts.delete(:options)
-                          Controls::MultiOptionsConfig.new(param, :check, options, default: default,  name: name, description: description, **opts)
+                          Controls::MultiOptionsConfig.new(param, type: :check, default: default, **opts)
                         when :inline_check
-                          options = opts.delete(:options)
-                          Controls::MultiOptionsConfig.new(param, :'inline-check', options, default: default, name: name, description: description, **opts)
+                          Controls::MultiOptionsConfig.new(param, type: :'inline-check', default: default, **opts)
                         when :date
-                          Controls::DateConfig.new(param, default: default, name: name, description: description, **opts)
+                          Controls::DateConfig.new(param, default: default, **opts)
                         else
                           raise "Unknonwn control type '#{as}'"
                         end
