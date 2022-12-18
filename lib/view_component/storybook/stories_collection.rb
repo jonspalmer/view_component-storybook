@@ -3,6 +3,10 @@
 module ViewComponent
   module Storybook
     class StoriesCollection
+      include Enumerable
+
+      delegate_missing_to :stories
+
       attr_reader :stories
 
       def load(code_objects)
