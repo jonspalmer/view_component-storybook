@@ -295,7 +295,7 @@ RSpec.describe ViewComponent::Storybook::Stories do
         Class.new(described_class) do
           class << self
             def name
-              "Demo::MoreButtonComponentStoriesV2"
+              "Demo::MoreButtonComponentStories"
             end
           end
         end
@@ -329,7 +329,7 @@ RSpec.describe ViewComponent::Storybook::Stories do
     end
 
     xit "converts Stories with parameters" do
-      expect(ParametersStoriesV2.to_csf_params).to eq(
+      expect(ParametersStories.to_csf_params).to eq(
         title: "Parameters",
         parameters: { size: :small },
         stories: [
