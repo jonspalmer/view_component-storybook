@@ -9,17 +9,11 @@ module ViewComponent
 
     autoload :Controls
     autoload :Stories
-    autoload :StoriesV2
     autoload :StoriesParser
     autoload :StoriesCollection
     autoload :StoriesConfig
-    autoload :StoryConfig
     autoload :Story
-    autoload :StoryV2
     autoload :Slots
-    autoload :ContentConcern
-    autoload :MethodArgs
-    autoload :Dsl
 
     include ActiveSupport::Configurable
     # Set the location of component previews through app configuration:
