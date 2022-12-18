@@ -7,18 +7,17 @@ module ViewComponent
     module Controls
       extend ActiveSupport::Autoload
 
-      autoload :ControlConfig
-      autoload :SimpleControlConfig
-      autoload :TextConfig
-      autoload :BooleanConfig
-      autoload :ColorConfig
-      autoload :NumberConfig
-      autoload :BaseOptionsConfig
-      autoload :OptionsConfig
-      autoload :MultiOptionsConfig
-      autoload :DateConfig
-      autoload :ObjectConfig
-      autoload :CustomConfig
+      autoload :Control
+      autoload :SimpleControl
+      autoload :Text
+      autoload :Boolean
+      autoload :Color
+      autoload :Number
+      autoload :BaseOptions
+      autoload :Options
+      autoload :MultiOptions
+      autoload :Date
+      autoload :Object
       autoload :ControlsHelpers
     end
   end

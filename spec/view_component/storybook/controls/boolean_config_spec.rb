@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe ViewComponent::Storybook::Controls::BooleanConfig do
+RSpec.describe ViewComponent::Storybook::Controls::Boolean do
   subject { described_class.new(param, default: default_value, name: name, description: description) }
 
   let(:type) { :boolean }

@@ -3,7 +3,7 @@
 module ViewComponent
   module Storybook
     module Controls
-      class BooleanConfig < SimpleControlConfig
+      class Boolean < SimpleControl
         BOOLEAN_VALUES = [true, false].freeze
 
         validates :default, inclusion: { in: BOOLEAN_VALUES }, unless: -> { default.nil? }

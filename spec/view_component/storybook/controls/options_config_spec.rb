@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe ViewComponent::Storybook::Controls::OptionsConfig do
+RSpec.describe ViewComponent::Storybook::Controls::Options do
   described_class::TYPES.each do |type|
     context "type: #{type}" do
       subject { described_class.new(param, type: type, options: options, default: default_value, labels: labels, name: name, description: description) }

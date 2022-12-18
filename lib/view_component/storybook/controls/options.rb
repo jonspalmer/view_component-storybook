@@ -3,7 +3,7 @@
 module ViewComponent
   module Storybook
     module Controls
-      class OptionsConfig < BaseOptionsConfig
+      class Options < BaseOptions
         TYPES = %i[select radio inline-radio].freeze
 
         validates :type, inclusion: { in: TYPES }, unless: -> { type.nil? }

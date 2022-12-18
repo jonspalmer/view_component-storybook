@@ -3,7 +3,7 @@
 module ViewComponent
   module Storybook
     module Controls
-      class MultiOptionsConfig < BaseOptionsConfig
+      class MultiOptions < BaseOptions
         TYPES = %i[multi-select check inline-check].freeze
 
         validates :type, inclusion: { in: TYPES }, unless: -> { type.nil? }
