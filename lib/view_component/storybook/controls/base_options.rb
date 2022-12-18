@@ -3,7 +3,7 @@
 module ViewComponent
   module Storybook
     module Controls
-      class BaseOptionsConfig < SimpleControlConfig
+      class BaseOptions < SimpleControl
         attr_reader :type, :options, :labels
 
         validates :type, :options, presence: true

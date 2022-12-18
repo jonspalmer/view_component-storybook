@@ -6,7 +6,7 @@ module ViewComponent
       ##
       # A simple Control Config maps to one Storybook Control
       # It has a value and pulls its value from params by key
-      class SimpleControlConfig < ControlConfig
+      class SimpleControl < Control
         def initialize(param, default: nil, name: nil, description: nil, **opts)
           super(param, default: default, name: name, description: description, **opts)
         end

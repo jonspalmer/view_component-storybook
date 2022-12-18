@@ -3,7 +3,7 @@
 module ViewComponent
   module Storybook
     module Controls
-      class ColorConfig < SimpleControlConfig
+      class Color < SimpleControl
         attr_reader :preset_colors
 
         def initialize(param, default: nil, preset_colors: nil, name: nil, description: nil, **opts)

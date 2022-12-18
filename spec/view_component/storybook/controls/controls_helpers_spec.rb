@@ -16,7 +16,7 @@ RSpec.describe ViewComponent::Storybook::Controls::ControlsHelpers do
 
     include_examples "has controls attributes",
                      {
-                       class: ViewComponent::Storybook::Controls::TextConfig,
+                       class: ViewComponent::Storybook::Controls::Text,
                        param: :name,
                        default: "Jane Doe"
                      }
@@ -27,7 +27,7 @@ RSpec.describe ViewComponent::Storybook::Controls::ControlsHelpers do
 
     include_examples "has controls attributes",
                      {
-                       class: ViewComponent::Storybook::Controls::BooleanConfig,
+                       class: ViewComponent::Storybook::Controls::Boolean,
                        param: :active,
                        default: true
                      }
@@ -39,7 +39,7 @@ RSpec.describe ViewComponent::Storybook::Controls::ControlsHelpers do
 
       include_examples "has controls attributes",
                        {
-                         class: ViewComponent::Storybook::Controls::NumberConfig,
+                         class: ViewComponent::Storybook::Controls::Number,
                          param: :count,
                          type: :number,
                          default: 2,
@@ -54,7 +54,7 @@ RSpec.describe ViewComponent::Storybook::Controls::ControlsHelpers do
 
       include_examples "has controls attributes",
                        {
-                         class: ViewComponent::Storybook::Controls::NumberConfig,
+                         class: ViewComponent::Storybook::Controls::Number,
                          param: :count,
                          type: :number,
                          default: 2,
@@ -71,7 +71,7 @@ RSpec.describe ViewComponent::Storybook::Controls::ControlsHelpers do
 
       include_examples "has controls attributes",
                        {
-                         class: ViewComponent::Storybook::Controls::NumberConfig,
+                         class: ViewComponent::Storybook::Controls::Number,
                          param: :count,
                          type: :range,
                          default: 2,
@@ -86,7 +86,7 @@ RSpec.describe ViewComponent::Storybook::Controls::ControlsHelpers do
 
       include_examples "has controls attributes",
                        {
-                         class: ViewComponent::Storybook::Controls::NumberConfig,
+                         class: ViewComponent::Storybook::Controls::Number,
                          param: :count,
                          type: :range,
                          default: 2,
@@ -102,7 +102,7 @@ RSpec.describe ViewComponent::Storybook::Controls::ControlsHelpers do
 
     include_examples "has controls attributes",
                      {
-                       class: ViewComponent::Storybook::Controls::ColorConfig,
+                       class: ViewComponent::Storybook::Controls::Color,
                        param: :favorite,
                        default: "red"
                      }
@@ -113,7 +113,7 @@ RSpec.describe ViewComponent::Storybook::Controls::ControlsHelpers do
 
     include_examples "has controls attributes",
                      {
-                       class: ViewComponent::Storybook::Controls::ObjectConfig,
+                       class: ViewComponent::Storybook::Controls::Object,
                        param: :description,
                        default: { hair: "Brown", eyes: "Blue" }
                      }
@@ -127,7 +127,7 @@ RSpec.describe ViewComponent::Storybook::Controls::ControlsHelpers do
 
       include_examples "has controls attributes",
                        {
-                         class: ViewComponent::Storybook::Controls::OptionsConfig,
+                         class: ViewComponent::Storybook::Controls::Options,
                          param: :food,
                          type: type.to_sym,
                          default: :pizza,
@@ -144,7 +144,7 @@ RSpec.describe ViewComponent::Storybook::Controls::ControlsHelpers do
 
       include_examples "has controls attributes",
                        {
-                         class: ViewComponent::Storybook::Controls::MultiOptionsConfig,
+                         class: ViewComponent::Storybook::Controls::MultiOptions,
                          param: :food,
                          type: type.to_sym,
                          default: [:pizza],

@@ -3,7 +3,7 @@
 module ViewComponent
   module Storybook
     module Controls
-      class ControlConfig
+      class Control
         include ActiveModel::Validations
 
         validates :param, presence: true

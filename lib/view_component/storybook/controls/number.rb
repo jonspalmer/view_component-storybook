@@ -3,7 +3,7 @@
 module ViewComponent
   module Storybook
     module Controls
-      class NumberConfig < SimpleControlConfig
+      class Number < SimpleControl
         TYPES = %i[number range].freeze
 
         attr_reader :type, :min, :max, :step

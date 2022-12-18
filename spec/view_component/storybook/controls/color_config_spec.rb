@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe ViewComponent::Storybook::Controls::ColorConfig do
+RSpec.describe ViewComponent::Storybook::Controls::Color do
   subject { described_class.new(param, default: default_value, name: name, description: description) }
 
   let(:type) { :color }

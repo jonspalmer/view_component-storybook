@@ -26,31 +26,31 @@ module ViewComponent
           def control(param, as:, **opts)
             controls << case as
                         when :text
-                          Controls::TextConfig.new(param, **opts)
+                          Controls::Text.new(param, **opts)
                         when :boolean
-                          Controls::BooleanConfig.new(param, **opts)
+                          Controls::Boolean.new(param, **opts)
                         when :number
-                          Controls::NumberConfig.new(param, type: :number, **opts)
+                          Controls::Number.new(param, type: :number, **opts)
                         when :range
-                          Controls::NumberConfig.new(param, type: :range, **opts)
+                          Controls::Number.new(param, type: :range, **opts)
                         when :color
-                          Controls::ColorConfig.new(param, **opts)
+                          Controls::Color.new(param, **opts)
                         when :object, :array
-                          Controls::ObjectConfig.new(param, **opts)
+                          Controls::Object.new(param, **opts)
                         when :select
-                          Controls::OptionsConfig.new(param, type: :select, **opts)
+                          Controls::Options.new(param, type: :select, **opts)
                         when :multi_select
-                          Controls::MultiOptionsConfig.new(param, type: :'multi-select', **opts)
+                          Controls::MultiOptions.new(param, type: :'multi-select', **opts)
                         when :radio
-                          Controls::OptionsConfig.new(param, type: :radio, **opts)
+                          Controls::Options.new(param, type: :radio, **opts)
                         when :inline_radio
-                          Controls::OptionsConfig.new(param, type: :'inline-radio', **opts)
+                          Controls::Options.new(param, type: :'inline-radio', **opts)
                         when :check
-                          Controls::MultiOptionsConfig.new(param, type: :check, **opts)
+                          Controls::MultiOptions.new(param, type: :check, **opts)
                         when :inline_check
-                          Controls::MultiOptionsConfig.new(param, type: :'inline-check', **opts)
+                          Controls::MultiOptions.new(param, type: :'inline-check', **opts)
                         when :date
-                          Controls::DateConfig.new(param, **opts)
+                          Controls::Date.new(param, **opts)
                         else
                           raise "Unknonwn control type '#{as}'"
                         end

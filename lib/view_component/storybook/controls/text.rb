@@ -3,7 +3,7 @@
 module ViewComponent
   module Storybook
     module Controls
-      class TextConfig < SimpleControlConfig
+      class Text < SimpleControl
         def type
           :text
         end
