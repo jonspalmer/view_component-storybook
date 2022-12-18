@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class SlotsStories < ViewComponent::Storybook::Stories
-  control :classes, as: :text, default: "mt-4"
-  control :title, as: :text, default: "This is my title!"
-  control :subtitle, as: :text, default: "This is my subtitle!"
-  control :tab2, as: :text, default: "Tab B"
-  control :item2_highlighted, as: :boolean, default: true
-  control :item3, as: :text, default: "Item C"
-  control :footer_classes, as: :text, default: "text-blue"
+  control :classes, as: :text
+  control :title, as: :text
+  control :subtitle, as: :text
+  control :tab2, as: :text
+  control :item2_highlighted, as: :boolean
+  control :item3, as: :text
+  control :footer_classes, as: :text
 
   def default(classes: "mt-4", title: "This is my title!", subtitle: "This is my subtitle!", tab2: "Tab B", item2_highlighted: true, item3: "Item C", footer_classes: "text-blue")
     render SlotsComponent.new(classes: classes) do |c|

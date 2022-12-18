@@ -106,6 +106,7 @@ module ViewComponent
             public_methods = public_instance_methods(false)
             if code_object
               # use the code_object to sort the methods to the order that they're declared
+
               code_object.meths.select { |m| public_methods.include?(m.name) }.map(&:name)
             else
               # there is no code_object in some specs, particularly where we create Stories after Yard parsing
@@ -116,11 +117,21 @@ module ViewComponent
         end
 
         def controls_for_story(story_name)
+          code_method = code_object.meths.find { |m| m.name == story_name }
+
           controls.select do |control|
             control.valid_for_story?(story_name)
+          end.map do |control|
+            dup_control = control.dup
+            default_value_parts = code_method.parameters.find { |parts| parts[0].chomp(":") == control.param.to_s }
+            if default_value_parts
+              dup_control.default = code_method.instance_eval(default_value_parts[1])
+            end
+            dup_control
           end
         end
       end
     end
   end
 end
+
