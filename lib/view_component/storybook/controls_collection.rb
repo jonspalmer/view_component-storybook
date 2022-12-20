@@ -32,7 +32,7 @@ module ViewComponent
       private
 
       def valid_for_story?(story_name, only:, except:)
-        (only.empty? || only.include?(story_name)) && (except.empty? || !except.include?(story_name))
+        (only.empty? || only.include?(story_name)) && (except.empty? || except.exclude?(story_name))
       end
 
       def parse_default(story_name, param)

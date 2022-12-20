@@ -172,7 +172,7 @@ RSpec.describe ViewComponent::Storybook::ControlsCollection do
   describe "control restrictions" do
     it "restricts only: story_name" do
       subject.add :button_text, as: :text, default: "Hi", only: :short_button
-  
+
       expect(short_controls.first).to have_attributes(
         class: ViewComponent::Storybook::Controls::Text,
         param: :button_text,
@@ -184,7 +184,7 @@ RSpec.describe ViewComponent::Storybook::ControlsCollection do
     it "overwrites control declaration" do
       subject.add :button_text, as: :text, default: "Hi"
       subject.add :button_text, as: :color, default: "Bye"
-  
+
       expect(short_controls.first).to have_attributes(
         class: ViewComponent::Storybook::Controls::Color,
         param: :button_text,
@@ -195,13 +195,13 @@ RSpec.describe ViewComponent::Storybook::ControlsCollection do
     it "overwrites control declaration for only: story_name" do
       subject.add :button_text, as: :text, default: "Hi"
       subject.add :button_text, as: :color, default: "Red", only: :medium_button
-  
+
       expect(short_controls.first).to have_attributes(
         class: ViewComponent::Storybook::Controls::Text,
         param: :button_text,
         default: "Hi"
       )
-      
+
       expect(medium_controls.first).to have_attributes(
         class: ViewComponent::Storybook::Controls::Color,
         param: :button_text,
@@ -212,13 +212,13 @@ RSpec.describe ViewComponent::Storybook::ControlsCollection do
     it "overwrites control declaration for only: Array(*story_names)" do
       subject.add :button_text, as: :text, default: "Hi"
       subject.add :button_text, as: :color, default: "Red", only: [:medium_button, :long_button]
-  
+
       expect(short_controls.first).to have_attributes(
         class: ViewComponent::Storybook::Controls::Text,
         param: :button_text,
         default: "Hi"
       )
-      
+
       expect(medium_controls.first).to have_attributes(
         class: ViewComponent::Storybook::Controls::Color,
         param: :button_text,
@@ -232,17 +232,16 @@ RSpec.describe ViewComponent::Storybook::ControlsCollection do
       )
     end
 
-
     it "overwrites control declaration for except: story_name" do
       subject.add :button_text, as: :text, default: "Hi"
       subject.add :button_text, as: :color, default: "Red", except: :medium_button
-  
+
       expect(short_controls.first).to have_attributes(
         class: ViewComponent::Storybook::Controls::Color,
         param: :button_text,
         default: "Red"
       )
-      
+
       expect(medium_controls.first).to have_attributes(
         class: ViewComponent::Storybook::Controls::Text,
         param: :button_text,
@@ -259,13 +258,13 @@ RSpec.describe ViewComponent::Storybook::ControlsCollection do
     it "overwrites control declaration for only: Array(*story_names)" do
       subject.add :button_text, as: :text, default: "Hi"
       subject.add :button_text, as: :color, default: "Red", except: [:medium_button, :long_button]
-  
+
       expect(short_controls.first).to have_attributes(
         class: ViewComponent::Storybook::Controls::Color,
         param: :button_text,
         default: "Red"
       )
-      
+
       expect(medium_controls.first).to have_attributes(
         class: ViewComponent::Storybook::Controls::Text,
         param: :button_text,
