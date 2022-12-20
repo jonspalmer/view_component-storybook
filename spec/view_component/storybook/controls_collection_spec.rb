@@ -112,7 +112,7 @@ RSpec.describe ViewComponent::Storybook::ControlsCollection do
     %w[select radio inline-radio].each do |type|
       control_type = type.underscore
 
-      it "builds #{control_type} controls" do
+      it "builds #{control_type} single option controls" do
         subject.add :food, as: control_type.to_sym, options: [:hot_dog, :pizza], default: :pizza
 
         expect(short_controls.first).to have_attributes(
@@ -128,7 +128,7 @@ RSpec.describe ViewComponent::Storybook::ControlsCollection do
     %w[multi-select check inline-check].each do |type|
       control_type = type.underscore
 
-      it "builds #{control_type} controls" do
+      it "builds #{control_type} multi-option controls" do
         subject.add :food, as: control_type.to_sym, options: [:hot_dog, :pizza], default: :pizza
 
         expect(short_controls.first).to have_attributes(
@@ -255,7 +255,7 @@ RSpec.describe ViewComponent::Storybook::ControlsCollection do
       )
     end
 
-    it "overwrites control declaration for only: Array(*story_names)" do
+    it "overwrites control declaration for except: Array(*story_names)" do
       subject.add :button_text, as: :text, default: "Hi"
       subject.add :button_text, as: :color, default: "Red", except: [:medium_button, :long_button]
 

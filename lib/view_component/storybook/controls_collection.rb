@@ -25,7 +25,7 @@ module ViewComponent
           unless opts.key?(:default)
             opts = opts.merge(default: parse_default(story_name, param))
           end
-          [param, build_control(param, **opts)]
+          [param, build_control(param, **opts.except(:param, :only, :except))]
         end.compact.to_h.values
       end
 
