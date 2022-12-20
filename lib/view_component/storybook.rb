@@ -11,6 +11,7 @@ module ViewComponent
     autoload :Stories
     autoload :StoriesParser
     autoload :StoriesCollection
+    autoload :ControlsCollection
     autoload :Story
     autoload :Slots
 

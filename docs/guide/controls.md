@@ -199,25 +199,62 @@ class HeaderComponentStories < ViewComponent::Storybook::Stories
 end
 ```
 
-However, controls can be declared to apply to `only` a particualr story:
+### `only: story_name` or `only: [story_one, story_two]`
+Controls can be declared to apply to `only` a particualr story or array of stories:
 
 ```ruby
 # test/components/stories/header_component_stories.rb
 class HeaderComponentStories < ViewComponent::Storybook::Stories
-  control :tag, as: :text
+  control :tag, as: :text, only: :h1
 
   def h1(tag: "h1")
     render HeaderComponent.new(tag)
   end
 
-  control :content, as: :text, only: :h2
+  control :content, as: :text, only: [:h2, :h3]
   
   def h2(tag: "h2", content: "Hello World!")
     render HeaderComponent.new(tag) do 
       content
     end
   end
+  
+  def h3(tag: "h3", content: "How are you today?")
+    render HeaderComponent.new(tag) do 
+      content
+    end
+  end
 end
+```
+
+### `except: story_name` or `except: [story_one, story_two]`
+Controls can be declared to apply to all stories `except` a particualr story or array of stories:
+
+```ruby
+# test/components/stories/header_component_stories.rb
+class HeaderComponentStories < ViewComponent::Storybook::Stories
+  control :tag, as: :text, except: [:h2, :h3]
+
+  def h1(tag: "h1")
+    render HeaderComponent.new(tag)
+  end
+
+  control :content, as: :text, except: [:h1]
+  
+  def h2(tag: "h2", content: "Hello World!")
+    render HeaderComponent.new(tag) do 
+      content
+    end
+  end
+  
+  def h3(tag: "h3", content: "How are you today?")
+    render HeaderComponent.new(tag) do 
+      content
+    end
+  end
+end
+```
+
 
 ## Customizing the Control Name
 

@@ -30,12 +30,6 @@ module ViewComponent
           raise NotImplementedError
           # :nocov:
         end
-
-        def valid_for_story?(story_name)
-          # expand to include arrays of names
-          # expand to include except
-          opts[:only].nil? || opts[:only] == story_name
-        end
       end
     end
   end
