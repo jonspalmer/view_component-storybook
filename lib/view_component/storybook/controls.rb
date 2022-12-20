@@ -18,7 +18,6 @@ module ViewComponent
       autoload :MultiOptions
       autoload :Date
       autoload :Object
-      autoload :ControlsHelpers
     end
   end
 end
