@@ -8,15 +8,13 @@ module ViewComponent
 
         validates :param, presence: true
 
-        attr_reader :param, :name, :description, :opts
-        attr_accessor :default
+        attr_reader :param, :name, :description, :default
 
-        def initialize(param, default:, name: nil, description: nil, **opts)
+        def initialize(param, default:, name: nil, description: nil)
           @param = param
           @default = default
           @name = name || param.to_s.humanize.titlecase
           @description = description
-          @opts = opts
         end
 
         def to_csf_params

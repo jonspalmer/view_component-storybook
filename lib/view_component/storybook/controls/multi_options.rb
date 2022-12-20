@@ -10,7 +10,7 @@ module ViewComponent
         validate :validate_default, unless: -> { options.nil? || default.nil? }
 
         def initialize(param, type:, options:, default: nil, labels: nil, name: nil, description: nil, **opts)
-          super(param, type: type, options: options, default: Array.wrap(default), labels: labels, param: param, name: name, description: description, **opts)
+          super(param, type: type, options: options, default: Array.wrap(default), labels: labels, name: name, description: description, **opts)
         end
 
         def parse_param_value(value)
