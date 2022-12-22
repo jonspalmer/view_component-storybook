@@ -232,6 +232,14 @@ RSpec.describe ViewComponent::Storybook::ControlsCollection do
       )
     end
 
+    it "ignored for empty only array" do
+      subject.add :button_text, as: :text, default: "Hi", only: []
+
+      expect(short_controls).to be_empty
+      expect(medium_controls).to be_empty
+      expect(long_controls).to be_empty
+    end
+
     it "overwrites control declaration for except: story_name" do
       subject.add :button_text, as: :text, default: "Hi"
       subject.add :button_text, as: :color, default: "Red", except: :medium_button
