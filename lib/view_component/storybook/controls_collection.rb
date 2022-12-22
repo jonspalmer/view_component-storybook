@@ -35,12 +35,12 @@ module ViewComponent
         (only.nil? || Array.wrap(only).include?(story_name)) && Array.wrap(except).exclude?(story_name)
       end
 
-      def parse_default(story_name, param)
+      def parse_default(story_name, _param)
         code_method = code_object.meths.find { |m| m.name == story_name }
         default_value_parts = code_method.parameters.find { |parts| parts[0].chomp(":") == param.to_s }
-        if default_value_parts
-          code_method.instance_eval(default_value_parts[1])
-        end
+        return unless default_value_parts
+
+        code_method.instance_eval(default_value_parts[1])
       end
 
       def build_control(param, as:, **opts)
