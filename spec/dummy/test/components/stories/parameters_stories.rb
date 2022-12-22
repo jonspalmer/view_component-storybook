@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ParametersStories < ViewComponent::Storybook::Stories
-  parameters({size: :small})
+  parameters({ size: :small })
 
   control :button_text, as: :text
 
