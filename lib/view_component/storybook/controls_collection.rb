@@ -12,7 +12,7 @@ module ViewComponent
       end
 
       def add(param, as:, only: nil, except: nil, **opts)
-        controls << { param: param, as: as, only: Array.wrap(only), except: Array.wrap(except), **opts }
+        controls << { param: param, as: as, only: only, except: except, **opts }
       end
 
       def for_story(story_name)
@@ -32,7 +32,7 @@ module ViewComponent
       private
 
       def valid_for_story?(story_name, only:, except:)
-        (only.empty? || only.include?(story_name)) && (except.empty? || except.exclude?(story_name))
+        (only.nil? || Array.wrap(only).include?(story_name)) && Array.wrap(except).exclude?(story_name)
       end
 
       def parse_default(story_name, param)

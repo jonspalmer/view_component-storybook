@@ -348,7 +348,7 @@ RSpec.describe ViewComponent::Storybook::Stories do
       end
     end
 
-    xit "converts Stories with parameters" do
+    it "converts Stories with parameters" do
       expect(ParametersStories.to_csf_params).to eq(
         title: "Parameters",
         parameters: { size: :small },

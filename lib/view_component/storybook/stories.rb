@@ -5,21 +5,13 @@ require "yard"
 module ViewComponent
   module Storybook
     class Stories < ViewComponent::Preview
-      # include Controls::ControlsHelpers
-
-      class_attribute :stories_parameters, :stories_title, :stories_json_path
-
       class << self
         def title(title = nil)
-          # if no argument is passed act like a getter
-          self.stories_title = title unless title.nil?
-          stories_title
+          @stories_title = title
         end
 
-        def parameters(params = nil)
-          # if no argument is passed act like a getter
-          self.stories_parameters = params unless params.nil?
-          stories_parameters
+        def parameters(params, only: nil, except: nil)
+          parameters_collection.add(params, only: only, except: except)
         end
 
         def control(param, as:, **opts)
@@ -35,20 +27,19 @@ module ViewComponent
         end
 
         def to_csf_params
-          csf_params = { title: title }
-          csf_params[:parameters] = parameters if parameters.present?
+          csf_params = { title: stories_title }
+          csf_params[:parameters] = parameters_collection.for_all if parameters_collection.for_all.present?
           csf_params[:stories] = stories.map(&:to_csf_params)
           csf_params
         end
 
         def write_csf_json
-          Rails.logger.debug { "stories_json_path: #{stories_json_path}" }
           File.write(stories_json_path, JSON.pretty_generate(to_csf_params))
           stories_json_path
         end
 
         def stories
-          @stories ||= story_names.map { |method| Story.new(story_id(method), method, {}, controls.for_story(method)) }
+          @stories ||= story_names.map { |name| Story.new(story_id(name), name, parameters_collection.for_story(name), controls.for_story(name)) }
         end
 
         # find the story by name
@@ -78,11 +69,11 @@ module ViewComponent
           result.merge(layout: @layout)
         end
 
-        attr_reader :code_object
+        attr_reader :code_object, :stories_json_path
 
         def code_object=(object)
           @code_object = object
-          self.stories_json_path ||= begin
+          @stories_json_path ||= begin
             dir = File.dirname(object.file)
             json_filename = object.path.demodulize.underscore
 
@@ -98,22 +89,24 @@ module ViewComponent
 
         private
 
-        def inherited(other)
-          super(other)
-          # setup class defaults
-          other.stories_title = Storybook.stories_title_generator.call(other)
-        end
-
         def controls
           @controls ||= ControlsCollection.new
         end
 
-        def story_id(name)
-          "#{stories_name}/#{name.to_s.parameterize}".underscore
+        def stories_title
+          @stories_title ||= Storybook.stories_title_generator.call(self)
+        end
+
+        def parameters_collection
+          @parameters_collection ||= ParametersCollection.new
         end
 
         def story_names
           @story_names ||= public_instance_methods(false)
+        end
+
+        def story_id(name)
+          "#{stories_name}/#{name.to_s.parameterize}".underscore
         end
       end
     end
