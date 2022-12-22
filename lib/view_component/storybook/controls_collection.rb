@@ -19,7 +19,7 @@ module ViewComponent
         # build the controls for the story_name
         # pass through a hash to get the last valid control declared for each param
         controls.map do |opts|
-          next unless valid_for_story?(story_name, opts.slice(:only, :except))
+          next unless valid_for_story?(story_name, **opts.slice(:only, :except))
 
           param = opts[:param]
           unless opts.key?(:default)

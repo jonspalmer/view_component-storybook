@@ -24,7 +24,7 @@ module ViewComponent
       # Parameters set for the story method
       def for_story(story_name)
         parameters.each_with_object({}) do |opts, accum|
-          accum.merge!(opts[:params]) if valid_for_story?(story_name, opts.slice(:only, :except))
+          accum.merge!(opts[:params]) if valid_for_story?(story_name, **opts.slice(:only, :except))
         end
       end
 
