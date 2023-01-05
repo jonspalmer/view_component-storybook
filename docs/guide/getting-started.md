@@ -111,12 +111,18 @@ class ExampleComponentStories < ViewComponent::Storybook::Stories
 end
 ```
 
-### Generating Storybook Stories JSON
+### Storybook Stories JSON
 
 Generate the Storybook JSON stories by running the rake task:
 
 ```sh
 rake view_component_storybook:write_stories_json
+```
+
+Remove existing Storybook JSON stories by running the rake task:
+
+```sh
+rake view_component_storybook:remove_stories_json
 ```
 
 ### Start the Rails app and Storybook

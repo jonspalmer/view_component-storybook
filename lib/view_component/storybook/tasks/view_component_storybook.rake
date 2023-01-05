@@ -16,4 +16,20 @@ namespace :view_component_storybook do
 
     puts "Done"
   end
+
+  desc "Remove all existing CSF JSON Stories"
+  task remove_stories_json: :environment do
+    puts "Removing old Stories JSON"
+    exceptions = []
+    Dir["#{ViewComponent::Storybook.stories_path}/**/*.stories.json"].sort.each do |file|
+      puts file
+      File.unlink(file)
+    rescue StandardError => e
+      exceptions << e
+    end
+
+    raise StandardError, exceptions.map(&:message).join(", ") if exceptions.present?
+
+    puts "Done"
+  end
 end
