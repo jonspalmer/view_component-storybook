@@ -237,16 +237,16 @@ RSpec.describe ViewComponentsController, type: :request do
       expect(response.body).to have_title( "Stories Dummy App - Admin")
     end
 
-    xit "allows story to override the stories layout" do
-      get "/rails/view_components/layout_stories_v2/mobile_layout"
+    it "allows story to override the stories layout" do
+      get "/rails/view_components/layout/mobile_layout"
 
       expect(response.body).to have_title("Stories Dummy App - Mobile")
     end
 
-    xit "allows story to override with no layout" do
-      get "/rails/view_components/layout_stories_v2/no_layout"
+    it "allows story to override with no layout" do
+      get "/rails/view_components/layout/no_layout"
 
-      expect(response.body).to eq("<button>OK</button>")
+      expect(response.body.strip).to eq("<button>OK</button>")
     end
 
     it "allows stories to set no layout" do
@@ -255,8 +255,8 @@ RSpec.describe ViewComponentsController, type: :request do
       expect(response.body.strip).to eq("<button>OK</button>")
     end
 
-    xit "allows story to override no layout with a layout" do
-      get "/rails/view_components/no_layout_stories_v2/mobile_layout"
+    it "allows story to override no layout with a layout" do
+      get "/rails/view_components/no_layout/mobile_layout"
 
       expect(response.body).to have_title("Stories Dummy App - Mobile")
     end

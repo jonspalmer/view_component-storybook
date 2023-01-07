@@ -13,6 +13,7 @@ module ViewComponent
     autoload :StoriesCollection
     autoload :ControlsCollection
     autoload :ParametersCollection
+    autoload :LayoutCollection
     autoload :Story
     autoload :Slots
 

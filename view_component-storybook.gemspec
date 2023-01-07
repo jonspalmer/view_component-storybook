@@ -5,17 +5,13 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "view_component/storybook/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "view_component_storybook"
+  spec.name          = "view_component-storybook"
   spec.version       = ViewComponent::Storybook::VERSION
   spec.authors       = ["Jon Palmer"]
   spec.email         = ["328224+jonspalmer@users.noreply.github.com"]
 
   spec.summary       = "Storybook for Rails View Components"
-  spec.description   = <<-DESC
-  Generate Storybook CSF JSON for rendering Rails View Components in Storybook
-
-  NOTE: As of v1.0.0 this gem has been renamed to view_component-storybook. See https://rubygems.org/gems/view_component-storybook
-  DESC
+  spec.description   = "Generate Storybook CSF JSON for rendering Rails View Components in Storybook"
 
   spec.homepage      = "https://github.com/jonspalmer/view_component-storybook"
   spec.license       = "MIT"

@@ -12,6 +12,10 @@ module ViewComponent
           parameters_collection.add(params, only: only, except: except)
         end
 
+        def layout(layout, only: nil, except: nil)
+          layout_collection.add(layout, only: only, except: except)
+        end
+
         def control(param, as:, **opts)
           controls.add(param, as: as, **opts)
         end
@@ -47,7 +51,7 @@ module ViewComponent
 
         # Returns the arguments for rendering of the component in its layout
         def render_args(story_name, params: {})
-          # mostly reimplementing the super method but adding logic to parse the params through the controls
+          # mostly reimplementing the super method but adding logic to parse the params through the controls and find the layout
           story_params_names = instance_method(story_name).parameters.map(&:last)
           provided_params = params.slice(*story_params_names).to_h.symbolize_keys
 
@@ -63,7 +67,7 @@ module ViewComponent
           result = control_parsed_params.empty? ? new.public_send(story_name) : new.public_send(story_name, **control_parsed_params)
           result ||= {}
           result[:template] = preview_example_template_path(story_name) if result[:template].nil?
-          @layout = nil unless defined?(@layout)
+          @layout = layout_collection.for_story(story_name.to_sym)
           result.merge(layout: @layout)
         end
 
@@ -97,6 +101,10 @@ module ViewComponent
 
         def parameters_collection
           @parameters_collection ||= ParametersCollection.new
+        end
+
+        def layout_collection
+          @layout_collection ||= LayoutCollection.new
         end
 
         def story_names

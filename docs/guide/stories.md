@@ -44,10 +44,52 @@ Components are rendered in the default application layout. The layout for a set 
 ```ruby
 # test/components/stories/header_component_stories.rb
 class HeaderComponentStories < ViewComponent::Storybook::Stories
-  layout :desktop
+  layout "desktop"
   
-  story :h1 do
-    constructor("h1")
+   def h1
+    render HeaderComponent.new("h1")
+  end
+end
+```
+
+### Overriding Story Layout
+
+Individual stories can define their own layout that overrides the stories setting:
+
+```ruby
+# test/components/stories/header_component_stories.rb
+class HeaderComponentStories < ViewComponent::Storybook::Stories
+  layout "desktop"
+  
+  def h1
+    render HeaderComponent.new("h1")
+  end
+
+  layout "mobile", only: :mobile_h1
+
+  def mobile_h1
+    render HeaderComponent.new("h1")
+  end
+end
+```
+
+### No Layout 
+
+Setting layout to false renders the component in isolation:
+
+```ruby
+# test/components/stories/header_component_stories.rb
+class HeaderComponentStories < ViewComponent::Storybook::Stories
+  layout "desktop"
+  
+  def h1
+    render HeaderComponent.new("h1")
+  end
+
+  layout false, only: :no_layout_h1
+
+  def no_layout_h1
+    render HeaderComponent.new("h1")
   end
 end
 ```
@@ -60,12 +102,12 @@ stories layout:
 ```ruby
 # test/components/stories/application_stories.rb
 class ApplicationStories < ViewComponent::Storybook::Stories
-  layout :stories
+  layout "stories"
 
 # test/components/stories/header_component_stories.rb
 class HeaderComponentStories < ApplicationStories
-  story :h1 do
-    constructor("h1")
+  def h1
+    render HeaderComponent.new("h1")
   end
 end
 ```
