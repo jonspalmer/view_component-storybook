@@ -8,20 +8,19 @@ module ViewComponent
     extend ActiveSupport::Autoload
 
     autoload :Controls
+    autoload :Collections
     autoload :Stories
-    autoload :StoryConfig
+    autoload :StoriesParser
+
     autoload :Story
     autoload :Slots
-    autoload :ContentConcern
-    autoload :MethodArgs
-    autoload :Dsl
 
     include ActiveSupport::Configurable
     # Set the location of component previews through app configuration:
     #
     #     config.view_component_storybook.stories_path = Rails.root.join("lib/component_stories")
     #
-    mattr_accessor :stories_path, instance_writer: false
+    mattr_accessor :stories_paths, instance_writer: false
 
     # Enable or disable component previews through app configuration:
     #

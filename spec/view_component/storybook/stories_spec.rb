@@ -1,18 +1,6 @@
 # frozen_string_literal: true
 
 RSpec.describe ViewComponent::Storybook::Stories do
-  describe ".valid?" do
-    it "duplicate stories are invalid" do
-      expect(Invalid::DuplicateStoryStories.valid?).to be(false)
-      expect(Invalid::DuplicateStoryStories.errors[:story_configs].length).to eq(1)
-    end
-
-    it "is invalid if stories are invalid" do
-      expect(Invalid::InvalidConstructorStories.valid?).to be(false)
-      expect(Invalid::InvalidConstructorStories.errors[:story_configs].length).to eq(1)
-    end
-  end
-
   describe ".to_csf_params" do
     it "converts" do
       expect(ContentComponentStories.to_csf_params).to eq(
@@ -48,24 +36,13 @@ RSpec.describe ViewComponent::Storybook::Stories do
               content: { control: { type: :text }, description: "My first computer program.", name: "Content" }
             }
           },
-          {
-            name: :with_block_content,
-            parameters: {
-              server: { id: "content_component/with_block_content" }
-            }
-          },
+
           {
             name: :with_helper_content,
             parameters: {
               server: { id: "content_component/with_helper_content" }
             }
           },
-          {
-            name: :with_constructor_content,
-            parameters: {
-              server: { id: "content_component/with_constructor_content" }
-            }
-          }
         ]
       )
     end
@@ -196,22 +173,22 @@ RSpec.describe ViewComponent::Storybook::Stories do
       )
     end
 
-    it "supports legacy controls dsl" do
-      expect(LegacyControlsDslStories.to_csf_params).to eq(
-        title: "Legacy Controls Dsl",
+    it "converts controls with default" do
+      expect(ControlDefaultStories.to_csf_params).to eq(
+        title: "Control Default",
         stories: [
           {
-            name: :short_button,
+            name: :example,
             parameters: {
-              server: { id: "legacy_controls_dsl/short_button" }
+              server: { id: "control_default/example" }
             },
             args: {
-              button_text: "OK"
+              content: "Hello World!"
             },
             argTypes: {
-              button_text: { control: { type: :text }, name: "Button Text" }
+              content: { control: { type: :text }, name: "Content" }
             }
-          }
+          },
         ]
       )
     end
@@ -419,56 +396,40 @@ RSpec.describe ViewComponent::Storybook::Stories do
       )
     end
 
-    it "converts Stories with custom controls" do
-      expect(CustomControlStories.to_csf_params).to eq(
-        title: "Custom Control",
+    it "converts Stories with combined controls" do
+      expect(CombinedControlStories.to_csf_params).to eq(
+        title: "Combined Control",
         stories: [
           {
-            name: :custom_text,
+            name: :combined_text,
             parameters: {
-              server: { id: "custom_control/custom_text" }
+              server: { id: "combined_control/combined_text" }
             },
             args: {
-              button_text__greeting: "Hi",
-              button_text__name: "Sarah"
+              greeting: "Hi",
+              name: "Sarah"
             },
             argTypes: {
-              button_text__greeting: { control: { type: :text }, name: "Button Text  Greeting" },
-              button_text__name: { control: { type: :text }, name: "Button Text  Name" }
+              greeting: { control: { type: :text }, name: "Greeting" },
+              name: { control: { type: :text }, name: "Name" }
             }
           },
           {
-            name: :custom_rest_args,
+            name: :combined_rest_args,
             parameters: {
-              server: { id: "custom_control/custom_rest_args" }
+              server: { id: "combined_control/combined_rest_args" }
             },
             args: {
-              items0__verb: "Big",
-              items0__noun: "Car",
-              items1__verb: "Small",
-              items1__noun: "Boat",
+              verb_one: "Big",
+              noun_one: "Car",
+              verb_two: "Small",
+              noun_two: "Boat",
             },
             argTypes: {
-              items0__verb: { control: { type: :text }, name: "Items0  Verb" },
-              items0__noun: { control: { type: :text }, name: "Items0  Noun" },
-              items1__verb: { control: { type: :text }, name: "Items1  Verb" },
-              items1__noun: { control: { type: :text }, name: "Items1  Noun" }
-            }
-          },
-          {
-            name: :nested_custom_controls,
-            parameters: {
-              server: { id: "custom_control/nested_custom_controls" }
-            },
-            args: {
-              button_text__greeting: "Hi",
-              button_text__name__first_name: "Sarah",
-              button_text__name__last_name: "Connor"
-            },
-            argTypes: {
-              button_text__greeting: { control: { type: :text }, name: "Button Text  Greeting" },
-              button_text__name__first_name: { control: { type: :text }, name: "Button Text  Name  First Name" },
-              button_text__name__last_name: { control: { type: :text }, name: "Button Text  Name  Last Name" }
+              verb_one: { control: { type: :text }, name: "Verb One" },
+              noun_one: { control: { type: :text }, name: "Noun One" },
+              verb_two: { control: { type: :text }, name: "Verb Two" },
+              noun_two: { control: { type: :text }, name: "Noun Two" }
             }
           },
           {
@@ -480,7 +441,7 @@ RSpec.describe ViewComponent::Storybook::Stories do
               button_text: { control: { type: :text }, description: "Make this irresistible.", name: "Button Text" }
             },
             parameters: {
-              server: { id: "custom_control/described_control" }
+              server: { id: "combined_control/described_control" }
             }
           }
         ]
@@ -488,50 +449,34 @@ RSpec.describe ViewComponent::Storybook::Stories do
     end
 
     it "converts Stories with slots" do
-      expect(SlotableV2Stories.to_csf_params).to eq(
-        title: "Slotable V2",
+      expect(SlotsStories.to_csf_params).to eq(
+        title: "Slots",
         stories: [
           {
             name: :default,
             parameters: {
-              server: { id: "slotable_v2/default" }
+              server: { id: "slots/default" }
             },
             args: {
               classes: "mt-4",
-              subtitle__content: "This is my subtitle!",
-              tab2__content: "Tab B",
-              item2__highlighted: true,
-              item3__content: "Item C",
-              footer__classes: "text-blue"
+              title: "This is my title!",
+              subtitle: "This is my subtitle!",
+              tab2: "Tab B",
+              item2_highlighted: true,
+              item3: "Item C",
+              footer_classes: "text-blue"
             },
             argTypes: {
               classes: { control: { type: :text }, name: "Classes" },
-              subtitle__content: { control: { type: :text }, name: "Subtitle  Content" },
-              tab2__content: { control: { type: :text }, name: "Tab2  Content" },
-              item2__highlighted: { control: { type: :boolean }, name: "Item2  Highlighted" },
-              item3__content: { control: { type: :text }, name: "Item3  Content" },
-              footer__classes: { control: { type: :text }, name: "Footer  Classes" }
+              title: { control: { type: :text }, name: "Title" },
+              subtitle: { control: { type: :text }, name: "Subtitle" },
+              tab2: { control: { type: :text }, name: "Tab2" },
+              item2_highlighted: { control: { type: :boolean }, name: "Item2 Highlighted" },
+              item3: { control: { type: :text }, name: "Item3" },
+              footer_classes: { control: { type: :text }, name: "Footer Classes" }
             }
           }
         ]
-      )
-    end
-
-    it "raises an excpetion if stories are invalid" do
-      expect { Invalid::DuplicateStoryStories.to_csf_params }.to(
-        raise_exception(
-          ViewComponent::Storybook::Stories::ValidationError,
-          "Invalid::DuplicateStoryStories invalid: (Story configs duplicate story name 'my_story')"
-        )
-      )
-    end
-
-    it "raises an excpetion if a story_config is invalid" do
-      expect { Invalid::InvalidConstructorStories.to_csf_params }.to(
-        raise_exception(
-          ViewComponent::Storybook::Stories::ValidationError,
-          "Invalid::InvalidConstructorStories invalid: (Story configs 'invalid_kwards' is invalid: (Constructor args invalid: (Kwargs 'junk' is invalid)))"
-        )
       )
     end
   end
@@ -541,6 +486,11 @@ RSpec.describe ViewComponent::Storybook::Stories do
 
     after do
       File.delete(subject)
+    end
+
+    it "writes file" do
+      expect(subject).to eq(Rails.root.join("test/components/stories/content_component_stories.stories.json").to_s)
+      expect(File.exist?(subject)).to be(true)
     end
 
     it "writes stories to json files" do
@@ -598,26 +548,10 @@ RSpec.describe ViewComponent::Storybook::Stories do
                 }
               },
               {
-                "name": "with_block_content",
-                "parameters": {
-                  "server": {
-                    "id": "content_component/with_block_content"
-                  }
-                }
-              },
-              {
                 "name": "with_helper_content",
                 "parameters": {
                   "server": {
                     "id": "content_component/with_helper_content"
-                  }
-                }
-              },
-              {
-                "name": "with_constructor_content",
-                "parameters": {
-                  "server": {
-                    "id": "content_component/with_constructor_content"
                   }
                 }
               }
@@ -625,63 +559,6 @@ RSpec.describe ViewComponent::Storybook::Stories do
           }
         JSON
       )
-    end
-  end
-
-  xdescribe ".all" do
-    it "has all stories" do
-      expect(described_class.all).to match_array [
-        ArgsComponentStories,
-        ContentComponentStories,
-        CustomControlStories,
-        Demo::ButtonComponentStories,
-        Demo::HeadingComponentStories,
-        DryComponentStories,
-        Invalid::DuplicateStoryStories,
-        Invalid::InvalidConstructorStories,
-        KitchenSinkComponentStories,
-        KwargsComponentStories,
-        LayoutStories,
-        LegacyControlsDslStories,
-        MixedArgsComponentStories,
-        NoLayoutStories,
-        ParametersStories,
-        SlotableV2Stories
-      ]
-    end
-  end
-
-  describe ".find_story_configs" do
-    it "returns the Stories if they exist" do
-      expect(described_class.find_story_configs("demo/button_component")).to eq Demo::ButtonComponentStories
-    end
-
-    it "returns nil if no stories exists" do
-      expect(described_class.find_story_configs("foo/button_component")).to be_nil
-    end
-  end
-
-  describe ".exists?" do
-    it "is true for stories that exist" do
-      expect(described_class.stories_exists?("demo/button_component")).to be true
-    end
-
-    it "is false for stories that doesn't exist" do
-      expect(described_class.stories_exists?("foo/button_component")).to be false
-    end
-  end
-
-  describe ".story_exists?" do
-    it "is true for a story that exists" do
-      expect(Demo::ButtonComponentStories.story_exists?(:short_button)).to be true
-    end
-
-    it "can be called with a string" do
-      expect(Demo::ButtonComponentStories.story_exists?("short_button")).to be true
-    end
-
-    it "is false for a story that dones't exist" do
-      expect(Demo::ButtonComponentStories.story_exists?(:foo_button)).to be false
     end
   end
 end

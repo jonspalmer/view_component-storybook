@@ -44,7 +44,7 @@ Last 0.x release
   * Klazz Control
 * Deprecated Controls DSL
 * Add support for Object Controls with array values
-* Remove ArrayConfig - array aliases ObjectConfig
+* Remove ArrayConfig - array aliases Object
 * Updated Options Control to match Storybook 6.2 syntax
   * `options` as array
   * add `labels` option
@@ -64,6 +64,6 @@ Last 0.x release
 
 ## 0.7.0
 
-* Add inclusion validation to NumberConfig type
-* Support ObjectConfigs with nested values
+* Add inclusion validation to Number type
+* Support Objects with nested values
 * Support nil control values

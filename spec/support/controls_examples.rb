@@ -5,17 +5,17 @@ shared_examples "a controls config" do
   let(:name) { nil }
   let(:description) { nil }
 
-  describe "#param" do
-    it "can be set" do
-      subject.param(:name)
+  # describe "#param" do
+  #   it "can be set" do
+  #     subject.param(:name)
 
-      expect(subject.param).to eq(:name)
-    end
+  #     expect(subject.param).to eq(:name)
+  #   end
 
-    it "set returns the control" do
-      expect(subject.param(:name)).to eq(subject)
-    end
-  end
+  #   it "set returns the control" do
+  #     expect(subject.param(:name)).to eq(subject)
+  #   end
+  # end
 
   describe "#name" do
     it "by default is derived from the param" do
@@ -28,16 +28,6 @@ shared_examples "a controls config" do
       it "can be passed in the construcor" do
         expect(subject.name).to eq("Button")
       end
-    end
-
-    it "can be set" do
-      subject.name("Button")
-
-      expect(subject.name).to eq("Button")
-    end
-
-    it "set returns the control" do
-      expect(subject.name("Button")).to eq(subject)
     end
   end
 
@@ -52,24 +42,6 @@ shared_examples "a controls config" do
       it "can be passed in the constructor" do
         expect(subject.description).to eq("Text for the button")
       end
-    end
-
-    it "can be set" do
-      subject.description("Text for the button")
-
-      expect(subject.description).to eq("Text for the button")
-    end
-
-    it "set returns the control" do
-      expect(subject.description("Text for the button")).to eq(subject)
-    end
-  end
-
-  describe "#prefix_param" do
-    it "prefixes the param" do
-      subject.param(:name).prefix_param(:author)
-
-      expect(subject.param).to eq(:author__name)
     end
   end
 
@@ -155,17 +127,13 @@ shared_examples "a simple controls config" do
   end
 
   let(:param_value) { "OK" }
-  describe "#value_from_params" do
+  describe "#parse_param_value" do
     it "parses param_value" do
-      expect(subject.value_from_params(subject.param => param_value)).to eq(default_value)
+      expect(subject.parse_param_value(param_value)).to eq(default_value)
     end
 
     it "parses nil param_value" do
-      expect(subject.value_from_params(subject.param => nil)).to be_nil
-    end
-
-    it "returns default_value if param is missing" do
-      expect(subject.value_from_params({})).to eq(default_value)
+      expect(subject.parse_param_value(nil)).to be_nil
     end
   end
 end
@@ -186,18 +154,6 @@ shared_examples "an options config" do |default_value|
           button_text: { control: { type: type, **control_labels }, name: "Button Text", options: options },
         },
       }
-    end
-  end
-
-  context "with hash options" do
-    subject { described_class.new(type, options, default_value) }
-
-    let(:default_value) { default_value }
-    let(:options) { { "Hot Dog" => :hot_dog, "Pizza" => :pizza } }
-
-    it "converts options to labels" do
-      expect(subject.options).to eq([:hot_dog, :pizza])
-      expect(subject.labels).to eq(hot_dog: "Hot Dog", pizza: "Pizza")
     end
   end
 end

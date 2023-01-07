@@ -1,23 +1,23 @@
 # frozen_string_literal: true
 
-RSpec.describe ViewComponent::Storybook::Controls::DateConfig do
-  subject { described_class.new(default_value, param: param, name: name, description: description) }
+RSpec.describe ViewComponent::Storybook::Controls::Date do
+  subject { described_class.new(param, default: default_value, name: name, description: description) }
 
   shared_examples "valid with object value" do
     it "has a value" do
-      expect(subject.default_value).to eq(default_value)
+      expect(subject.default).to eq(default_value)
     end
 
     it "to_csf_params should leave value alone" do
       subject.to_csf_params
-      expect(subject.default_value).to eq(default_value)
+      expect(subject.default).to eq(default_value)
     end
 
     it "is valid" do
       expect(subject.valid?).to be(true)
     end
 
-    it "has an integer value in csf_params" do
+    it "has an expected value in csf_params" do
       expect(subject.to_csf_params).to eq(
         {
           args: {

@@ -2,100 +2,100 @@
 layout: default
 title: Controls
 parent: Writing ViewComponent Stories
-nav_order: 4
+nav_order: 3
 ---
 
 # Controls
 
-Controls define Storybook [controls](https://storybook.js.org/docs/react/essentials/controls) that enable dynamic rendering of story content. They can be used are arguments to Story [constructors](constructor.md), [content](content.md) or [slots](slots.md).
+Controls define Storybook [controls](https://storybook.js.org/docs/react/essentials/controls) that enable dynamic rendering of story content. Control values are passed to the Story method where they can be used to render dynamic content.
 
 ## Boolean Controls
 
-### boolean(default_value)
+### control(param, as: :boolean, default: default_value)
 
-Render a boolean control as a checkbox input
+Render a boolean control as a toogle input
 
 ```ruby
-boolean(true)
+control :active, as: :boolean, default: true
 ```
 
 ## Number Controls
 
-### number(default_value, min: nil, max: nil, step: nil)
+### control(param, as: :number, default: default_value, min: nil, max: nil, step: nil)
 Render a number control as a numeric text box input:
 ```ruby
-number(5)
+control :count, as: :number, default: 5
 ```
 Supports `min`, `max`, and `step` arguments that restrict the allowed values:
 ```ruby
-number(5, min: 0, max: 100, step 5)
+control :actcountive, as: :number, default: 5, min: 0, max: 100, step 5
 ```
 
-### range(default_value, min: nil, max: nil, step: nil)
+### control(param, as: :range, default: default_value, min: nil, max: nil, step: nil)
 Render a number control as a range slider input:
 ```ruby
-range(5, min: 0, max: 100, step 5)
+control :count, as: :range, default: 5, min: 0, max: 100, step 5
 ```
 
 ## Text Controls
 
-### color(default_value, preset_colors: nil)
+### control(param, as: :color, default: default_value, preset_colors: nil)
 
 Render a color control as a color picker input that assumes strings are color values:
 
 ```ruby
-color("red")
-color("ff0000")
-color("rgba(255, 0, 0, 1")
+control :favorite, as: :color, default: "red"
+control :favorite, as: :color, default: "ff0000"
+control :actfavoriteive, as: :color, default: "rgba(255, 0, 0, 1)"
 ```
 
 Supports preset_colors that define a list of color options:
 ```ruby
-color("red", preset_colors, ["green", "yellow", "blue"])
+control :favorite, as: :color, default: "red", preset_colors, ["green", "yellow", "blue"]
 ```
 
-### date(default_value)
+### control(param, as: :date, default: default_value
 
 Render a date control as a date picker input:
 ```ruby
-date(Date.today)
+control :created, as: :date, default: Date.today
 ```
 
-### text(default_value)
+### control(param, as: :text, default: default_value
 
 Render a text control as a simple text input:
 ```ruby
-text("Welcome")
+control :message, as: :date, default: "Welcome"
 ```
 
 ## Object Controls
 
-### object(default_value)
+### control(param, as: :object, default: default_value
 
 Render a hash control as a json text editor:
 ```ruby
-object(title: "Welcome", message: "How are you?")
+control :greeting, as: :object, default: {title: "Welcome", message: "How are you?"}
 ```
-
-### array(default_value)
 
 Render an array control as a json text editor:
 ```ruby
-array(["Football", "Baseball", "Basketball", "Hockey"])
+control :sports, as: :object, default: ["Football", "Baseball", "Basketball", "Hockey"]
 ```
 
 ## Enum Controls
 
-### select(options, default_value, labels: nil)
+### control(param, as: :select, default: default_value, options: options, labels: nil)
 Render an enum control as a select dropdown input:
 ```ruby
-select([:small, :medium, :large, :xlarge], :small)
+control :size, as: :select, default: :small, options: [:small, :medium, :large, :xlarge] 
 ```
 Supports labels:
 ```ruby
-select(
-  [:small, :medium, :large, :xlarge],
-  :small
+control( 
+  :size, 
+  as: :select, 
+  default: :small,
+  options: [:small, :medium, :large, :xlarge],
   labels: {
     small: "Small",
     medium: "Medium",
@@ -105,142 +105,200 @@ select(
 )
 ```
 
-
-### multi_select(options, default_value, labels: nil)
+### control(param, as: :multo_select, default: default_value, options: options, labels: nil)
 Render an enum control as a multi-select dropdown input:
 ```ruby
-select([:small, :medium, :large, :xlarge], [:small, :large])
+control :size, as: :select, default: [:small, :large], options: [:small, :medium, :large, :xlarge] 
 ```
 Supports labels see [select](#selectoptions-default_value-labels-nil)
 
-### radio(options, default_value, labels: nil)
+### control(param, as: :radio, default: default_value, options: options, labels: nil)
 Render an enum control as a radio button inputs:
 ```ruby
-radio([:small, :medium, :large, :xlarge], :small)
+control :size, as: :radio, default: :small, options: [:small, :medium, :large, :xlarge] 
 ```
 Supports labels see [select](#selectoptions-default_value-labels-nil)
 
-### inline_radio(options, default_value, labels: nil)
+### control(param, as: :inline_radio, default: default_value, options: options, labels: nil)
 Render an enum control as a inline radio button inputs:
 ```ruby
-inline_radio([:small, :medium, :large, :xlarge], :small)
+control :size, as: :inline_radio, default: :small, options: [:small, :medium, :large, :xlarge] 
 ```
 Supports labels see [select](#selectoptions-default_value-labels-nil)
 
-### check(options, default_value, labels: nil)
+### control(param, as: :check, default: default_value, options: options, labels: nil)
 Render an enum control as a multi-select checkbox inputs:
 ```ruby
-check([:small, :medium, :large, :xlarge], [:small, :large])
+control :size, as: :check, default: [:small, :large], options: [:small, :medium, :large, :xlarge]
 ```
 Supports labels see [select](#selectoptions-default_value-labels-nil)
 
-### inline_check(options, default_value, labels: nil)
+### control(param, as: :inline_check, default: default_value, options: options, labels: nil)
 Render an enum control as a multi-select checkbox inputs:
 ```ruby
-inline_check([:small, :medium, :large, :xlarge], [:small, :large])
+control :size, as: :inine_check, default: [:small, :large], options: [:small, :medium, :large, :xlarge]
 ```
 Supports labels see [select](#selectoptions-default_value-labels-nil)
 
-## Custom Controls
+## Control Default Values
 
-Custom controls enable composition of controls to build arguments for a constructor, content or slot
+The default value for a control is read from the default value of the story method.
+
+For example, in the following stories the default value of the content control will be `Hellow World!` and `Goodby...` for the respetive stories.
 
 ```ruby
-# test/components/stories/button_component_stories.rb
-class ButtonComponentStories < ViewComponent::Storybook::Stories
-  story :simple_button do
-    button_text = custom(greeting: text("Hi"), name: text("Sarah")) do |greeting:, name:|
-      "#{greeting} #{name}"
+# test/components/stories/message_component_stories.rb
+class MessageComponentStories < ViewComponent::Storybook::Stories
+  control :content, as: :text
+
+  def hello_world(content: "Hello World!")
+    render MessageComponent.new do
+      content
+    end 
+  end
+
+    def goodbye(content: "Goodbye...")
+    render MessageComponent.new do
+      content
+    end 
+  end
+end
+```
+
+The default can also be set via the `default` parameter when declaring the control.
+
+```ruby
+# test/components/stories/message_component_stories.rb
+class MessageComponentStories < ViewComponent::Storybook::Stories
+  control :content, as: :text, default: "Hello World!"
+
+  def hello_world(content: )
+    render MessageComponent.new do
+      content
+    end 
+  end
+end
+```  
+
+## Restricting Controls to certain stories
+
+By default control is declared for all story methods. This is convinient when different stories only differ in their default values.
+
+```ruby
+# test/components/stories/header_component_stories.rb
+class HeaderComponentStories < ViewComponent::Storybook::Stories
+  control :tag, as: :text
+
+  def h1(tag: "h1")
+    render HeaderComponent.new(tag)
+  end
+
+  def h2(tag: "h2")
+    render HeaderComponent.new(tag)
+  end
+end
+```
+
+### `only: story_name` or `only: [story_one, story_two]`
+Controls can be declared to apply to `only` a particualr story or array of stories:
+
+```ruby
+# test/components/stories/header_component_stories.rb
+class HeaderComponentStories < ViewComponent::Storybook::Stories
+  control :tag, as: :text, only: :h1
+
+  def h1(tag: "h1")
+    render HeaderComponent.new(tag)
+  end
+
+  control :content, as: :text, only: [:h2, :h3]
+  
+  def h2(tag: "h2", content: "Hello World!")
+    render HeaderComponent.new(tag) do 
+      content
     end
-    constructor(
-      button_text: button_text
-    )
+  end
+  
+  def h3(tag: "h3", content: "How are you today?")
+    render HeaderComponent.new(tag) do 
+      content
+    end
   end
 end
 ```
 
-This generates two Storybook text controls, `greeting` and `name`. The block is called with their values and the result, by default `"Hi Sarah"`, is passed as the `button_text` argument to the component's constructor.
-
-## Klazz Controls
-
-Storybook controls support primitive object type - strings, dates, numbers etc. It is common for ViewComponents to take domain models are arguments. The `klazz` control provides a convenient shortcut to building those objects
-by composing one or more primitive controls:
+### `except: story_name` or `except: [story_one, story_two]`
+Controls can be declared to apply to all stories `except` a particualr story or array of stories:
 
 ```ruby
-# app/models/author.rb
-class Author
-  def initialize(first_name:, last_name:)
-    @first_name = first_name
-    @last_name = last_name
+# test/components/stories/header_component_stories.rb
+class HeaderComponentStories < ViewComponent::Storybook::Stories
+  control :tag, as: :text, except: [:h2, :h3]
+
+  def h1(tag: "h1")
+    render HeaderComponent.new(tag)
   end
-end
-```
-```ruby
-# app/components/book_component.rb
-class BookComponent < ViewComponent::Base
-  def initialize(author)
-    @author = author
+
+  control :content, as: :text, except: [:h1]
+  
+  def h2(tag: "h2", content: "Hello World!")
+    render HeaderComponent.new(tag) do 
+      content
+    end
+  end
+  
+  def h3(tag: "h3", content: "How are you today?")
+    render HeaderComponent.new(tag) do 
+      content
+    end
   end
 end
 ```
 
-```ruby
-# test/components/stories/book_component_stories.rb
-class BookComponentStories < ViewComponent::Storybook::Stories
-  story :book do
-    constructor(
-      author: klazz(Author, first_name: "J.R.R.", last_name: "Tolkien")
-    )
-  end
-end
-```
-
-This generates two Storybook text controls, `first_name` and `last_name`. An `Author` model is constructed from their values and passed as the `author` aurgument to the `BookComponent` constructor.
 
 ## Customizing the Control Name
 
-By default the name of the control in Storybook is derived from the name of the positional or keyword argument.
+By default the name of the control in Storybook is derived from the control's parameter.
 For example this story results in two controls with names "First Name" and "Last Name"
 
 ```ruby
 # test/components/stories/person_component_stories.rb
 class PersonComponentStories < ViewComponent::Storybook::Stories
-  story :person do
-    constructor(
-      first_name: text("Nelson"),
-      last_name:  text("Mandela")
-    )
+  control :first_name, as: :text
+  control :last_name, as: :text
+
+  def person(first_name: "Nelson", last_name: "Mandela")
+    render PersonComponent.new(first_name: first_name, last_name: last_name)
   end
 end
 ```
 
-The control name is configured using `name`:
+The control's name is configured using the `name` parameter:
 
 ```ruby
 # test/components/stories/person_component_stories.rb
 class PersonComponentStories < ViewComponent::Storybook::Stories
-  story :person do
-    constructor(
-      first_name: text("Nelson").name("First"),
-      last_name:  text("Mandela").name("Last")
-    )
+  control :first_name, as: :text, name: "First"
+  control :last_name, as: :text, name: "Last"
+
+  def person(first_name: "Nelson", last_name: "Mandela")
+    render PersonComponent.new(first_name: first_name, last_name: last_name)
   end
 end
 ```
 
 ## Adding a description to the control
 
-You can provide additional information about the control by passing a string
-into the `description` method.
+You can provide additional information about the control by adding a `description` option.
 
 ```ruby
 # test/components/stories/person_component_stories.rb
 class PersonComponentStories < ViewComponent::Storybook::Stories
-  story :person do
-    constructor(
-      first_name: text("Nelson").description("The person's first name"),
-      last_name:  text("Mandela").description("The person's last name")
-    )
+  control :first_name, as: :text, name: "First", description: "The person's first name"
+  control :last_name, as: :text, name: "Last", description: "The person's last name"
+
+  def person(first_name: "Nelson", last_name: "Mandela")
+    render PersonComponent.new(first_name: first_name, last_name: last_name)
   end
 end
 ```

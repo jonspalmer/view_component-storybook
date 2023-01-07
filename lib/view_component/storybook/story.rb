@@ -3,15 +3,22 @@
 module ViewComponent
   module Storybook
     class Story
-      include ActiveModel::Validations
+      attr_reader :id, :name, :parameters, :controls
 
-      attr_reader :component, :content_block, :slots, :layout
+      def initialize(id, name, parameters, controls)
+        @id = id
+        @name = name
+        @parameters = parameters
+        @controls = controls
+      end
 
-      def initialize(component, content_block, slots, layout)
-        @component = component
-        @content_block = content_block
-        @slots = slots
-        @layout = layout
+      def to_csf_params
+        csf_params = { name: name, parameters: { server: { id: id } } }
+        csf_params.deep_merge!(parameters: parameters) if parameters.present?
+        controls.each do |control|
+          csf_params.deep_merge!(control.to_csf_params)
+        end
+        csf_params
       end
     end
   end

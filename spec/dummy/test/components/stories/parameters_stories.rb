@@ -1,25 +1,23 @@
 # frozen_string_literal: true
 
 class ParametersStories < ViewComponent::Storybook::Stories
-  parameters( size: :small )
+  parameters({ size: :small })
 
-  story :stories_parameters, Demo::ButtonComponent do
-    constructor(
-      button_text: text("OK")
-    )
+  control :button_text, as: :text
+
+  def stories_parameters(button_text: "OK")
+    render Demo::ButtonComponent.new(button_text: button_text)
   end
 
-  story :stories_parameter_override, Demo::ButtonComponent do
-    parameters( size: :large, color: :red )
-    constructor(
-      button_text: text("OK")
-    )
+  parameters({ size: :large, color: :red }, only: :stories_parameter_override)
+
+  def stories_parameter_override(button_text: "OK")
+    render Demo::ButtonComponent.new(button_text: button_text)
   end
 
-  story :additional_parameters, Demo::ButtonComponent do
-    parameters( color: :red )
-    constructor(
-      button_text: text("OK")
-    )
+  parameters({ color: :red }, only: :additional_parameters)
+
+  def additional_parameters(button_text: "OK")
+    render Demo::ButtonComponent.new(button_text: button_text)
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-RSpec.describe ViewComponent::Storybook::Controls::ObjectConfig do
-  subject { described_class.new(default_value, param: param, name: name, description: description) }
+RSpec.describe ViewComponent::Storybook::Controls::Object do
+  subject { described_class.new(param, default: default_value, name: name, description: description) }
 
   let(:separator) { "," }
   let(:type) { :object }

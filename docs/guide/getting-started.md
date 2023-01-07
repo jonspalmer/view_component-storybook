@@ -13,19 +13,12 @@ nav_order: 1
 
 1. In `Gemfile`, add:
    ```ruby
-   gem "view_component"
    gem "view_component_storybook"
    ```
 2. In`.gitignore`, add:
    ```text
    **/*.stories.json
    ```
-3. In `config/application.rb`, add:
-   ```ruby
-   require 'view_component'
-   require 'view_component/storybook'
-   ```
-
 
 ### Storybook Installation
 
@@ -59,7 +52,7 @@ nav_order: 1
    ```javascript
    export const parameters = {
      server: {
-       url: `http://localhost:3000/rails/stories`,
+       url: `http://localhost:3000/rails/view_components`,
      },
    };
    ```
@@ -100,13 +93,15 @@ Add a template for the new component:
 
 ### Write a story for ExampleComponent
 
+Stories are ViewComponent Previews with some Storybook magic sprinkled in.
+
 ```ruby
 # test/components/stories/example_component_stories.rb
 class ExampleComponentStories < ViewComponent::Storybook::Stories
-  story :hello_world do
-    constructor(title: "my title") do
+  def hello_world
+    render ExampleComponent.new(title: "my title") do
       "Hello World!"
-    end
+    end 
   end
 end
 ```
@@ -140,39 +135,26 @@ yarn storybook
 The second command will open the Storybook app in your browser rendering your ExampleComponent story!
 ![Hello World]({{ site.baseurl }}/assets/images/hello_world.png)
 
-## Implementation
-
-When Storybook calls the Rails app for the html story content the ViewComponent::Storybook
-passes the string "my title" to the component constructor and "Hello World!" as the component content.
-Effectively the component is rendered in a view as:
-
-```erb
-<%= render(ExampleComponent.new(title: "my title")) do %>
-  Hello, World!
-<% end %>
-```
-
-Returning the rendered html to Storybook:
-
-```html
-<span title="my title">Hello, World!</span>
-```
 
 ## Dynamic Stories with Controls
 
-Storybook isn't just for rendering static stories. Storybook [controls](https://storybook.js.org/docs/react/essentials/controls) enable dynamic stories with variable inputs. ViewComponent Storybook exposes a similar api to describe dynamic inputs to component stories. For example add the `text` control to make `title` and `content` dynamic:
+Storybook isn't just for rendering static stories. Storybook [controls](https://storybook.js.org/docs/react/essentials/controls) enable dynamic stories with variable inputs. ViewComponent Storybook exposes a similar api to describe dynamic inputs to component stories. For example add `text` controls to make `title` and `content` dynamic:
 
 ```ruby
 # test/components/stories/example_component_stories.rb
 class ExampleComponentStories < ViewComponent::Storybook::Stories
-  story :hello_world  do
-    constructor(title: text("my title"))
-    content(text("Hello World!"))
+
+  control :title, as: :text
+  control :content, as: :text
+  def hello_world(title: "my title", content: "Hello World!")
+    render ExampleComponent.new(title: title) do
+      content
+    end 
   end
 end
 ```
 
-This adds text controls to the Storybook Controls panel. Changing the values re-renders the compoent.
+This adds text controls to the Storybook Controls panel. Changing the values re-renders the component.
 ![Hello World Controls]({{ site.baseurl }}/assets/images/hello_world_controls.png) 
 
 Available controls and their options are documented on the [Controls](controls.md) page.

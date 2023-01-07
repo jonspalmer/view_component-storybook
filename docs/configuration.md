@@ -14,7 +14,7 @@ FOr local development this is typically:
 // .storybook/preview.js
 export const parameters = {
   server: {
-    url: `http://localhost:3000/rails/stories`,
+    url: `http://localhost:3000/rails/view_components`,
   },
 };
 ```
@@ -27,19 +27,21 @@ Story classes live in `test/components/stories`, which can be configured using t
 
 ```ruby
 # config/application.rb
-config.view_component_storybook.stories_path = Rails.root.join("spec/components/stories")
+config.view_component_storybook.stories_paths << Rails.root.join("spec/components/stories")
 ```
 
 ## Stories Route
 
-Stories are served from <http://localhost:3000/rails/stories> by default. To use a different endpoint, set the `stories_route` option:
+Stories are served from the same route as ViewComponent previews <http://localhost:3000/rails/view_components> by default. To use a different endpoint, set the ViewComponent `previews_route` option:
 
 ```ruby
 # config/application.rb
-config.view_component_storybook.stories_route = "/stories"
+config.view_component.preview_route = "/stories"
 ```
 
 This example will make the previews available from <http://localhost:3000/stories>.
+
+For more details see the [ViewCompontent `preview_route` documentation](https://viewcomponent.org/api.html#preview_route--string)
 
 ## Stories Title Generation
 

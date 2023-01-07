@@ -2,147 +2,117 @@
 
 module ViewComponent
   module Storybook
-    class Stories
-      extend ActiveSupport::DescendantsTracker
-      include ActiveModel::Validations
-
-      class_attribute :story_configs, default: []
-      class_attribute :stories_parameters, :stories_title, :stories_layout
-
-      validate :validate_story_configs
-
+    class Stories < ViewComponent::Preview
       class << self
         def title(title = nil)
-          # if no argument is passed act like a getter
-          self.stories_title = title unless title.nil?
-          stories_title
+          @stories_title = title
         end
 
-        def story(name, component = default_component, &block)
-          story_config = StoryConfig.new(story_id(name), name, component, layout, &block)
-          story_config.instance_eval(&block)
-          story_configs << story_config
-          story_config
+        def parameters(params, only: nil, except: nil)
+          parameters_collection.add(params, only: only, except: except)
         end
 
-        def parameters(params = nil)
-          # if no argument is passed act like a getter
-          self.stories_parameters = params unless params.nil?
-          stories_parameters
+        def layout(layout, only: nil, except: nil)
+          layout_collection.add(layout, only: only, except: except)
         end
 
-        def layout(layout = nil)
-          # if no argument is passed act like a getter
-          self.stories_layout = layout unless layout.nil?
-          stories_layout
-        end
-
-        def to_csf_params
-          validate!
-          csf_params = { title: title }
-          csf_params[:parameters] = parameters if parameters.present?
-          csf_params[:stories] = story_configs.map(&:to_csf_params)
-          csf_params
-        end
-
-        def write_csf_json
-          json_path = File.join(stories_path, "#{stories_name}.stories.json")
-          File.write(json_path, JSON.pretty_generate(to_csf_params))
-          json_path
+        def control(param, as:, **opts)
+          controls.add(param, as: as, **opts)
         end
 
         def stories_name
           name.chomp("Stories").underscore
         end
 
-        # Returns all component stories classes.
-        def all
-          load_stories if descendants.empty?
-          descendants
+        def preview_name
+          stories_name
         end
 
-        # Returns +true+ if the stories exist.
-        def stories_exists?(stories_name)
-          all.any? { |stories| stories.stories_name == stories_name }
+        def to_csf_params
+          csf_params = { title: stories_title }
+          csf_params[:parameters] = parameters_collection.for_all if parameters_collection.for_all.present?
+          csf_params[:stories] = stories.map(&:to_csf_params)
+          csf_params
         end
 
-        # Find a component stories by its underscored class name.
-        def find_story_configs(stories_name)
-          all.find { |stories| stories.stories_name == stories_name }
+        def write_csf_json
+          File.write(stories_json_path, JSON.pretty_generate(to_csf_params))
+          stories_json_path
         end
 
-        # Returns +true+ if the story of the component stories exists.
-        def story_exists?(name)
-          story_configs.map(&:name).include?(name.to_sym)
+        def stories
+          @stories ||= story_names.map { |name| Story.new(story_id(name), name, parameters_collection.for_story(name), controls.for_story(name)) }
         end
 
         # find the story by name
-        def find_story_config(name)
-          story_configs.find { |config| config.name == name.to_sym }
+        def find_story(name)
+          stories.find { |story| story.name == name.to_sym }
         end
 
-        # validation - ActiveModel::Validations like but on the class vs the instance
-        def valid?
-          # use an instance so we can enjoy the benefits of ActiveModel::Validations
-          @validation_instance = new
-          @validation_instance.valid?
+        # Returns the arguments for rendering of the component in its layout
+        def render_args(story_name, params: {})
+          # mostly reimplementing the super method but adding logic to parse the params through the controls and find the layout
+          story_params_names = instance_method(story_name).parameters.map(&:last)
+          provided_params = params.slice(*story_params_names).to_h.symbolize_keys
+
+          story = find_story(story_name)
+
+          control_parsed_params = provided_params.to_h do |param, value|
+            control = story.controls.find { |c| c.param == param }
+            value = control.parse_param_value(value) if control
+
+            [param, value]
+          end
+
+          result = control_parsed_params.empty? ? new.public_send(story_name) : new.public_send(story_name, **control_parsed_params)
+          result ||= {}
+          result[:template] = preview_example_template_path(story_name) if result[:template].nil?
+          @layout = layout_collection.for_story(story_name.to_sym)
+          result.merge(layout: @layout)
         end
 
-        delegate :errors, to: :@validation_instance
+        attr_reader :code_object, :stories_json_path
 
-        def validate!
-          valid? || raise(ValidationError, @validation_instance)
+        def code_object=(object)
+          @code_object = object
+          @stories_json_path ||= begin
+            dir = File.dirname(object.file)
+            json_filename = object.path.demodulize.underscore
+
+            File.join(dir, "#{json_filename}.stories.json")
+          end
+
+          controls.code_object = object
+
+          # ordering of public_instance_methods isn't consistent
+          # use the code_object to sort the methods to the order that they're declared
+          @story_names = object.meths.select { |m| story_names.include?(m.name) }.map(&:name)
         end
 
         private
 
-        def inherited(other)
-          super(other)
-          # setup class defaults
-          other.stories_title = Storybook.stories_title_generator.call(other)
-          other.story_configs = []
+        def controls
+          @controls ||= Collections::ControlsCollection.new
         end
 
-        def default_component
-          name.chomp("Stories").constantize
+        def stories_title
+          @stories_title ||= Storybook.stories_title_generator.call(self)
         end
 
-        def load_stories
-          Dir["#{stories_path}/**/*_stories.rb"].sort.each { |file| require_dependency file } if stories_path
+        def parameters_collection
+          @parameters_collection ||= Collections::ParametersCollection.new
         end
 
-        def stories_path
-          Storybook.stories_path
+        def layout_collection
+          @layout_collection ||= Collections::LayoutCollection.new
+        end
+
+        def story_names
+          @story_names ||= public_instance_methods(false)
         end
 
         def story_id(name)
           "#{stories_name}/#{name.to_s.parameterize}".underscore
-        end
-      end
-
-      protected
-
-      def validate_story_configs
-        story_configs.reject(&:valid?).each do |story_config|
-          story_errors = story_config.errors.full_messages.join(', ')
-          errors.add(:story_configs, :invalid_story, story_name: story_config.name, story_errors: story_errors)
-        end
-
-        story_names = story_configs.map(&:name)
-        duplicate_names = story_names.group_by(&:itself).map { |k, v| k if v.length > 1 }.compact
-        return if duplicate_names.empty?
-
-        duplicate_name_sentence = duplicate_names.map { |name| "'#{name}'" }.to_sentence
-        errors.add(:story_configs, :duplicate_stories, count: duplicate_names.count, duplicate_names: duplicate_name_sentence)
-      end
-
-      class ValidationError < StandardError
-        attr_reader :stories
-
-        def initialize(stories)
-          @stories = stories
-
-          super("#{@stories.class.name} invalid: (#{@stories.errors.full_messages.join(', ')})")
         end
       end
     end

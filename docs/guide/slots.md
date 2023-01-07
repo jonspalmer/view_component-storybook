@@ -2,7 +2,7 @@
 layout: default
 title: Slots
 parent: Writing ViewComponent Stories
-nav_order: 6
+nav_order: 4
 ---
 
 # Slots
