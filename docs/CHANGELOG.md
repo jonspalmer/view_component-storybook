@@ -7,6 +7,11 @@ title: Changelog
 
 ## main
 
+## 0.12.1
+
+Last 0.x release
+* Prepare for renaming to `view_component-storybook` to align with Rubygems naming conventions and simpler installation.
+
 ## 0.12.0
 
 * Allow configuration of story titles via new `stories_title_generator` configuration lambda

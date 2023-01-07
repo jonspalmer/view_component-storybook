@@ -11,8 +11,13 @@ Gem::Specification.new do |spec|
   spec.email         = ["328224+jonspalmer@users.noreply.github.com"]
 
   spec.summary       = "Storybook for Rails View Components"
-  spec.description   = "Generate Storybook CSF JSON for rendering Rails View Components in Storybook"
-  spec.homepage      = "https://github.com/jonspalmer/view_component_storybook"
+  spec.description   = <<-DESC
+  Generate Storybook CSF JSON for rendering Rails View Components in Storybook
+
+  NOTE: As of v1.0.0 this gem has been renamed to view_component-storybook. See https://rubygems.org/gems/view_component-storybook
+  DESC
+
+  spec.homepage      = "https://github.com/jonspalmer/view_component-storybook"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -21,7 +26,7 @@ Gem::Specification.new do |spec|
     spec.metadata["allowed_push_host"] = "https://rubygems.org"
 
     spec.metadata["homepage_uri"] = spec.homepage
-    spec.metadata["source_code_uri"] = "https://github.com/jonspalmer/view_component_storybook"
+    spec.metadata["source_code_uri"] = "https://github.com/jonspalmer/view_component-storybook"
   else
     raise "RubyGems 2.0 or newer is required to protect against " \
           "public gem pushes."
