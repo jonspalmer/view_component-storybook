@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe ViewComponent::Storybook::ControlsCollection do
+RSpec.describe ViewComponent::Storybook::Collections::ControlsCollection do
   subject do
     collection = described_class.new
     # borromw the code_object from Demo::ButtonComponentStories as an example

@@ -8,12 +8,10 @@ module ViewComponent
     extend ActiveSupport::Autoload
 
     autoload :Controls
+    autoload :Collections
     autoload :Stories
     autoload :StoriesParser
-    autoload :StoriesCollection
-    autoload :ControlsCollection
-    autoload :ParametersCollection
-    autoload :LayoutCollection
+
     autoload :Story
     autoload :Slots
 

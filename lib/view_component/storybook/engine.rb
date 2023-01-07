@@ -57,7 +57,7 @@ module ViewComponent
 
       class << self
         def stories
-          @stories ||= StoriesCollection.new
+          @stories ||= Collections::StoriesCollection.new
         end
       end
     end

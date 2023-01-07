@@ -92,7 +92,7 @@ module ViewComponent
         private
 
         def controls
-          @controls ||= ControlsCollection.new
+          @controls ||= Collections::ControlsCollection.new
         end
 
         def stories_title
@@ -100,11 +100,11 @@ module ViewComponent
         end
 
         def parameters_collection
-          @parameters_collection ||= ParametersCollection.new
+          @parameters_collection ||= Collections::ParametersCollection.new
         end
 
         def layout_collection
-          @layout_collection ||= LayoutCollection.new
+          @layout_collection ||= Collections::LayoutCollection.new
         end
 
         def story_names
