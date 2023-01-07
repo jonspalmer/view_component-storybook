@@ -13,19 +13,12 @@ nav_order: 1
 
 1. In `Gemfile`, add:
    ```ruby
-   gem "view_component"
    gem "view_component_storybook"
    ```
 2. In`.gitignore`, add:
    ```text
    **/*.stories.json
    ```
-3. In `config/application.rb`, add:
-   ```ruby
-   require 'view_component'
-   require 'view_component/storybook'
-   ```
-
 
 ### Storybook Installation
 
@@ -59,7 +52,7 @@ nav_order: 1
    ```javascript
    export const parameters = {
      server: {
-       url: `http://localhost:3000/rails/stories`,
+       url: `http://localhost:3000/rails/view_components`,
      },
    };
    ```
