@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-require "rails"
+require "view_component"
+require "action_cable/engine"
+require "yard"
 
 module ViewComponent
   module Storybook

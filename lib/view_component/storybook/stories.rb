@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require "yard"
-require "view_component/preview"
-
 module ViewComponent
   module Storybook
     class Stories < ViewComponent::Preview
