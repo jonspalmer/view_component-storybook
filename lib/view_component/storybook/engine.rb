@@ -45,7 +45,7 @@ module ViewComponent
       end
 
       rake_tasks do
-        load File.join(__dir__, "tasks/write_stories_json.rake")
+        load File.join(__dir__, "tasks/view_component_storybook.rake")
       end
     end
   end
