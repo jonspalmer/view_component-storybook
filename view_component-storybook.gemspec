@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require "view_component/storybook/version"
 
 Gem::Specification.new do |spec|
-  spec.name          = "view_component_storybook"
+  spec.name          = "view_component-storybook"
   spec.version       = ViewComponent::Storybook::VERSION
   spec.authors       = ["Jon Palmer"]
   spec.email         = ["328224+jonspalmer@users.noreply.github.com"]
