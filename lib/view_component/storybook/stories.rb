@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "yard"
-require "view_component-preview"
+require "view_component/preview"
 
 module ViewComponent
   module Storybook
