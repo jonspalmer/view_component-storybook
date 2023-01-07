@@ -10,7 +10,7 @@ The ViewComponent::Storybook gem provides Ruby api for writing stories describin
 
 ## Documentation
 
-See [jonspalmer.github.io/view_component_storybook](https://jonspalmer.github.io/view_component_storybook) for documentation.
+See [jonspalmer.github.io/view_component-storybook](https://jonspalmer.github.io/view_component-storybook) for documentation.
 
 ## Contributing
 
