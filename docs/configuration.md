@@ -41,7 +41,7 @@ config.view_component.preview_route = "/stories"
 
 This example will make the previews available from <http://localhost:3000/stories>.
 
-For more details see the [ViewCompontent `preview_route` documentation](https://viewcomponent.org/api.html#preview_route--string)
+For more details see the [ViewComponent `preview_route` documentation](https://viewcomponent.org/api.html#preview_route--string)
 
 ## Stories Title Generation
 
