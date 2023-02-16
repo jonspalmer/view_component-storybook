@@ -13,7 +13,7 @@ nav_order: 1
 
 1. In `Gemfile`, add:
    ```ruby
-   gem "view_component_storybook"
+   gem "view_component-storybook"
    ```
 2. In`.gitignore`, add:
    ```text
