@@ -7,7 +7,7 @@ nav_order: 4
 
 # Slots
 
-ViewComponent Storybook fully supports ViewComponent's [Slots API](https://viewcomponent.org/guide/slots.html). The Stories API is identical for simple slots, component slots or lamba slots. Consider the component slot example
+ViewComponent Storybook fully supports ViewComponent's [Slots API](https://viewcomponent.org/guide/slots.html). The Stories API is identical for simple slots, component slots or lamba slots. Consider the component slot example:
 
 ```ruby
 # app/components/blog_component.rb
@@ -23,17 +23,15 @@ Stories declare slots by callling the method name matching the component's slot 
 ```ruby
 # test/components/stories/blog_component_stories.rb
 class BlogComponentStories < ViewComponent::Storybook::Stories
-  story :posts do
-    header(classes: "") do
-      link_to "My blog", root_path
-    end
+  def posts
+    render BlogComponent.new do |c|
+      c.with_header(classes: "") do 
+        link_to "My blog", root_path
+      end
 
-    post(title: "My blog post") do
-      Really interesting stuff.
-    end
+      c.with_post(title: "My blog post") { "Really interesting stuff." }
 
-    post(title: "Another post!") do 
-      Blog every day.
+      c.with_post(title: "Another post!") { "Blog every day." } 
     end
   end
 end
@@ -41,86 +39,33 @@ end
 
 ## Dynamic Slots with Controls
 
-Like components dynamic slots are configured by passing control arguements. Slot content with controls is 
-configured via `content`:
+Like components dynamic slots are configured by passing control arguements
 
 ```ruby
 # test/components/stories/blog_component_stories.rb
 class BlogComponentStories < ViewComponent::Storybook::Stories
-  story :posts do
-    header(classes: text("")) do
-      link_to "My blog", root_path
+  control :header_classes, as: :text
+  control :post_one_title, as: :text
+  control :post_one_content, as: :text
+  control :post_two_title, as: :text
+  control :post_two_content, as: :text
+
+  def posts(
+    header_classes: "",
+    post_one_title: "My blog post",
+    post_one_content: "Really interesting stuff.",
+    post_two_title: "Another post!",
+    post_two_content: "Blog every day."
+  )
+    render BlogComponent.new do |c|
+      c.with_header(classes: header_classes) do 
+        link_to "My blog", root_path
+      end
+
+      c.with_post(title: blog_one_title) { post_one_content }
+
+      c.with_post(title: blog_two_title) { post_two_content } 
     end
-
-    post(title: text("My blog post")) do
-      Really interesting stuff.
-    end
-
-    post(title: text("Another post!")) do
-      Blog every day.
-    end
-  end
-end
-```
-
-Results in three `text` controls are rendered in Storybook: "Header  Classes", "Post1  Title",
-and "Post2  Title".
-
-## Dynamic Slot content with Controls
-
-Like components slots accept content as controls via `content`:
-
-```ruby
-# test/components/stories/blog_component_stories.rb
-class BlogComponentStories < ViewComponent::Storybook::Stories
-  story :posts do
-    header(classes: text("")) do
-      link_to "My blog", root_path
-    end
-
-    post(title: text("My blog post"))
-      .content(text("Really interesting stuff."))
-
-    post(title: text("Another post!"))
-      .content(text("Blog every day."))
-  end
-end
-```
-
-Results in five `text` controls are rendered in Storybook: "Header  Classes", "Post1  Title", "Post1  Content"
-"Post2  Title", "Post2  Content".
-
-## Rendering Slot Collections
-
-Render [slot collections](https://viewcomponent.org/guide/slots.html#rendering-collections) with dynamic content with an [array](controls.html#arraydefault_value) or [custom](controls.html#custom-controls) control:
-
-```ruby
-# app/components/navigation_component.rb
-class NavigationComponent < ViewComponent::Base
-  renders_many :links, "LinkComponent"
-
-  class LinkComponent < ViewComponent::Base
-    def initialize(name:, href:)
-      @name = name
-      @href = href
-    end
-  end
-end
-```
-
-```ruby
-# test/components/stories/navigation_component_stories.rb
-class NavigationComponentStories < ViewComponent::Storybook::Stories
-  story :nav do
-    links(
-      array(
-        [
-          { name: "Home", href: "/" },
-          { name: "Pricing", href: "/pricing" },
-          { name: "Sign Up", href: "/sign-up" },
-        ]
-      )
-    )
   end
 end
 ```

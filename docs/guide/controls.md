@@ -157,7 +157,7 @@ class MessageComponentStories < ViewComponent::Storybook::Stories
     end 
   end
 
-    def goodbye(content: "Goodbye...")
+  def goodbye(content: "Goodbye...")
     render MessageComponent.new do
       content
     end 
