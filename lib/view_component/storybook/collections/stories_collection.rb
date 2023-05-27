@@ -16,6 +16,8 @@ module ViewComponent
 
         def self.stories_from_code_object(code_object)
           klass = code_object.path.constantize
+          return unless stories_class?(klass)
+
           klass.code_object = code_object
           klass
         end

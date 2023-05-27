@@ -23,7 +23,7 @@ Other environments, such as production, require equivalent configuration.
 
 ## Stories Path
 
-Story classes live in `test/components/stories`, which can be configured using the `stories_path` setting. For example to use RSpec set the following configuration:
+Story classes live in `test/components/stories`, which can be configured using the `stories_paths` setting. For example to use RSpec set the following configuration:
 
 ```ruby
 # config/application.rb
