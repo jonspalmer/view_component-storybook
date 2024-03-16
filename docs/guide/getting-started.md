@@ -14,6 +14,7 @@ nav_order: 1
 1. In `Gemfile`, add:
    ```ruby
    gem "view_component-storybook"
+   gem "rack-cors"
    ```
 2. In`.gitignore`, add:
    ```text
@@ -24,39 +25,50 @@ nav_order: 1
 
 1. Add Storybook Server as a dev dependency. 
    ```console
-   yarn add @storybook/server @storybook/addon-controls --dev
-   ```
-  Storybook Controls addon isn't required but is strongly recommended.
-
-2. Add an NPM script to start Storybook. In `package.json`, add:
-
-   ```json
-   {
-     "scripts": {
-       "storybook": "start-storybook"
-     }
-   }
+   npx storybook@latest init
    ```
 
-3. Configure Storybook to find the json stories that the gem creates. Create `.storybook/main.js`,
+2. Select the "Server" option
+
+3. Configure Storybook with the Rails application url to call for the html content of the stories.
+   Update `.storybook/preview.js`
 
    ```javascript
-   module.exports = {
-     stories: ["../test/components/**/*.stories.json"],
-     addons: ["@storybook/addon-controls"],
-   };
-   ```
-
-4. Configure Storybook with the Rails application url to call for the html content of the stories. Create `.storybook/preview.js`
-
-   ```javascript
-   export const parameters = {
-     server: {
-       url: `http://localhost:3000/rails/view_components`,
+   /** @type { import('@storybook/server').Preview } */
+   const preview = {
+     parameters: {
+       /** Add the following... */
+       server: {
+         url: `http://localhost:3000/rails/view_components`,
+       },
      },
    };
+
+   export default preview;
    ```
 
+4. Allow CORS requests from Storybook:
+
+   ```ruby
+   # config/initializers/cors.rb
+
+   # frozen_string_literal: true
+
+   return unless Rails.env.local?
+
+   Rails.application.config.middleware.insert_before 0, Rack::Cors do
+     allow do
+       # YOUR STORYBOOK SERVER URL HERE
+       origins 'http://localhost:6006', 'http://127.0.0.1:6006'
+
+       resource '*',
+                headers: :any,
+                methods: %i[get post put patch delete options head],
+                credentials: true,
+                max_age: 86_400
+     end
+   end
+   ```
 
 ## Quick start
 
