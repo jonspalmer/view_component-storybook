@@ -27,7 +27,7 @@ end
 
 ## Restricting parameters to certain stories 
 
-Parameters specified at the Stories and Story level are merged in that order. the `paameters` method suports `only` and `except` options in the same format as the `controls` method. For example disable the a11y addon for all stories and enable it for one:
+Parameters specified at the Stories and Story level are merged in that order. the `parameters` method suports `only` and `except` options in the same format as the `controls` method. For example disable the a11y addon for all stories and enable it for one:
 
 
 ```ruby
